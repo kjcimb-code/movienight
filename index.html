@@ -288,9 +288,12 @@ footer .brand b{color:#fff}
 .legend span.lb-l{display:inline-flex}
 /* ticket carousel */
 .card,#manage{scroll-margin-top:96px}
-.car{padding-top:6px !important; padding-bottom:26px !important; margin-bottom:-14px !important; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; gap:12px; scrollbar-width:none; margin:0 -4px; padding:0 4px}
+.car{display:flex; flex-direction:column; gap:16px; margin:0 0 6px}
+.tkh{margin:0 0 8px 4px; font-size:14px; font-weight:700; letter-spacing:.01em}
+.tkh small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:2px}
+.tksave{margin-top:8px; min-height:42px; font-size:13px}
 .car::-webkit-scrollbar{display:none}
-.slide{flex:0 0 100%; scroll-snap-align:center; min-width:0}
+.slide{min-width:0}
 .thumb{display:block; width:100%; padding:6px; border-radius:22px; border:1px solid var(--rim); background:var(--glass); cursor:zoom-in; -webkit-appearance:none; box-shadow:0 8px 20px rgba(0,0,0,.4), inset 1px 1px 2px rgba(255,255,255,.45)}
 .thumb img{display:block; width:100%; aspect-ratio:16/9; height:auto; border-radius:16px}
 .thumb .ph{aspect-ratio:16/9; display:grid; place-items:center; color:var(--muted); font-size:13px}
@@ -339,6 +342,7 @@ footer .brand b{color:#fff}
 .ib[disabled]{opacity:.5}
 .mrow .inp{height:46px; margin-top:10px}
 .mrow .gact{margin-top:8px}
+.mrow .msave{width:100%; margin-top:10px}
 .alllink{display:block; width:100%; margin:10px 0 0; background:rgba(255,90,100,.14); border:1px solid rgba(255,120,130,.55); color:#ffc4c8; font:inherit; font-size:14px; font-weight:700; border-radius:14px; cursor:pointer; padding:12px}
 </style>
 </head>
@@ -450,10 +454,8 @@ footer .brand b{color:#fff}
         <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
         <div class="done-h"><h3 id="doneTitle"></h3><p id="doneText"></p></div>
         <div class="car" id="car"></div>
-        <div class="dots" id="dots"></div>
-        <p class="swipe" id="swipe" hidden data-i18n="swipe">Swipe to see the next ticket · tap a ticket to enlarge</p>
+        <p class="swipe" id="swipe" hidden data-i18n="swipe">Tap a ticket to enlarge it</p>
         <p class="reg-note" id="regNote" data-i18n="regNote">Please save your ticket and show it at the registration table.</p>
-        <button class="btn gold" id="saveCur" type="button" disabled style="margin-top:12px">💾 <span data-i18n="saveTicket">Save ticket</span></button>
         <div class="caltitle">📅 <span data-i18n="calTitle">Save the date to your calendar</span></div>
         <div class="calrow">
           <a class="btn soft" id="calApple" href="event.ics" download="Year-End-Dinner-Movie-Night.ics">📱 <span data-i18n="calApple">iPhone</span></a>
@@ -565,7 +567,7 @@ const I18N = {
     errTaken:"Sorry, that seat was just taken by someone else. Please choose another one.",
     doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.", errPhone0:"Phone number must start with 0 (not +62 or 62).",
     updated:"Your registration has been updated.",
-    saveTicket:"Save ticket", close:"Close", swipe:"Swipe to see the next ticket · tap a ticket to enlarge",
+    saveTicket:"Save ticket", close:"Close", swipe:"Tap a ticket to enlarge it", guestN:"Guest",
     tkLoading:"Preparing ticket…", tkError:"Couldn't create the ticket image.",
     calTitle:"Save the date to your calendar", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Type at least 3 letters, e.g. jay…", mDownload:"Download ticket", mUpdated:"Updated! Please save your new ticket.", mTypeMore:"Type at least 3 letters.", mNoRes:"No registration found.", kCompany:"Company", kIndividual:"Individual",
@@ -605,7 +607,7 @@ const I18N = {
     errTaken:"Maaf, kursi itu baru saja diambil orang lain. Silakan pilih kursi lain.",
     doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.", errPhone0:"Nomor HP harus diawali 0 (bukan +62 atau 62).",
     updated:"Data pendaftaran Anda sudah diperbarui.",
-    saveTicket:"Simpan tiket", close:"Tutup", swipe:"Geser untuk tiket berikutnya · ketuk tiket untuk memperbesar",
+    saveTicket:"Simpan tiket", close:"Tutup", swipe:"Ketuk tiket untuk memperbesar", guestN:"Tamu",
     tkLoading:"Menyiapkan tiket…", tkError:"Gagal membuat gambar tiket.",
     calTitle:"Simpan ke kalender Anda", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Ketik minimal 3 huruf, mis. jay…", mDownload:"Unduh tiket", mUpdated:"Berhasil diubah! Mohon simpan tiket baru Anda.", mTypeMore:"Ketik minimal 3 huruf.", mNoRes:"Tidak ada pendaftaran ditemukan.", kCompany:"Perusahaan", kIndividual:"Individu",
@@ -1036,29 +1038,23 @@ async function saveTicket(g){
   }
   const a = document.createElement("a"); a.href = rec.portUrl; a.download = fname; document.body.appendChild(a); a.click(); a.remove();
 }
-let curTicket = 0;
 function renderTickets(){
   const gs = state.reg.guests;
   $("#doneTitle").textContent = t("doneTitle");
   $("#doneText").textContent = t("doneText") + (state.reg.updated ? " " + t("updated") : "");
-  const car = $("#car"), dots = $("#dots"); car.textContent = ""; dots.textContent = ""; $("#saveCur").disabled = true; curTicket = 0;
+  const car = $("#car"); car.textContent = "";
   gs.forEach((g, i) => {
-    const slide = el("div", "slide"); const th = el("button", "thumb"); th.type = "button"; th.setAttribute("aria-label", "Ticket – " + g.name);
-    const ph = el("div", "ph", t("tkLoading")); th.appendChild(ph); slide.appendChild(th); car.appendChild(slide); dots.appendChild(el("i", i === 0 ? "on" : ""));
+    const slide = el("div", "slide"); const h = el("div", "tkh"); h.appendChild(el("small", "", t("guestN") + " " + (i + 1))); h.appendChild(document.createTextNode(g.name)); slide.appendChild(h);
+    const th = el("button", "thumb"); th.type = "button"; th.setAttribute("aria-label", "Ticket – " + g.name);
+    const ph = el("div", "ph", t("tkLoading")); th.appendChild(ph); slide.appendChild(th);
+    const sv = el("button", "btn soft tksave"); sv.type = "button"; sv.disabled = true; sv.textContent = "💾 " + t("saveTicket"); slide.appendChild(sv); car.appendChild(slide);
     tkGet(g).then(rec => {
       const im = new Image(); im.alt = "Ticket – " + g.name; im.src = rec.landUrl; ph.replaceWith(im);
-      th.addEventListener("click", () => openLb(g, rec, null));
-      if (i === curTicket) $("#saveCur").disabled = false;
+      th.addEventListener("click", () => openLb(g, rec, null)); sv.disabled = false; sv.addEventListener("click", () => saveTicket(g));
     }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
   });
-  dots.style.visibility = gs.length > 1 ? "visible" : "hidden"; $("#swipe").hidden = false;
-  car.scrollLeft = 0;
+  $("#swipe").hidden = false;
 }
-$("#car").addEventListener("scroll", () => {
-  const car = $("#car"); const i = Math.round(car.scrollLeft / Math.max(1, car.clientWidth));
-  if (i !== curTicket) { curTicket = i; [...$("#dots").children].forEach((d, k) => d.classList.toggle("on", k === i)); }
-}, { passive:true });
-$("#saveCur").addEventListener("click", () => { const g = state.reg && state.reg.guests[curTicket]; if (g) saveTicket(g); });
 let lbG = null;
 function openLb(g, rec, note){ lbG = g; $("#lbNote").hidden = !note; $("#lbNote").textContent = note || ""; $("#lbImg").src = rec.portUrl; $("#lb").hidden = false; document.body.style.overflow = "hidden"; }
 function closeLb(){ $("#lb").hidden = true; document.body.style.overflow = ""; lbG = null; }
@@ -1189,6 +1185,8 @@ function guestRow(g){
   const bA = isCo ? icoBtn(SVG.pen, t("mAmend")) : null, bS = isCo ? icoBtn(SVG.seat, t("mSeatBtn")) : null;
   const bT = icoBtn(SVG.dl, t("mDownload")), bD = icoBtn(SVG.trash, t("mCancel"), "del");
   [bA, bS, bT, bD].forEach(b => b && ico.appendChild(b)); line.append(who, ico); row.appendChild(line);
+  const sv = el("button", "sbtn gold msave", "💾 " + t("saveTicket")); sv.type = "button"; row.appendChild(sv);
+  sv.addEventListener("click", async () => { const tk = ticketFor(g); sv.disabled = true; try { await saveTicket(tk); } catch(e){ setBanner("#mMsg", t("tkError")); } finally { sv.disabled = false; } });
   let extra = null; const clear = () => { if (extra) { extra.remove(); extra = null; } };
   bT.addEventListener("click", async () => { const tk = ticketFor(g); try { openLb(tk, await tkGet(tk), null); } catch(e){ setBanner("#mMsg", t("tkError")); } });
   if (bS) bS.addEventListener("click", () => openSeats([{ id:g.id, name:g.name, seat:g.seat || null }], "manage"));

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Night RSVP</title>
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#ffd25e; --gold2:#f0a81c; --green:#2be07a; --red:#ff4d5e;
+  --ink:#fff; --muted:rgba(235,245,238,.72);
+  --glass:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
+  --rim:rgba(255,255,255,.26);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; min-height:100vh; color:var(--ink); background:#04120b; font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif; font-size:14px}
+[hidden]{display:none !important}
+button{font:inherit; cursor:pointer}
+.ambient{position:fixed; inset:0; z-index:-1; background:#04120b url(assets/ambient.jpg) center/cover no-repeat}
+.ambient::after{content:""; position:absolute; inset:0;
+  background:radial-gradient(800px 500px at 15% 0%,rgba(43,224,122,.20),transparent 60%),
+             radial-gradient(700px 500px at 100% 70%,rgba(255,77,94,.16),transparent 60%),
+             linear-gradient(180deg,rgba(2,12,8,.35),rgba(2,12,8,.70))}
+
+/* ---------- liquid glass (same as the RSVP page) ---------- */
+.glass{position:relative; border-radius:28px; border:1px solid var(--rim); background:var(--glass);
+  -webkit-backdrop-filter:blur(22px) saturate(185%); backdrop-filter:blur(22px) saturate(185%);
+  box-shadow:0 14px 44px rgba(0,0,0,.38), inset 1.5px 1.5px 2px rgba(255,255,255,.55), inset -1.5px -1.5px 2px rgba(255,255,255,.10), inset 0 0 26px rgba(255,255,255,.05)}
+.glass::before{content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:0;
+  background:radial-gradient(130% 70% at 15% -15%,rgba(255,255,255,.34),transparent 55%), linear-gradient(180deg,rgba(255,255,255,.10),transparent 28%); mix-blend-mode:soft-light}
+.glass > *{position:relative; z-index:1}
+
+/* ---------- header ---------- */
+.top{position:sticky; top:max(8px,env(safe-area-inset-top)); z-index:30; margin:max(8px,env(safe-area-inset-top)) 12px 0; padding:10px 16px; border-radius:22px; background:linear-gradient(135deg,rgba(24,130,78,.55),rgba(8,60,36,.45))}
+.top-in{max-width:1180px; margin:0 auto; display:flex; align-items:center; gap:10px} .top .upd{margin-left:auto; text-align:right} .top-in .btn{flex:none}
+.logo{width:clamp(112px,30vw,180px); height:auto; display:block; flex:none}
+.top h1{margin:0; flex:1; text-align:right; font-size:clamp(10px,2.6vw,13px); font-weight:700; letter-spacing:.12em; text-transform:uppercase; line-height:1.35}
+.top h1 small{display:block; font-weight:500; letter-spacing:.04em; text-transform:none; color:rgba(220,245,230,.85); font-size:.92em; margin-top:2px}
+@media(min-width:700px){ .top{margin-left:auto; margin-right:auto; max-width:1220px; padding:12px 24px} .logo{width:190px} }
+
+/* ---------- buttons / inputs ---------- */
+.btn{display:inline-flex; align-items:center; justify-content:center; gap:8px; min-height:44px; padding:0 18px; font-size:13.5px; font-weight:700; color:#fff; border-radius:999px; -webkit-appearance:none; transition:transform .1s, filter .15s;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)); border:1px solid var(--rim); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:inset 1px 1px 2px rgba(255,255,255,.5), 0 6px 18px rgba(0,0,0,.25)}
+.btn:hover{filter:brightness(1.12)} .btn:active{transform:scale(.98)}
+.btn.pri{color:#2a1d00; font-weight:800; border:0; background:linear-gradient(180deg,#ffe58f,#ffd25e 45%,var(--gold2)); box-shadow:inset 0 2px 2px rgba(255,255,255,.8), inset 0 -3px 8px rgba(160,95,0,.35), 0 10px 28px rgba(240,168,28,.38)}
+.btn.ghost{min-height:38px; padding:0 16px}
+.btn:disabled{opacity:.55; cursor:default; filter:saturate(.6)}
+.inp{width:100%; height:48px; padding:0 16px; font:inherit; font-size:16px; color:#fff; background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.13)); border:1px solid rgba(255,255,255,.30); border-radius:18px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.28), inset 0 -1px 0 rgba(255,255,255,.18); -webkit-appearance:none; appearance:none; outline:none; transition:border-color .15s, box-shadow .15s}
+.inp::placeholder{color:rgba(255,255,255,.45)}
+.inp:focus{border-color:var(--gold); box-shadow:inset 0 2px 6px rgba(0,0,0,.28), 0 0 0 3px rgba(255,210,94,.28)}
+
+/* ---------- login ---------- */
+.login{max-width:380px; margin:min(14vh,110px) auto 0; padding:30px 26px 26px; text-align:center}
+.login .logo{margin:0 auto 14px; width:170px}
+.login h2{margin:0 0 4px; font-size:21px; font-weight:800}
+.login p{margin:0 0 20px; color:var(--muted); font-size:13px}
+.login .inp{text-align:center; letter-spacing:.3em; font-weight:700}
+.login .btn{width:100%; margin-top:16px; min-height:52px; font-size:15px; letter-spacing:.06em; text-transform:uppercase}
+.err{color:#ffb3b9; font-size:13px; margin-top:12px; min-height:18px; font-weight:600}
+
+/* ---------- layout ---------- */
+.wrap{max-width:1220px; margin:0 auto; padding:16px 12px 70px; display:grid; gap:16px}
+.wrap > *{min-width:0}
+.hero{padding:6px; margin:0}
+.hero .kv{width:100%; max-width:600px; margin:0 auto; aspect-ratio:2/1; border-radius:22px; background:#06261a url(assets/kv-en.jpg) 100% 36%/189% auto no-repeat}
+.stats{display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:12px}
+.stat{padding:14px 16px; border-radius:22px}
+.stat b{display:block; font-size:28px; line-height:1.1; font-weight:800; color:var(--gold)}
+.stat span{display:block; margin-top:4px; color:var(--muted); font-size:11.5px; font-weight:700; letter-spacing:.04em}
+.bar{display:flex; gap:10px; flex-wrap:wrap; align-items:center; padding:12px 14px; border-radius:24px}
+.bar .inp{flex:1; min-width:200px; height:46px}
+.upd{color:var(--muted); font-size:12px; margin-left:auto}
+.card{padding:18px 18px 16px; border-radius:28px}
+.card h3{margin:0 0 14px; font-size:15px; font-weight:800; display:flex; align-items:center; gap:10px; flex-wrap:wrap; letter-spacing:.02em}
+.ctl{margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+.sel{height:38px; padding:0 34px 0 14px; font:inherit; font-size:12.5px; font-weight:700; color:#fff; border-radius:999px; -webkit-appearance:none; appearance:none; cursor:pointer; outline:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)) , url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
+  border:1px solid var(--rim); box-shadow:inset 1px 1px 2px rgba(255,255,255,.4)}
+.srch{height:38px; width:190px; padding:0 14px; font:inherit; font-size:13px; color:#fff; border-radius:999px; outline:none; -webkit-appearance:none; appearance:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.13)); border:1px solid rgba(255,255,255,.30); box-shadow:inset 0 2px 6px rgba(0,0,0,.28)}
+.srch::placeholder{color:rgba(255,255,255,.5)} .srch:focus{border-color:var(--gold); box-shadow:inset 0 2px 6px rgba(0,0,0,.28), 0 0 0 3px rgba(255,210,94,.28)}
+.tk.del{color:#ffc4c8; border-color:rgba(255,130,140,.7); background:linear-gradient(135deg,rgba(255,77,94,.4),rgba(150,15,30,.25))}
+.tk.del.armed{color:#fff; background:linear-gradient(180deg,#ff6b78,#d62b3f); border-color:#ffb3b9}
+.sel option{color:#10281c; background:#fff}
+.sel:focus{border-color:var(--gold)}
+.btn.sm{min-height:38px; padding:0 14px; font-size:12.5px}
+.cnt{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00; border-radius:999px; font-size:12px; font-weight:800; padding:3px 11px}
+
+/* ---------- seat map ---------- */
+.mapbox{overflow-x:auto; padding-bottom:6px}
+.hall{width:max-content; margin:0 auto; padding:10px 16px 12px}
+.screen{height:34px; margin:0 26px 4px; border-top:4px solid rgba(255,255,255,.9); border-radius:50% 50% 0 0 / 100% 100% 0 0; box-shadow:0 -10px 28px rgba(255,255,255,.4); opacity:.9}
+.screen-l{text-align:center; font-size:10.5px; letter-spacing:.5em; color:var(--muted); margin:0 0 12px; font-weight:700}
+.sr{display:flex; align-items:center; gap:6px; margin-bottom:8px}
+.rl{width:18px; text-align:center; font-size:11px; font-weight:800; color:var(--muted); flex:none}
+.sp{width:32px; flex:none}
+.seat{flex:none; width:32px; height:30px; padding:0; border-radius:11px 11px 7px 7px; color:#fff; font:600 11.5px/1 'Montserrat',system-ui,sans-serif; -webkit-appearance:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.09)); border:1px solid rgba(255,255,255,.38); box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 3px 8px rgba(0,0,0,.3); transition:transform .12s, background .15s}
+.seat:hover{background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15)); transform:translateY(-1px)}
+.seat.taken{background:linear-gradient(180deg,#ff8a96,#e0364a); border-color:rgba(255,205,210,.85); color:#fff; font-weight:800; box-shadow:0 0 14px rgba(255,77,94,.65), inset 0 1px 0 rgba(255,255,255,.65)}
+.seat.sel{outline:3px solid var(--gold); outline-offset:1px}
+.legend{display:flex; gap:18px; font-size:12px; color:var(--muted); margin:12px 0 0; flex-wrap:wrap; justify-content:center}
+.legend i{display:inline-block; width:15px; height:14px; border-radius:5px 5px 3px 3px; vertical-align:-3px; margin-right:7px; background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.09)); border:1px solid rgba(255,255,255,.38)}
+.legend i.t{background:linear-gradient(180deg,#ff8a96,#e0364a); border-color:rgba(255,205,210,.85)}
+.seatinfo{margin-top:10px; min-height:22px; font-weight:700; text-align:center; color:var(--gold)}
+#tip{position:fixed; z-index:50; pointer-events:none; color:#fff; border-radius:16px; padding:10px 14px; font-size:12.5px; line-height:1.45; max-width:290px;
+  background:linear-gradient(135deg,rgba(14,60,38,.92),rgba(4,24,14,.92)); border:1px solid var(--rim); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:0 10px 30px rgba(0,0,0,.45), inset 1px 1px 1px rgba(255,255,255,.35)}
+#tip b{display:block; font-size:13.5px; color:var(--gold); margin-bottom:2px}
+
+/* ---------- tables ---------- */
+.tw{overflow-x:auto; border-radius:18px}
+table{border-collapse:collapse; width:100%; min-width:940px}
+th,td{padding:11px 12px; text-align:left; vertical-align:top; border-bottom:1px solid rgba(255,255,255,.10)}
+th{font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); background:rgba(255,255,255,.07); white-space:nowrap}
+th:first-child{border-radius:14px 0 0 14px} th:last-child{border-radius:0 14px 14px 0}
+th.s{cursor:pointer; user-select:none}
+th.s:hover{color:#fff}
+th .ar{color:var(--gold); margin-left:5px}
+tbody tr:hover td{background:rgba(255,255,255,.06)}
+tr.other td{background:rgba(255,210,94,.13)}
+tr.other:hover td{background:rgba(255,210,94,.20)}
+.tag{display:inline-block; font-size:11px; font-weight:800; border-radius:999px; padding:3px 10px; background:rgba(43,224,122,.20); color:#9dffc6; border:1px solid rgba(43,224,122,.5); white-space:nowrap}
+.tag.o{background:rgba(255,210,94,.22); color:var(--gold); border-color:rgba(255,210,94,.6)}
+.num{color:var(--muted); width:34px}
+.seatc{font-weight:800; white-space:nowrap; color:var(--gold)}
+.free{color:var(--muted); font-weight:500; white-space:nowrap}
+.tk{color:#fff; border-radius:999px; padding:6px 12px; font-size:12px; font-weight:700; margin:0 6px 6px 0; white-space:nowrap; -webkit-appearance:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.07)); border:1px solid var(--rim); box-shadow:inset 1px 1px 2px rgba(255,255,255,.4)}
+.tk:hover{filter:brightness(1.15)} .tk:disabled{opacity:.5}
+.empty{color:var(--muted); padding:16px 6px}
+details summary{cursor:pointer; font-weight:800; font-size:15px; display:flex; align-items:center; gap:10px}
+@media(max-width:520px){ .top .upd{display:none} .top-in .logo{margin-right:auto} }
+@media(max-width:700px){ .card{padding:14px 12px} .stat b{font-size:24px} }
+</style>
+</head>
+<body>
+
+<div class="ambient" aria-hidden="true"></div>
+
+<section id="loginView">
+  <form class="login glass" id="loginForm" autocomplete="off">
+    <img class="logo" src="assets/logo-white.png" alt="CIMB Niaga" width="640" height="98">
+    <h2>Year End Dinner &amp; Movie Night</h2>
+    <p>Treasury &amp; Financial Institutions</p>
+    <input class="inp" id="p" name="pin" type="password" placeholder="PIN" aria-label="PIN" autocomplete="off" autocapitalize="none" spellcheck="false" required autofocus>
+    <button class="btn pri" id="loginBtn" type="submit">Enter</button>
+    <div class="err" id="loginErr"></div>
+  </form>
+</section>
+
+<section id="appView" hidden>
+  <header class="top glass">
+    <div class="top-in">
+      <img class="logo" src="assets/logo-white.png" alt="CIMB Niaga" width="640" height="98">
+      <span class="upd" id="upd"></span>
+      <button class="btn ghost" id="refresh" type="button">↻ Refresh</button>
+      <button class="btn ghost" id="logout" type="button">Logout</button>
+    </div>
+  </header>
+  <main class="wrap">
+    <figure class="hero glass"><div class="kv" role="img" aria-label="Year End Dinner &amp; Movie Night – Avengers: Doomsday"></div></figure>
+    <div class="stats" id="stats"></div>
+
+    <div class="card glass">
+      <h3>Seat map <span class="cnt" id="seatCnt"></span></h3>
+      <div class="mapbox"><div class="hall" id="hall"></div></div>
+      <div class="legend"><span><i></i>Available</span><span><i class="t"></i>Taken</span><span id="freeNote"></span></div>
+      <div class="seatinfo" id="seatInfo">Hover (or tap) a red seat to see who booked it.</div>
+    </div>
+
+    <div class="card glass">
+      <h3>Companies <span class="cnt" id="coCnt"></span>
+        <span class="ctl">
+          <input class="srch" id="coQ" type="search" placeholder="Search companies…" aria-label="Search companies">
+          <select class="sel" id="coSort" aria-label="Sort companies"></select>
+          <button class="btn pri sm xlsbtn" id="coXls" type="button">⬇ Excel</button>
+        </span>
+      </h3>
+      <div class="tw"><table id="coTbl"></table></div>
+    </div>
+
+    <div class="card glass">
+      <h3>Individual clients <span class="cnt" id="inCnt"></span>
+        <span class="ctl">
+          <input class="srch" id="inQ" type="search" placeholder="Search clients…" aria-label="Search individual clients">
+          <select class="sel" id="inSort" aria-label="Sort individual clients"></select>
+          <button class="btn pri sm xlsbtn" id="inXls" type="button">⬇ Excel</button>
+        </span>
+      </h3>
+      <div class="tw"><table id="inTbl" style="min-width:740px"></table></div>
+    </div>
+
+    <div class="card glass">
+      <details>
+        <summary>Cancelled registrations <span class="cnt" id="caCnt"></span></summary>
+        <div class="tw" style="margin-top:14px"><table id="caTbl" style="min-width:780px"></table></div>
+      </details>
+    </div>
+  </main>
+</section>
+
+<div id="tip" hidden></div>
+<script>
+const CONFIG = {
+  SUPABASE_URL: "https://agvulcqmltntviyflfim.supabase.co",
+  SUPABASE_KEY: "sb_publishable_2yZqUCds-S1EkUh-Wjpu3A_X2O3IsOY",
+  STUDIO: "4"
+};
+const $ = (s) => document.querySelector(s);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+
+/* ---------- Supabase RPC ---------- */
+async function rpc(name, body){
+  const base = CONFIG.SUPABASE_URL.replace(/\/+$/, "");
+  const headers = { "Content-Type":"application/json", "apikey":CONFIG.SUPABASE_KEY };
+  if (!CONFIG.SUPABASE_KEY.startsWith("sb_")) headers["Authorization"] = "Bearer " + CONFIG.SUPABASE_KEY;
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 25000);
+  try {
+    const res = await fetch(base + "/rest/v1/rpc/" + name, { method:"POST", headers, body:JSON.stringify(body || {}), signal:ctl.signal });
+    if (!res.ok) { let m = ""; try { m = (await res.json()).message || ""; } catch(e){} throw new Error(m || ("HTTP " + res.status)); }
+    return await res.json();
+  } finally { clearTimeout(timer); }
+}
+
+/* ---------- seat layout (same as the RSVP page) ---------- */
+const ROWS = "KJHGFEDCBA".split(""), MAXCOL = 15;
+function seatValid(r, n){ if (r === "A") return n >= 1 && n <= 14; if (r === "K") return n >= 3 && n <= 15 && n !== 9; return n >= 3 && n <= 15; }
+let TOTAL_SEATS = 0; ROWS.forEach(r => { for (let n = 1; n <= MAXCOL; n++) if (seatValid(r, n)) TOTAL_SEATS++; });
+function seatKey(s){ const m = /^([A-Z])(\d+)$/.exec(s || ""); return m ? m[1].charCodeAt(0) * 100 + (+m[2]) : 1e9; }
+
+/* ---------- time (WIB) ---------- */
+const DTF = new Intl.DateTimeFormat("en-GB", { timeZone:"Asia/Jakarta", day:"2-digit", month:"2-digit", year:"numeric", hour:"2-digit", minute:"2-digit", hour12:false });
+function wibParts(iso){ const o = {}; DTF.formatToParts(new Date(iso)).forEach(p => { o[p.type] = p.value; }); if (o.hour === "24") o.hour = "00"; return o; }
+function fmtWib(iso){ if (!iso) return ""; const o = wibParts(iso); return o.day + "/" + o.month + "/" + o.year + " " + o.hour + ":" + o.minute; }
+function wibSerial(iso){ const o = wibParts(iso); return Date.UTC(+o.year, +o.month - 1, +o.day, +o.hour, +o.minute) / 86400000 + 25569; }   // Excel serial number = WIB wall-clock, independent of the computer's time zone
+
+/* ---------- state ---------- */
+const ST = { srcSort:"off", pass:"", rows:[], co:[], ind:[], can:[], seatMap:{}, sort:{ co:{ k:"company", d:1 }, ind:{ k:"name", d:1 } }, sel:null, timer:null };
+
+function group(rows){
+  const conf = rows.filter(r => r.status === "confirmed");
+  const map = new Map();
+  conf.filter(r => r.company).forEach(r => { const k = r.company.toLowerCase(); if (!map.has(k)) map.set(k, []); map.get(k).push(r); });
+  ST.co = [...map.values()].map(gs => {
+    const phones = [...new Set(gs.map(g => g.phone).filter(Boolean))];
+    return { company:gs[0].company, source:gs[0].source, g:gs, g1:gs[0] ? gs[0].name : "", g2:gs[1] ? gs[1].name : "", phone:phones.join(" / "),
+             s1:gs[0] ? gs[0].seat : null, s2:gs[1] ? gs[1].seat : null, at:gs.map(g => g.created_at).sort()[0] };
+  });
+  ST.ind = conf.filter(r => !r.company).map(r => ({ name:r.name, phone:r.phone, seat:r.seat, at:r.created_at, g:r }));
+  ST.can = rows.filter(r => r.status !== "confirmed");
+  ST.seatMap = {}; conf.forEach(r => { if (r.seat) ST.seatMap[r.seat] = r; });
+  ST.confirmed = conf;
+}
+
+/* ---------- login ---------- */
+async function load(silent){
+  const out = await rpc("admin_dump", { p_pin:ST.pass });
+  if (!out || !out.ok) { const e = new Error("bad_login"); e.code = "bad_login"; throw e; }
+  ST.rows = out.guests || []; group(ST.rows); ST.updated = new Date();
+  renderAll();
+}
+$("#loginForm").addEventListener("submit", async (ev) => {
+  ev.preventDefault(); const b = $("#loginBtn"); $("#loginErr").textContent = "";
+  ST.pass = $("#p").value.trim(); b.disabled = true; b.textContent = "Checking…";
+  try {
+    await load();
+    try { sessionStorage.setItem("ebb_adm", JSON.stringify({ p:ST.pass })); } catch(e){}
+    showApp();
+  } catch (e) {
+    $("#loginErr").textContent = e.code === "bad_login" ? "Wrong PIN." : "Could not connect: " + e.message;
+  } finally { b.disabled = false; b.textContent = "Enter"; }
+});
+function showApp(){
+  $("#loginView").hidden = true; $("#appView").hidden = false;
+  clearInterval(ST.timer); ST.timer = setInterval(() => { if (!document.hidden) load(true).catch(() => {}); }, 60000);
+}
+$("#logout").addEventListener("click", () => {
+  try { sessionStorage.removeItem("ebb_adm"); } catch(e){}
+  clearInterval(ST.timer); ST.pass = ""; ST.rows = []; $("#p").value = "";
+  $("#appView").hidden = true; $("#loginView").hidden = false;
+});
+$("#refresh").addEventListener("click", async () => { const b = $("#refresh"); b.disabled = true; try { await load(); } catch(e){ alert("Refresh failed: " + e.message); } finally { b.disabled = false; } });
+(async function auto(){
+  let s = null; try { s = JSON.parse(sessionStorage.getItem("ebb_adm") || "null"); } catch(e){}
+  if (!s) return; ST.pass = s.p;
+  try { await load(); showApp(); } catch(e){ try { sessionStorage.removeItem("ebb_adm"); } catch(_){} }
+})();
+
+/* ---------- render ---------- */
+const qv = (id) => $(id).value.trim().toLowerCase();
+function match(q, ...vals){ return !q || vals.some(v => String(v || "").toLowerCase().includes(q)); }
+function cmp(a, b){ return a < b ? -1 : a > b ? 1 : 0; }
+
+function renderAll(){ renderStats(); renderMap(); renderCo(); renderInd(); renderCan(); $("#upd").textContent = "Updated " + ST.updated.toLocaleTimeString("en-GB"); }
+
+function renderStats(){
+  const booked = Object.keys(ST.seatMap).length, free = ST.confirmed.filter(r => !r.seat).length;
+  const st = [
+    ["Companies", ST.co.length], ["Company guests", ST.co.reduce((n, c) => n + c.g.length, 0)], ["Individual guests", ST.ind.length],
+    ["Total guests", ST.confirmed.length], ["Seats booked", booked + " / " + TOTAL_SEATS], ["Free seating (no booking)", free]
+  ];
+  const box = $("#stats"); box.textContent = "";
+  st.forEach(([l, v]) => { const d = el("div", "stat glass"); d.append(el("b", "", String(v)), el("span", "", l)); box.appendChild(d); });
+}
+
+function tip(e, label, g){
+  const t = $("#tip");
+  if (label) { t.textContent = ""; t.appendChild(el("b", "", "Seat " + label));
+    if (g) { t.appendChild(document.createTextNode(g.company || "Individual client")); t.appendChild(document.createElement("br")); t.appendChild(document.createTextNode(g.name)); }
+    else t.appendChild(document.createTextNode("Available")); t.hidden = false; }
+  const w = t.offsetWidth, h = t.offsetHeight; let x = e.clientX + 14, y = e.clientY + 16;
+  if (x + w > innerWidth - 8) x = e.clientX - w - 14; if (y + h > innerHeight - 8) y = e.clientY - h - 14;
+  t.style.left = x + "px"; t.style.top = y + "px";
+}
+function renderMap(){
+  const hall = $("#hall"); hall.textContent = "";
+  hall.appendChild(el("div", "screen")); hall.appendChild(el("div", "screen-l", "SCREEN"));
+  ROWS.forEach(r => {
+    const row = el("div", "sr"); row.appendChild(el("span", "rl", r));
+    for (let n = MAXCOL; n >= 1; n--) {
+      if (!seatValid(r, n)) { row.appendChild(el("span", "sp")); continue; }
+      const label = r + n, g = ST.seatMap[label];
+      const b = el("button", "seat" + (g ? " taken" : "") + (ST.sel === label ? " sel" : ""), String(n)); b.type = "button"; b.setAttribute("aria-label", g ? label + " – " + g.name + (g.company ? " (" + g.company + ")" : "") : label + " – available");
+      b.addEventListener("mouseenter", (e) => tip(e, label, g)); b.addEventListener("mousemove", (e) => tip(e)); b.addEventListener("mouseleave", () => { $("#tip").hidden = true; });
+      b.addEventListener("click", () => {
+        ST.sel = label; const gg = ST.seatMap[label];
+        $("#seatInfo").textContent = gg ? label + " · " + gg.name + (gg.company ? " · " + gg.company : " · Individual") + (gg.phone ? " · " + gg.phone : "") : label + " · available";
+        renderMap();
+      });
+      row.appendChild(b);
+    }
+    row.appendChild(el("span", "rl", r)); hall.appendChild(row);
+  });
+  const booked = Object.keys(ST.seatMap).length;
+  $("#seatCnt").textContent = booked + " taken · " + (TOTAL_SEATS - booked) + " available";
+  const free = ST.confirmed.filter(r => !r.seat).length; $("#freeNote").textContent = free ? free + " guest(s) chose free seating" : "";
+}
+
+function head(tbl, key, cols){
+  const tr = el("tr"); const S = ST.sort[key];
+  cols.forEach(([label, k]) => {
+    const th = el("th", k ? "s" : "", label);
+    if (key === "co" && k === "source") {
+      if (ST.srcSort !== "off") th.appendChild(el("span", "ar", ST.srcSort === "list" ? "▲ list" : "▼ other"));
+      th.title = "2nd sort: In list first / Other first / off";
+      th.addEventListener("click", () => { ST.srcSort = ST.srcSort === "off" ? "list" : ST.srcSort === "list" ? "other" : "off"; renderCo(); });
+    } else if (k) { if (S.k === k) th.appendChild(el("span", "ar", S.d > 0 ? "▲" : "▼")); th.addEventListener("click", () => { S.d = S.k === k ? -S.d : 1; S.k = k; key === "co" ? renderCo() : renderInd(); }); }
+    tr.appendChild(th);
+  });
+  const th = el("thead"); th.appendChild(tr); return th;
+}
+function delBtn(label, title, action){
+  const b = el("button", "tk del", label); b.type = "button"; b.title = title; let armed = false, tm = null;
+  const disarm = () => { armed = false; b.classList.remove("armed"); b.textContent = label; };
+  b.addEventListener("click", async () => {
+    if (!armed) { armed = true; b.classList.add("armed"); b.textContent = "Sure?"; tm = setTimeout(disarm, 4000); return; }
+    clearTimeout(tm); b.disabled = true; b.textContent = "…";
+    try { await action(); } catch (e) { alert("Failed: " + e.message); b.disabled = false; disarm(); }
+  });
+  return b;
+}
+async function adminDelete(id, hard){
+  const out = await rpc("admin_delete", { p_pin:ST.pass, p_id:id, p_hard:!!hard });
+  if (!out || !out.ok) throw new Error(out && out.error === "bad_login" ? "wrong PIN" : "not allowed");
+  await load();
+}
+function delBtns(gs){
+  const td = el("td");
+  gs.forEach((g, i) => { if (!g) return; td.appendChild(delBtn("🗑 " + (gs.length > 1 ? "Guest " + (i + 1) : "Delete"), "Delete " + g.name + " (seat is released)", () => adminDelete(g.id, false))); });
+  return td;
+}
+function seatCell(s){ return s ? el("td", "seatc", s) : el("td", "free", "Free seating"); }
+function tkBtns(gs){
+  const td = el("td");
+  gs.forEach((g, i) => { if (!g) return; const b = el("button", "tk", "🎫 " + (gs.length > 1 ? "Guest " + (i + 1) : "Ticket")); b.type = "button"; b.title = "Download ticket – " + g.name; b.addEventListener("click", () => downloadTicket(g, b)); td.appendChild(b); });
+  return td;
+}
+
+const SORTS = [["name-asc", "Name A → Z", "name", 1], ["name-desc", "Name Z → A", "name", -1], ["time-asc", "Submitted: earliest first", "time", 1], ["time-desc", "Submitted: latest first", "time", -1]];
+function syncSort(key){
+  const sel = $(key === "co" ? "#coSort" : "#inSort"), S = ST.sort[key], nk = S.k === "company" ? "name" : S.k;
+  if (!sel.options.length) { SORTS.forEach(o => sel.appendChild(new Option(o[1], o[0]))); sel.appendChild(new Option("Sorted by column", "col")); }
+  const hit = SORTS.find(o => o[2] === nk && o[3] === S.d);
+  sel.value = hit ? hit[0] : "col";
+}
+function bindSort(key, selId){
+  $(selId).addEventListener("change", (e) => {
+    const o = SORTS.find(x => x[0] === e.target.value); if (!o) return;
+    ST.sort[key] = { k: key === "co" && o[2] === "name" ? "company" : o[2], d:o[3] };
+    key === "co" ? renderCo() : renderInd();
+  });
+}
+bindSort("co", "#coSort"); bindSort("ind", "#inSort");
+function renderCo(){
+  const q = qv("#coQ"), S = ST.sort.co;
+  const keyOf = { company:c => c.company.toLowerCase(), g1:c => c.g1.toLowerCase(), g2:c => c.g2.toLowerCase() || "\uffff", seat:c => seatKey(c.s1), time:c => c.at };
+  const rank = (c) => ST.srcSort === "off" ? 0 : ((c.source === "other") === (ST.srcSort === "other") ? 0 : 1);
+  let list = ST.co.filter(c => match(q, c.company, c.g1, c.g2, c.phone, c.s1, c.s2));
+  list.sort((a, b) => (rank(a) - rank(b)) || S.d * cmp(keyOf[S.k](a), keyOf[S.k](b)) || cmp(a.company.toLowerCase(), b.company.toLowerCase()));
+  ST.coView = list; syncSort("co");
+  const t = $("#coTbl"); t.textContent = "";
+  t.appendChild(head(t, "co", [["#"], ["Company", "company"], ["Source", "source"], ["Guest 1", "g1"], ["Seat 1", "seat"], ["Guest 2", "g2"], ["Seat 2"], ["Phone"], ["Registered (WIB)", "time"], ["Tickets"], ["Delete"]]));
+  const tb = el("tbody");
+  list.forEach((c, i) => {
+    const tr = el("tr", c.source === "other" ? "other" : "");
+    tr.appendChild(el("td", "num", String(i + 1))); tr.appendChild(el("td", "", c.company));
+    const sc = el("td"); sc.appendChild(el("span", "tag" + (c.source === "other" ? " o" : ""), c.source === "other" ? "Other (manual)" : "In list")); tr.appendChild(sc);
+    tr.appendChild(el("td", "", c.g1)); tr.appendChild(seatCell(c.s1));
+    tr.appendChild(el("td", "", c.g2 || "–")); tr.appendChild(c.g[1] ? seatCell(c.s2) : el("td", "free", "–"));
+    tr.appendChild(el("td", "", c.phone)); tr.appendChild(el("td", "", fmtWib(c.at)));
+    tr.appendChild(tkBtns([c.g[0], c.g[1]])); tr.appendChild(delBtns([c.g[0], c.g[1]])); tb.appendChild(tr);
+  });
+  t.appendChild(tb); $("#coCnt").textContent = list.length + (list.length !== ST.co.length ? " / " + ST.co.length : "");
+  if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.co.length ? "No match." : "No companies yet."); td.colSpan = 11; p.appendChild(td); tb.appendChild(p); }
+}
+
+function renderInd(){
+  const q = qv("#inQ"), S = ST.sort.ind;
+  const keyOf = { name:c => c.name.toLowerCase(), seat:c => seatKey(c.seat), time:c => c.at };
+  let list = ST.ind.filter(c => match(q, c.name, c.phone, c.seat));
+  list.sort((a, b) => S.d * cmp(keyOf[S.k](a), keyOf[S.k](b)) || cmp(a.name.toLowerCase(), b.name.toLowerCase()));
+  ST.inView = list; syncSort("ind");
+  const t = $("#inTbl"); t.textContent = "";
+  t.appendChild(head(t, "ind", [["#"], ["Name", "name"], ["Phone"], ["Seat", "seat"], ["Registered (WIB)", "time"], ["Ticket"], ["Delete"]]));
+  const tb = el("tbody");
+  list.forEach((c, i) => {
+    const tr = el("tr"); tr.appendChild(el("td", "num", String(i + 1))); tr.appendChild(el("td", "", c.name)); tr.appendChild(el("td", "", c.phone || ""));
+    tr.appendChild(seatCell(c.seat)); tr.appendChild(el("td", "", fmtWib(c.at))); tr.appendChild(tkBtns([c.g])); tr.appendChild(delBtns([c.g])); tb.appendChild(tr);
+  });
+  t.appendChild(tb); $("#inCnt").textContent = list.length + (list.length !== ST.ind.length ? " / " + ST.ind.length : "");
+  if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.ind.length ? "No match." : "No individual clients yet."); td.colSpan = 7; p.appendChild(td); tb.appendChild(p); }
+}
+
+function renderCan(){
+  const list = ST.can;
+  const t = $("#caTbl"); t.textContent = "";
+  const hd = el("thead"), tr = el("tr"); ["Name", "Company", "Phone", "Registered (WIB)", "Cancelled (WIB)", "Remove"].forEach(h => tr.appendChild(el("th", "", h))); hd.appendChild(tr); t.appendChild(hd);
+  const tb = el("tbody");
+  list.forEach(c => {
+    const r = el("tr"); [c.name, c.company || "Individual", c.phone || "", fmtWib(c.created_at), fmtWib(c.cancelled_at)].forEach(v => r.appendChild(el("td", "", v)));
+    const td = el("td"); td.appendChild(delBtn("🗑 Remove permanently", "Delete this record from the database for good", () => adminDelete(c.id, true))); r.appendChild(td); tb.appendChild(r);
+  });
+  t.appendChild(tb); $("#caCnt").textContent = String(list.length);
+}
+$("#coQ").addEventListener("input", renderCo); $("#inQ").addEventListener("input", renderInd);
+
+/* ---------- Excel (SheetJS, self-hosted) ---------- */
+function loadScript(src){ return new Promise((res, rej) => { if (window.XLSX) return res(); const s = document.createElement("script"); s.src = src; s.onload = res; s.onerror = () => rej(new Error("Could not load " + src)); document.head.appendChild(s); }); }
+function nowStamp(){ const n = new Date(), pad = (x) => String(x).padStart(2, "0"); return n.getFullYear() + pad(n.getMonth() + 1) + pad(n.getDate()) + "-" + pad(n.getHours()) + pad(n.getMinutes()); }
+async function exportTable(btn, sheetName, aoa, widths, fileTag){
+  const old = btn.textContent; btn.disabled = true; btn.textContent = "Preparing…";
+  try {
+    await loadScript("assets/xlsx.full.min.js");
+    const ws = XLSX.utils.aoa_to_sheet(aoa); ws["!cols"] = widths.map(w => ({ wch:w }));
+    const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.writeFile(wb, "MovieNight-" + fileTag + "-" + nowStamp() + ".xlsx");
+  } catch (e) { alert("Excel failed: " + e.message); }
+  finally { btn.disabled = false; btn.textContent = old; }
+}
+const XD = (iso) => iso ? { t:"n", v:wibSerial(iso), z:"dd/mm/yyyy hh:mm" } : "";   // real Excel date, WIB clock time
+$("#coXls").addEventListener("click", () => {
+  const rows = (ST.coView || []).map((c, i) => [i + 1, c.company, c.source === "other" ? "Other (manual)" : "In list", c.g1, c.s1 || "Free seating", c.g2, c.g[1] ? (c.s2 || "Free seating") : "", c.phone, XD(c.at)]);
+  exportTable($("#coXls"), "Companies", [["No", "Company", "Source", "Guest 1", "Seat 1", "Guest 2", "Seat 2", "Phone", "Registered (WIB)"]].concat(rows), [5, 34, 16, 26, 13, 26, 13, 22, 18], "Companies");
+});
+$("#inXls").addEventListener("click", () => {
+  const rows = (ST.inView || []).map((c, i) => [i + 1, c.name, c.phone || "", c.seat || "Free seating", XD(c.at)]);
+  exportTable($("#inXls"), "Individuals", [["No", "Name", "Phone", "Seat", "Registered (WIB)"]].concat(rows), [5, 30, 18, 14, 18], "Individuals");
+});
+
+/* ---------- ticket (portrait PNG, same design as the RSVP page) ---------- */
+const imgCache = {};
+function loadImg(src){ if (!imgCache[src]) imgCache[src] = new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => { delete imgCache[src]; rej(new Error("img " + src)); }; i.src = src; }); return imgCache[src]; }
+function rrPath(x, X, Y, W, H, R){ x.beginPath(); x.moveTo(X + R, Y); x.arcTo(X + W, Y, X + W, Y + H, R); x.arcTo(X + W, Y + H, X, Y + H, R); x.arcTo(X, Y + H, X, Y, R); x.arcTo(X, Y, X + W, Y, R); x.closePath(); }
+function wrapText(x, text, maxW, maxLines){
+  const words = String(text).split(/\s+/); const lines = []; let cur = "";
+  words.forEach(w => { const test = cur ? cur + " " + w : w; if (x.measureText(test).width <= maxW || !cur) cur = test; else { lines.push(cur); cur = w; } });
+  if (cur) lines.push(cur);
+  if (lines.length > maxLines) { const keep = lines.slice(0, maxLines); let last = keep[maxLines - 1]; while (x.measureText(last + "…").width > maxW && last.length) last = last.slice(0, -1); keep[maxLines - 1] = last + "…"; return keep; }
+  return lines;
+}
+function spaced(x, text, X, Y, sp){ let cx = X; [...text].forEach(c => { x.fillText(c, cx, Y); cx += x.measureText(c).width + sp; }); }
+function fitText(x, text, weight, size, maxW, F){ let s = size; x.font = weight + " " + s + "px " + F; while (x.measureText(text).width > maxW && s > 14) { s -= 1; x.font = weight + " " + s + "px " + F; } return s; }
+const VENUE = "CGV Pacific Place Mall";
+const FONT = 'Montserrat, "Helvetica Neue", Arial, sans-serif';
+async function ticketAssets(){
+  const tmo = (p) => Promise.race([p, new Promise(r => setTimeout(r, 1800))]);
+  const [hero, logo] = await Promise.all([loadImg("assets/kv-en.jpg"), loadImg("assets/logo-white.png")]);
+  try { await tmo(Promise.all([document.fonts.load("800 40px Montserrat"), document.fonts.load("600 20px Montserrat")])); } catch(e){}
+  return { hero, logo };
+}
+function heroCrop(x, hero, dx, dy, dw, dh, r){
+  const sx = hero.width * .47, sy = hero.height * (r.top || 0), sw = hero.width - sx, sh = hero.height * (r.h || 1);
+  const sc = Math.max(dw / sw, dh / sh), w = sw * sc, h = sh * sc;
+  x.save(); x.beginPath(); x.rect(dx, dy, dw, dh); x.clip();
+  x.drawImage(hero, sx, sy, sw, sh, dx + (dw - w) / 2, dy + (dh - h) * (r.anchor == null ? .5 : r.anchor), w, h); x.restore();
+}
+function toBlob(c){ return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/png")); }
+async function drawPortrait(g, A){
+  const W = 600, H = 920, SC = 2, c = document.createElement("canvas"); c.width = W * SC; c.height = H * SC;
+  const x = c.getContext("2d"); x.scale(SC, SC);
+  x.fillStyle = "#031009"; x.fillRect(0, 0, W, H);
+  const X0 = 24, Y0 = 24, TW = 552, TH = 872;
+  x.save(); rrPath(x, X0, Y0, TW, TH, 34); x.clip();
+  let bg = x.createLinearGradient(0, Y0, 0, Y0 + TH); bg.addColorStop(0, "#0e5a37"); bg.addColorStop(.4, "#08301f"); bg.addColorStop(1, "#04170f"); x.fillStyle = bg; x.fillRect(X0, Y0, TW, TH);
+  const HH = 350; heroCrop(x, A.hero, X0, Y0, TW, HH, { top:.02, h:.9, anchor:.15 });
+  let fade = x.createLinearGradient(0, Y0 + HH - 100, 0, Y0 + HH); fade.addColorStop(0, "rgba(8,48,31,0)"); fade.addColorStop(1, "#08301f"); x.fillStyle = fade; x.fillRect(X0, Y0 + HH - 100, TW, 100);
+  let top = x.createLinearGradient(0, Y0, 0, Y0 + 90); top.addColorStop(0, "rgba(0,0,0,.65)"); top.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = top; x.fillRect(X0, Y0, TW, 90);
+  const lh = 30; x.drawImage(A.logo, X0 + 28, Y0 + 24, lh * A.logo.width / A.logo.height, lh);
+  x.textAlign = "left"; const LX = X0 + 28, MW = TW - 56;
+  x.fillStyle = "#fff"; fitText(x, "AVENGERS: DOOMSDAY", "800", 38, MW, FONT); x.fillText("AVENGERS: DOOMSDAY", LX, Y0 + HH + 22);
+  const gl = x.createLinearGradient(LX, 0, LX + MW, 0); gl.addColorStop(0, "#ffd25e"); gl.addColorStop(1, "rgba(255,210,94,0)"); x.fillStyle = gl; x.fillRect(LX, Y0 + HH + 40, MW, 3);
+  x.fillStyle = "rgba(235,245,238,.9)"; x.font = "600 16px " + FONT; x.fillText("📍 " + VENUE, LX, Y0 + HH + 68);
+  let y = Y0 + HH + 106;
+  x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, "GUEST", LX, y, 3); y += 38;
+  x.fillStyle = "#fff"; x.font = "800 36px " + FONT; wrapText(x, g.name.toUpperCase(), MW, 2).forEach(l => { x.fillText(l, LX, y); y += 42; });
+  y += 6; x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, "COMPANY", LX, y, 3); y += 34;
+  x.fillStyle = "#ffd25e"; x.font = "700 26px " + FONT; wrapText(x, g.company || "Individual client", MW, 2).forEach(l => { x.fillText(l, LX, y); y += 33; });
+  const dy = Math.max(y + 20, 666);
+  const cols = [LX, LX + 222, LX + 388];
+  [["DATE", "Thu, 17 Dec 2026"], ["TIME", "19.30 WIB"], ["STUDIO", String(CONFIG.STUDIO)]].forEach((p, i) => {
+    x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, p[0], cols[i], dy, 3);
+    x.fillStyle = "#fff"; x.font = "800 " + (i === 0 ? 21 : 24) + "px " + FONT; x.fillText(p[1], cols[i], dy + 34);
+  });
+  x.textAlign = "center"; x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT;
+  const sy = dy + 92; spaced(x, "SEAT", W / 2 - 24, sy, 4);
+  const sg = x.createLinearGradient(0, sy + 4, 0, sy + 100); sg.addColorStop(0, "#fff3c4"); sg.addColorStop(1, "#f0a81c"); x.fillStyle = sg;
+  if (g.seat) { x.font = "800 104px " + FONT; x.fillText(g.seat, W / 2, sy + 100); } else { x.font = "800 36px " + FONT; x.fillText("FREE SEATING", W / 2, sy + 62); }
+  x.restore();
+  x.save(); rrPath(x, X0, Y0, TW, TH, 34); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 2; x.stroke(); x.restore();
+  return toBlob(c);
+}
+async function downloadTicket(g, btn){
+  const old = btn.textContent; btn.disabled = true; btn.textContent = "…";
+  try {
+    const A = await ticketAssets(); const blob = await drawPortrait(g, A);
+    const fname = "Ticket-" + g.name.replace(/[^\w]+/g, "-").replace(/^-|-$/g, "") + "-" + (g.seat || "FreeSeating") + ".png";
+    const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 4000);
+  } catch (e) { alert("Ticket failed: " + e.message); }
+  finally { btn.disabled = false; btn.textContent = old; }
+}
+</script>
+</body>
+</html>
