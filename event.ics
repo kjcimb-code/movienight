@@ -1,0 +1,27 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//CIMB Niaga Treasury & FI//Year End Dinner & Movie Night//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:ye-movienight-20261217@cimbniaga-treasury-fi
+DTSTAMP:20261124T051247Z
+DTSTART:20261217T103000Z
+DTEND:20261217T153000Z
+SUMMARY:Year End Dinner & Movie Night - CIMB Niaga Treasury & FI
+LOCATION:CGV Pacific Place\, 6th Floor\, Pacific Place Mall\, Jl. Jend. Sudirman Kav. 52-53\, SCBD\, Jakarta
+DESCRIPTION:Treasury CIMB Niaga Movie Night - Customer Gathering.\n\n17.30 WIB - Registration\n18.00 WIB - Dinner\n19.30 WIB - Movie Time: Avengers: Doomsday\n\n1 invitation for 2 persons.
+STATUS:CONFIRMED
+TRANSP:OPAQUE
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Tomorrow - Year End Dinner & Movie Night (registration 17.30 WIB)
+TRIGGER:-P1D
+END:VALARM
+BEGIN:VALARM
+ACTION:DISPLAY
+DESCRIPTION:Registration opens in 2 hours
+TRIGGER:-PT2H
+END:VALARM
+END:VEVENT
+END:VCALENDAR

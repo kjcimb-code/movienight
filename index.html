@@ -1,0 +1,1195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>RSVP – Treasury CIMB Niaga Movie Night</title>
+<meta name="description" content="Treasury CIMB Niaga Movie Night – Avengers: Doomsday. Thursday, 17 December 2026, CGV Pacific Place. Please confirm your attendance.">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#06261a">
+<!-- Link preview (WhatsApp etc). After deploy, replace the URL below with your real absolute URL -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="RSVP – Year End Dinner &amp; Movie Night">
+<meta property="og:description" content="Avengers: Doomsday · Thursday, 17 December 2026 · CGV Pacific Place. Please confirm your attendance.">
+<meta property="og:image" content="https://YOUR-SITE-URL/assets/og-image.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" type="image/png" href="assets/favicon.png">
+<link rel="apple-touch-icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --gold:#ffd25e; --gold2:#f0a81c; --green:#2be07a; --red:#ff4d5e; --cyan:#59d8ff; --pink:#ff7ad9;
+  --ink:#fff; --muted:rgba(235,245,238,.72);
+  --glass:linear-gradient(135deg,rgba(255,255,255,.17),rgba(255,255,255,.05));
+  --rim:rgba(255,255,255,.26);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{
+  margin:0; min-height:100vh; color:var(--ink); background:#04120b;
+  font-family:'Montserrat',system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+[hidden]{display:none !important}
+.ambient{position:fixed; inset:0; z-index:-1; background:#04120b url(assets/ambient.jpg) center/cover no-repeat}
+.ambient::after{content:""; position:absolute; inset:0;
+  background:radial-gradient(800px 500px at 15% 0%,rgba(43,224,122,.20),transparent 60%),
+             radial-gradient(700px 500px at 100% 70%,rgba(255,77,94,.16),transparent 60%),
+             linear-gradient(180deg,rgba(2,12,8,.35),rgba(2,12,8,.70))}
+
+/* ---------- liquid glass ---------- */
+.glass{
+  position:relative; border-radius:28px; border:1px solid var(--rim);
+  background:var(--glass);
+  -webkit-backdrop-filter:blur(22px) saturate(185%); backdrop-filter:blur(22px) saturate(185%);
+  box-shadow:0 14px 44px rgba(0,0,0,.38),
+             inset 1.5px 1.5px 2px rgba(255,255,255,.55),
+             inset -1.5px -1.5px 2px rgba(255,255,255,.10),
+             inset 0 0 26px rgba(255,255,255,.05);
+}
+.glass::before{
+  content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:0;
+  background:radial-gradient(130% 70% at 15% -15%,rgba(255,255,255,.34),transparent 55%),
+             linear-gradient(180deg,rgba(255,255,255,.10),transparent 28%);
+  mix-blend-mode:soft-light;
+}
+.glass > *{position:relative; z-index:1}
+.tint-green{background:linear-gradient(135deg,rgba(43,224,122,.30),rgba(10,90,52,.16))}
+.tint-red{background:linear-gradient(135deg,rgba(255,77,94,.34),rgba(120,10,25,.18))}
+
+/* ---------- header ---------- */
+.top{position:sticky; top:max(8px,env(safe-area-inset-top)); z-index:30; margin:max(8px,env(safe-area-inset-top)) 12px 0; padding:10px 16px; border-radius:22px}
+.top{background:linear-gradient(135deg,rgba(24,130,78,.55),rgba(8,60,36,.45))}
+.top-in{max-width:1060px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; gap:14px}
+.logo{width:clamp(112px,34vw,180px); height:auto; display:block; flex:none}
+.dept{text-align:right; line-height:1.3; min-width:0}
+.dept strong{display:block; color:#fff; font-size:clamp(8.8px,2.55vw,13px); font-weight:700; letter-spacing:.02em}
+.dept span{display:block; color:rgba(220,245,230,.85); font-size:clamp(8.2px,2.35vw,12px); font-weight:500; margin-top:3px}
+@media(min-width:700px){
+  .top{margin-left:auto; margin-right:auto; max-width:1080px; padding:12px 24px}
+  .dept strong{text-transform:uppercase; letter-spacing:.12em; font-size:13px}
+  .dept span{font-size:12.5px; letter-spacing:.04em}
+  .logo{width:190px}
+}
+
+/* ---------- layout ---------- */
+.page > *{min-width:0}
+.card,.map,.pan{min-width:0; max-width:100%}
+.page{max-width:1080px; margin:0 auto; padding:16px 12px 8px; display:grid; gap:16px}
+@media(min-width:900px){ .page{grid-template-columns:1.1fr .9fr; gap:24px; align-items:start; padding:22px 12px 8px} }
+.hero{padding:6px; margin:0}
+.hero img{display:block; width:100%; height:auto; border-radius:22px}
+.lang{position:absolute; top:16px; right:16px; z-index:3; display:inline-flex; padding:3px; border-radius:999px}
+.lang button{font:inherit; font-size:12px; font-weight:700; letter-spacing:.06em; color:#fff; background:transparent; border:0; padding:7px 13px; border-radius:999px; cursor:pointer; -webkit-appearance:none}
+.lang button[aria-pressed="true"]{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00; box-shadow:0 2px 10px rgba(240,168,28,.5), inset 0 1px 0 rgba(255,255,255,.7)}
+
+.invite{padding:20px 18px; margin-top:16px}
+.inv-title{margin:0 0 10px; font-size:clamp(15px,4.4vw,19px); font-weight:800; letter-spacing:.03em; line-height:1.3;
+  background:linear-gradient(180deg,#fff3c4,var(--gold) 55%,var(--gold2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.inv-title .em{-webkit-text-fill-color:initial}
+.invite p{margin:0 0 6px; font-size:15px; line-height:1.6; color:#f1f8f3}
+.invite p.lead{font-weight:600}
+.irows{margin-top:14px; display:grid; gap:8px}
+.irow{display:flex; align-items:center; gap:12px; padding:11px 14px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.16); box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.irow .em{font-size:22px; line-height:1; flex:none; width:28px; text-align:center}
+.irow .tx{flex:1; font-size:15px; font-weight:600; line-height:1.3}
+.irow .tx small{display:block; font-size:12.5px; font-weight:500; color:var(--muted); margin-top:1px}
+.irow .tm{font-size:16px; font-weight:800; color:var(--gold); white-space:nowrap}
+.irow a{color:inherit; text-decoration:underline; text-decoration-color:rgba(255,210,94,.6); text-underline-offset:3px}
+.irow.inv{background:linear-gradient(135deg,rgba(43,224,122,.28),rgba(10,90,52,.18)); border-color:rgba(43,224,122,.5)}
+.chips{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:12px}
+.chip{display:flex; align-items:center; gap:10px; padding:12px; border-radius:20px; font-size:11.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; line-height:1.25}
+.chip .em{font-size:22px; line-height:1}
+
+/* ---------- cards / forms ---------- */
+.card{padding:22px 18px 20px}
+.card h2{margin:0; font-size:26px; font-weight:800; letter-spacing:.04em; background:linear-gradient(180deg,#fff3c4,var(--gold) 55%,var(--gold2)); -webkit-background-clip:text; background-clip:text; color:transparent}
+.sub{margin:8px 0 18px; color:#e6f2ea; font-size:14px; line-height:1.55}
+.field{margin-bottom:14px; position:relative}
+.field label.l{display:block; font-size:12.5px; font-weight:700; letter-spacing:.04em; margin-bottom:7px; color:#fff}
+.field label.l .opt{color:var(--muted); font-weight:500}
+.inp{
+  width:100%; height:52px; padding:0 16px; font:inherit; font-size:16px; color:#fff; /* 16px stops iOS zoom */
+  background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.13)); border:1px solid rgba(255,255,255,.30); border-radius:18px;
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.28), inset 0 -1px 0 rgba(255,255,255,.18);
+  -webkit-appearance:none; appearance:none; outline:none; transition:border-color .15s, box-shadow .15s;
+}
+.inp::placeholder{color:rgba(255,255,255,.45)}
+.inp:focus{border-color:var(--gold); box-shadow:inset 0 2px 6px rgba(0,0,0,.28), 0 0 0 3px rgba(255,210,94,.28)}
+select.inp{padding-right:42px; text-overflow:ellipsis;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23ffd25e' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"),linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.13));
+  background-repeat:no-repeat,no-repeat; background-position:right 16px center,0 0}
+select.inp option{color:#111; background:#fff}
+.field.bad .inp{border-color:#ff8a8a}
+.err{display:none; color:#ffb0b0; font-size:12.5px; margin-top:6px; line-height:1.4}
+.field.bad .err{display:block}
+.hint{margin-top:6px; font-size:12px; color:var(--muted); line-height:1.4}
+.pair{display:grid; gap:0}
+@media(min-width:440px){ .pair{grid-template-columns:1fr 1fr; gap:12px} }
+
+/* liquid switch */
+.switch{display:flex; align-items:center; gap:14px; padding:12px 14px; margin-bottom:14px; border-radius:20px; cursor:pointer;
+  background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.3)}
+.switch .sw-text{flex:1}
+.switch b{display:block; font-size:14px; font-weight:700}
+.switch small{display:block; margin-top:2px; font-size:12.5px; color:var(--muted); line-height:1.4}
+.switch input{position:absolute; opacity:0; width:1px; height:1px}
+.track{flex:none; width:58px; height:34px; border-radius:999px; position:relative; transition:background .2s;
+  background:rgba(0,0,0,.35); border:1px solid rgba(255,255,255,.25); box-shadow:inset 0 2px 6px rgba(0,0,0,.4)}
+.knob{position:absolute; top:3px; left:3px; width:26px; height:26px; border-radius:50%; transition:transform .22s cubic-bezier(.3,1.4,.5,1);
+  background:linear-gradient(180deg,#fff,#dfe9e3); box-shadow:0 3px 8px rgba(0,0,0,.45), inset 0 -2px 3px rgba(0,0,0,.12)}
+.switch input:checked + .track{background:linear-gradient(180deg,#33e283,#17a65a)}
+.switch input:checked + .track .knob{transform:translateX(24px)}
+.switch input:focus-visible + .track{box-shadow:0 0 0 3px rgba(255,210,94,.45)}
+
+/* combobox */
+.cb{position:relative}
+.cb .ok{position:absolute; right:14px; top:50%; transform:translateY(-50%); width:24px; height:24px; border-radius:50%; background:linear-gradient(180deg,#5af2a0,#1fbf6a); color:#04210f; font-weight:800; font-size:14px; display:grid; place-items:center; box-shadow:0 2px 8px rgba(43,224,122,.5)}
+.cb-list{position:absolute; left:0; right:0; top:calc(100% + 8px); z-index:50; margin:0; padding:6px; list-style:none; max-height:300px; overflow:auto;
+  border-radius:20px; border:1px solid var(--rim); background:linear-gradient(135deg,rgba(18,70,44,.92),rgba(6,32,20,.94));
+  -webkit-backdrop-filter:blur(26px) saturate(180%); backdrop-filter:blur(26px) saturate(180%);
+  box-shadow:0 20px 50px rgba(0,0,0,.55), inset 1px 1px 2px rgba(255,255,255,.4)}
+.cb-list li{padding:12px 14px; border-radius:14px; font-size:15px; font-weight:500; line-height:1.35; cursor:pointer}
+.cb-list li mark{background:none; color:var(--gold); font-weight:800}
+.cb-list li[aria-selected="true"],.cb-list li:hover{background:rgba(255,255,255,.14)}
+.cb-list li.none{cursor:default; color:var(--muted); font-size:13.5px}
+.cb-list li.none a{color:var(--gold); font-weight:700; text-decoration:none}
+
+/* buttons */
+.btn{display:flex; align-items:center; justify-content:center; gap:10px; width:100%; min-height:54px; padding:0 20px; font:inherit; font-size:15px; font-weight:800; letter-spacing:.05em; text-transform:uppercase; text-decoration:none;
+  border:0; border-radius:999px; cursor:pointer; -webkit-appearance:none; transition:transform .1s, filter .15s; color:#fff}
+.btn:active{transform:scale(.98)}
+.btn.gold{color:#2a1d00; background:linear-gradient(180deg,#ffe58f,#ffd25e 45%,var(--gold2));
+  box-shadow:inset 0 2px 2px rgba(255,255,255,.8), inset 0 -3px 8px rgba(160,95,0,.35), 0 10px 28px rgba(240,168,28,.38)}
+.btn.gold:hover{filter:brightness(1.05)}
+.btn.soft{text-transform:none; letter-spacing:.01em; font-size:15px; font-weight:700; margin-top:10px;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)); border:1px solid var(--rim);
+  -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); box-shadow:inset 1px 1px 2px rgba(255,255,255,.5), 0 6px 18px rgba(0,0,0,.25)}
+.btn[disabled]{opacity:.5; cursor:not-allowed; filter:saturate(.6)}
+.btn.busy{cursor:wait}
+.linkbtn{display:block; margin:14px auto 0; background:none; border:0; color:var(--muted); font:inherit; font-size:13px; text-decoration:underline; cursor:pointer; padding:6px}
+.banner{display:none; margin-bottom:14px; padding:12px 14px; border-radius:18px; font-size:13.5px; line-height:1.5; background:rgba(255,77,94,.2); border:1px solid rgba(255,120,130,.6); color:#ffd6d9}
+.banner.show{display:block}
+.banner.ok{background:rgba(43,224,122,.2); border-color:rgba(43,224,122,.6); color:#d2fbe2}
+.note{margin:12px 0 0; font-size:11.5px; color:var(--muted); text-align:center; line-height:1.5}
+.hp{position:absolute !important; left:-9999px; width:1px; height:1px; overflow:hidden}
+
+/* steps */
+.steps{display:flex; gap:6px; margin:0 0 16px}
+.steps i{flex:1; height:5px; border-radius:99px; background:rgba(255,255,255,.2)}
+.steps i.on{background:linear-gradient(90deg,var(--gold),var(--gold2)); box-shadow:0 0 10px rgba(255,210,94,.6)}
+
+/* ---------- seat picker ---------- */
+.seg{display:flex; gap:8px; overflow-x:auto; padding:2px 2px 6px; margin:0 -2px}
+.seg button{flex:1 0 140px; text-align:left; font:inherit; color:#fff; padding:10px 12px; border-radius:18px; cursor:pointer; -webkit-appearance:none;
+  background:linear-gradient(135deg,rgba(255,255,255,.14),rgba(255,255,255,.05)); border:1px solid rgba(255,255,255,.22); box-shadow:inset 1px 1px 2px rgba(255,255,255,.35)}
+.seg button b{display:block; font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--muted)}
+.seg button span{display:block; font-size:14px; font-weight:700; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-top:2px}
+.seg button em{display:inline-block; margin-top:6px; font-style:normal; font-size:13px; font-weight:800; padding:2px 10px; border-radius:99px; background:rgba(0,0,0,.3)}
+.seg button.on{border-color:var(--gold); box-shadow:0 0 0 2px rgba(255,210,94,.4), inset 1px 1px 2px rgba(255,255,255,.5)}
+.seg button.on b{color:var(--gold)}
+.seg button[data-g="0"] em.has{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00}
+.seg button[data-g="1"] em.has{background:linear-gradient(180deg,#7dfbb0,#1fbf6a); color:#04210f}
+.seg button[data-g="2"] em.has{background:linear-gradient(180deg,#9be8ff,#2aa8d8); color:#04212f}
+.seg button[data-g="3"] em.has{background:linear-gradient(180deg,#ffb0ec,#e052bd); color:#2f0426}
+.legend{display:flex; flex-wrap:wrap; gap:6px 14px; margin:10px 2px 8px; font-size:11.5px; color:var(--muted)}
+.legend span{display:inline-flex; align-items:center; gap:6px}
+.legend i{width:14px; height:13px; border-radius:5px 5px 3px 3px; display:inline-block; border:1px solid rgba(255,255,255,.35); background:rgba(255,255,255,.2)}
+.legend i.t{background:rgba(255,77,94,.3); border-color:rgba(255,77,94,.5)}
+.legend i.s{background:linear-gradient(180deg,#ffe58f,var(--gold2)); border-color:#ffe58f}
+.map{border-radius:22px; background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.14); box-shadow:inset 0 4px 14px rgba(0,0,0,.4); position:relative}
+.pan{overflow-x:auto; overflow-y:hidden; -webkit-overflow-scrolling:touch; cursor:grab; scrollbar-width:none; touch-action:pan-x pan-y; border-radius:22px}
+.pan::-webkit-scrollbar{display:none}
+.pan.drag{cursor:grabbing}
+.hall{width:max-content; margin:0 auto; padding:14px 16px 16px}
+.screen{height:34px; margin:0 26px 4px; border-top:4px solid rgba(255,255,255,.9); border-radius:50% 50% 0 0 / 100% 100% 0 0; box-shadow:0 -10px 28px rgba(255,255,255,.4); opacity:.9}
+.screen-l{text-align:center; font-size:10.5px; letter-spacing:.5em; color:var(--muted); margin:0 0 12px; font-weight:700}
+.sr{display:flex; align-items:center; gap:6px; margin-bottom:8px}
+.sr .rl{width:18px; text-align:center; font-size:11px; font-weight:800; color:var(--muted); flex:none}
+.sr .gap{width:22px; flex:none}
+.seat{flex:none; width:32px; height:30px; padding:0; border-radius:11px 11px 7px 7px; color:#fff; font:700 12px/1 'Montserrat',system-ui,sans-serif; cursor:pointer; -webkit-appearance:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.30),rgba(255,255,255,.09)); border:1px solid rgba(255,255,255,.38);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.6), 0 3px 8px rgba(0,0,0,.3); transition:transform .12s, background .15s}
+.seat:hover{background:linear-gradient(180deg,rgba(255,255,255,.45),rgba(255,255,255,.15))}
+.seat:active{transform:scale(.88)}
+.seat.taken{background:rgba(255,77,94,.22); border-color:rgba(255,77,94,.45); opacity:.55; cursor:not-allowed; box-shadow:none; color:transparent}
+.seat.g0,.seat.g1,.seat.g2,.seat.g3{border-color:rgba(255,255,255,.8); transform:translateY(-2px)}
+.seat.g0{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00; box-shadow:0 0 16px rgba(255,210,94,.8), inset 0 1px 0 rgba(255,255,255,.8)}
+.seat.g1{background:linear-gradient(180deg,#7dfbb0,#1fbf6a); color:#04210f; box-shadow:0 0 16px rgba(43,224,122,.8), inset 0 1px 0 rgba(255,255,255,.8)}
+.seat.g2{background:linear-gradient(180deg,#9be8ff,#2aa8d8); color:#04212f; box-shadow:0 0 16px rgba(89,216,255,.8), inset 0 1px 0 rgba(255,255,255,.8)}
+.seat.g3{background:linear-gradient(180deg,#ffb0ec,#e052bd); color:#2f0426; box-shadow:0 0 16px rgba(255,122,217,.8), inset 0 1px 0 rgba(255,255,255,.8)}
+.pickline{margin:12px 0 14px; font-size:14px; line-height:1.6; text-align:center; color:#fff}
+.pickline b{color:var(--gold)}
+
+/* ---------- tickets ---------- */
+.done-h{text-align:center; margin-bottom:12px}
+.done-h h3{margin:0 0 4px; font-size:21px; font-weight:800}
+.done-h p{margin:0 auto; color:#e6f2ea; font-size:14px; line-height:1.55; max-width:38ch}
+.tk{margin:16px 0 0; padding:10px 10px 12px; border-radius:26px}
+.tk img{display:block; width:100%; max-width:340px; margin:0 auto; height:auto; border-radius:18px; box-shadow:0 10px 30px rgba(0,0,0,.5); -webkit-touch-callout:default; -webkit-user-select:auto; user-select:auto}
+.tk .ph{height:300px; display:grid; place-items:center; color:var(--muted); font-size:13px}
+.tk .act{display:flex; gap:8px; margin:12px 4px 0; flex-wrap:wrap}
+.tk .act .btn{flex:1; min-width:140px; min-height:46px; font-size:13.5px; margin:0}
+.tk .tip{margin:8px 0 0; text-align:center; font-size:11.5px; color:var(--muted)}
+.noseat{margin:16px 0 0; padding:16px; text-align:center; border-radius:22px}
+.noseat b{display:block; font-size:15px; margin-bottom:10px}
+.caltitle{margin:22px 0 0; font-size:12px; letter-spacing:.14em; text-transform:uppercase; color:var(--gold); font-weight:700; text-align:center}
+
+/* ---------- manage ---------- */
+details.manage{margin-top:16px; padding:0}
+details.manage summary{list-style:none; cursor:pointer; padding:18px; display:flex; align-items:center; gap:12px; -webkit-tap-highlight-color:transparent}
+details.manage summary::-webkit-details-marker{display:none}
+details.manage summary .st{flex:1}
+details.manage summary b{display:block; font-size:15px; font-weight:700}
+details.manage summary small{display:block; margin-top:2px; font-size:12.5px; color:var(--muted); line-height:1.4}
+details.manage summary svg{flex:none; width:20px; height:20px; stroke:var(--gold); fill:none; stroke-width:2.2; stroke-linecap:round; stroke-linejoin:round; transition:transform .2s}
+details.manage[open] summary svg{transform:rotate(180deg)}
+.m-body{padding:4px 18px 20px}
+.grow{padding:14px; margin-bottom:10px; border-radius:20px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.ginfo b{display:block; font-size:16px; font-weight:700; letter-spacing:.03em}
+.ginfo small{display:block; margin-top:2px; font-size:12px; color:var(--muted)}
+.gact{display:flex; gap:8px; margin-top:10px; flex-wrap:wrap}
+.sbtn{flex:1; min-width:110px; min-height:44px; padding:0 12px; font:inherit; font-size:13.5px; font-weight:700; border-radius:999px; cursor:pointer; -webkit-appearance:none; color:#fff;
+  background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)); border:1px solid var(--rim); box-shadow:inset 1px 1px 2px rgba(255,255,255,.4)}
+.sbtn.gold{color:#2a1d00; background:linear-gradient(180deg,#ffe58f,var(--gold2)); border-color:#ffe58f}
+.sbtn.danger{color:#ffe0e2; background:linear-gradient(135deg,rgba(255,77,94,.45),rgba(150,15,30,.3)); border-color:rgba(255,130,140,.7)}
+.sbtn[disabled]{opacity:.6; cursor:wait}
+.gq{font-size:13.5px; line-height:1.5; margin:10px 0 0}
+.grow .inp{height:48px; margin-top:10px}
+
+/* ---------- footer ---------- */
+.closing{max-width:600px; margin:22px 12px 0; padding:20px; text-align:center; font-size:15px; line-height:1.65}
+@media(min-width:640px){ .closing{margin-left:auto; margin-right:auto} }
+.closing b{display:block; margin-top:8px; color:var(--gold); font-weight:700}
+footer{max-width:1080px; margin:0 auto; padding:20px 16px calc(32px + env(safe-area-inset-bottom)); text-align:center; color:var(--muted); font-size:13px; line-height:1.75}
+footer .inq b{color:#fff; font-weight:700}
+footer a{color:var(--gold); font-weight:700; text-decoration:none; white-space:nowrap}
+footer .brand{margin-top:10px; padding-top:12px; border-top:1px solid rgba(255,255,255,.16); font-size:12.5px; color:#e1efe6}
+footer .brand b{color:#fff}
+@media(prefers-reduced-motion:reduce){*{transition:none !important}}
+
+/* ===== v4 ===== */
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.page{grid-template-columns:1fr !important; max-width:780px; gap:16px}
+.logo-a{display:block; flex:none; -webkit-tap-highlight-color:transparent}
+.sub{font-size:15px; font-weight:500}
+.note-other{margin-top:6px; font-size:12px; color:var(--gold); line-height:1.4}
+.cb-list li.other{border-top:1px solid rgba(255,255,255,.16); margin-top:4px; color:var(--gold); font-weight:700}
+.cb .ok.pen{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00}
+.free{display:flex; gap:8px; margin-top:10px}
+.free .btn{margin:0}
+.seatnote{margin:8px 2px 0; font-size:12px; color:var(--muted); text-align:center; line-height:1.5}
+.sr .seat{font-size:11px; font-weight:600}
+.seat.taken{color:rgba(255,255,255,.0)}
+.sr .sp{width:32px; flex:none}
+.legend span.lb-l{display:inline-flex}
+/* ticket carousel */
+.card,#manage{scroll-margin-top:96px}
+.car{padding-top:6px !important; padding-bottom:26px !important; margin-bottom:-14px !important; display:flex; overflow-x:auto; scroll-snap-type:x mandatory; -webkit-overflow-scrolling:touch; gap:12px; scrollbar-width:none; margin:0 -4px; padding:0 4px}
+.car::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%; scroll-snap-align:center; min-width:0}
+.thumb{display:block; width:100%; padding:6px; border-radius:22px; border:1px solid var(--rim); background:var(--glass); cursor:zoom-in; -webkit-appearance:none; box-shadow:0 8px 20px rgba(0,0,0,.4), inset 1px 1px 2px rgba(255,255,255,.45)}
+.thumb img{display:block; width:100%; aspect-ratio:16/9; height:auto; border-radius:16px}
+.thumb .ph{aspect-ratio:16/9; display:grid; place-items:center; color:var(--muted); font-size:13px}
+.thumb .zoom{position:absolute}
+.dots{display:flex; justify-content:center; gap:7px; margin:12px 0 4px; min-height:8px}
+.dots i{width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.3); transition:.2s}
+.dots i.on{background:var(--gold); width:22px; border-radius:99px}
+.swipe{text-align:center; font-size:11.5px; color:var(--muted); margin:0 0 10px}
+.lb{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:16px; background:rgba(2,10,6,.78); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
+.lb-in{width:min(420px,100%); max-height:100%; display:flex; flex-direction:column; gap:10px; align-items:center}
+.lb img{display:block; max-width:100%; max-height:calc(100vh - 150px); max-height:calc(100dvh - 150px); width:auto; height:auto; border-radius:20px; box-shadow:0 8px 24px rgba(0,0,0,.5); -webkit-touch-callout:default}
+.lb-act{display:flex; gap:10px; width:100%}
+.lb-act .btn{margin:0; min-height:48px; font-size:14px}
+/* v5 */
+.calrow{display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px}
+.calrow .btn{margin:0; min-height:52px; font-size:14px; padding:0 10px; text-align:center; line-height:1.2}
+.lbnote{margin:0; padding:10px 14px; border-radius:16px; font-size:13.5px; font-weight:700; text-align:center; color:#2a1d00; background:linear-gradient(180deg,#ffe58f,var(--gold2)); width:100%}
+.reg-note{margin:12px 0 0; padding:11px 14px; border-radius:16px; font-size:13.5px; font-weight:600; line-height:1.45; text-align:center; background:rgba(255,210,94,.16); border:1px solid rgba(255,210,94,.5); color:#fff2c4}
+.cb-list li .k{display:inline-block; width:26px}
+.cb-list li small{display:block; color:var(--muted); font-size:12px; margin-left:26px}
+/* v6 */
+.trailer{display:flex; align-items:center; gap:14px; padding:12px 16px 12px 12px; text-decoration:none; color:#fff; border-radius:24px; -webkit-tap-highlight-color:transparent}
+.trailer .th{position:relative; flex:none; width:132px; aspect-ratio:16/9; border-radius:14px; overflow:hidden; background:#05200f; display:grid; place-items:center; box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.trailer .th img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
+.trailer .th b{position:relative; width:34px; height:34px; border-radius:50%; display:grid; place-items:center; background:linear-gradient(180deg,#ffe58f,var(--gold2)); opacity:.95; color:#2a1d00; font-size:15px; padding-left:3px; box-shadow:0 3px 12px rgba(0,0,0,.5)}
+.trailer .tt{flex:1; font-size:15px; font-weight:700; line-height:1.35}
+.trailer .tt small{display:block; margin-top:3px; font-size:12px; font-weight:500; color:var(--muted)}
+.trailer .arr{flex:none; color:var(--gold); font-size:20px}
+.btn.soft[disabled]{background:rgba(130,130,130,.22); color:rgba(255,255,255,.38); border-color:rgba(255,255,255,.12); box-shadow:none; opacity:1; filter:none}
+.pform{display:flex; gap:8px; align-items:stretch}
+.pform .inp{flex:1; min-width:0}
+.pform .btn{flex:none; width:auto; min-height:52px; padding:0 18px; margin:0; font-size:13.5px}
+.fb{margin-top:16px; padding-top:14px; border-top:1px solid rgba(255,255,255,.16)}
+.fb .hint{margin:0 0 10px; color:#fff2c4}
+/* manage rows */
+.mrow{padding:10px 12px; margin-bottom:8px; border-radius:18px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.18); box-shadow:inset 0 1px 0 rgba(255,255,255,.25)}
+.mline{display:flex; align-items:center; gap:10px}
+.mline .who{flex:1; min-width:0}
+.mline .who b{display:block; font-size:15px; font-weight:700; letter-spacing:.02em; line-height:1.25; word-break:break-word}
+.mline .who small{display:block; margin-top:1px; font-size:12px; color:var(--muted)}
+.ico{display:flex; gap:5px; flex:none}
+.ib{width:39px; height:39px; display:grid; place-items:center; border-radius:50%; cursor:pointer; padding:0; -webkit-appearance:none; color:#fff;
+  background:linear-gradient(135deg,rgba(255,255,255,.22),rgba(255,255,255,.07)); border:1px solid var(--rim); box-shadow:inset 1px 1px 2px rgba(255,255,255,.45)}
+.ib svg{width:19px; height:19px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+.ib.del{color:#ffb3b9; border-color:rgba(255,130,140,.7); background:linear-gradient(135deg,rgba(255,77,94,.4),rgba(150,15,30,.25))}
+.ib[disabled]{opacity:.5}
+.mrow .inp{height:46px; margin-top:10px}
+.mrow .gact{margin-top:8px}
+.alllink{display:block; margin:6px auto 0; background:none; border:0; color:#ffb3b9; font:inherit; font-size:13px; text-decoration:underline; cursor:pointer; padding:8px}
+</style>
+</head>
+<body>
+<div class="ambient" aria-hidden="true"></div>
+
+<header class="top glass">
+  <div class="top-in">
+    <a class="logo-a" id="home" href="./" aria-label="CIMB Niaga – home"><img class="logo" src="assets/logo-white.png" alt="CIMB Niaga" width="640" height="98"></a>
+    <div class="dept">
+      <strong>Treasury &amp; Financial Institutions</strong>
+      <span>Treasury Sales &amp; Distribution</span>
+    </div>
+  </div>
+</header>
+
+<main class="page">
+  <h1 class="sr-only">Year End Dinner &amp; Movie Night – Avengers: Doomsday</h1>
+  <figure class="hero glass" style="margin:0">
+    <div class="lang glass" role="group" aria-label="Language">
+      <button type="button" data-lang="en" aria-pressed="true">EN</button>
+      <button type="button" data-lang="id" aria-pressed="false">ID</button>
+    </div>
+    <img id="kv" src="assets/kv-en.jpg" width="1672" height="941" alt="Year End Dinner &amp; Movie Night – Avengers: Doomsday">
+  </figure>
+
+  <a class="trailer glass" href="https://youtu.be/0iMvTIxFRPk?si=xGI-GbytzfkL_CTE" target="_blank" rel="noopener">
+    <span class="th"><img src="assets/trailer.jpg" alt="Avengers: Doomsday – Final Trailer"><b>▶</b></span>
+    <span class="tt"><span data-i18n="trailer">Watch Avengers: Doomsday trailer here</span><small>YouTube</small></span>
+    <span class="arr" aria-hidden="true">↗</span>
+  </a>
+
+  <section>
+    <div class="card glass" id="card">
+
+      <!-- VIEW 1: RSVP form -->
+      <form id="form" novalidate>
+        <p class="sub"><span aria-hidden="true">📌</span> <b>RSVP:</b> <span data-i18n="sub">Please confirm your attendance by providing the names of the guest</span></p>
+        <div class="banner" id="banner" role="alert"></div>
+
+        <label class="switch" for="indiv">
+          <span class="sw-text"><b data-i18n="indiv">Individual client</b><small data-i18n="indivHint">No company name needed, 1 guest only.</small></span>
+          <input id="indiv" type="checkbox" role="switch">
+          <span class="track" aria-hidden="true"><span class="knob"></span></span>
+        </label>
+
+        <div class="field" id="f-company">
+          <label class="l" for="company" data-i18n="company">Company name</label>
+          <div class="cb">
+            <input class="inp" id="company" type="text" role="combobox" aria-expanded="false" aria-controls="cbList" aria-autocomplete="list" autocomplete="off" autocapitalize="words" spellcheck="false" maxlength="120" data-i18n-ph="phCompany" placeholder="e.g. adi…">
+            <span class="ok" id="cbOk" hidden>✓</span>
+            <ul class="cb-list" id="cbList" role="listbox" hidden></ul>
+          </div>
+          <div class="hint" data-i18n="companyHint">Not listed? Type “Other”, then enter your company name.</div>
+          <div class="err"></div>
+        </div>
+        <div class="field" id="f-company2" hidden>
+          <label class="l" for="company2" data-i18n="company2">Your company name</label>
+          <input class="inp" id="company2" type="text" autocomplete="organization" autocapitalize="words" maxlength="120" data-i18n-ph="phManual" placeholder="Type your full company name">
+          <div class="err"></div>
+        </div>
+
+        <div class="pair">
+          <div class="field" id="f-g1">
+            <label class="l" for="g1"><span data-i18n="guest1">Guest 1</span> <span class="opt" data-i18n="required">(required)</span></label>
+            <input class="inp" id="g1" type="text" autocomplete="name" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
+            <div class="err"></div>
+          </div>
+          <div class="field" id="f-g2">
+            <label class="l" for="g2"><span data-i18n="guest2">Guest 2</span> <span class="opt" data-i18n="optional">(optional)</span></label>
+            <input class="inp" id="g2" type="text" autocomplete="off" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
+          </div>
+        </div>
+
+        <div class="field" id="f-phone">
+          <label class="l" for="phone"><span data-i18n="phone">Phone / WhatsApp number</span> <span class="opt" data-i18n="required">(required)</span></label>
+          <input class="inp" id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="081188007686">
+          <div class="hint" data-i18n="phoneHint">Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.</div>
+          <div class="err"></div>
+        </div>
+
+        <div class="hp" aria-hidden="true"><label>Website <input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
+
+        <button class="btn gold" id="submit" type="submit"><span data-i18n="submit">Confirm attendance</span></button>
+        <p class="note" data-i18n="privacy">Your details are used only for this event's arrangements.</p>
+      </form>
+
+      <!-- VIEW 2: seat picker -->
+      <div id="seatView" hidden>
+        <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></div>
+        <h2 style="margin:0"><span data-i18n="seatTitle">Choose your seats</span> 🎟️</h2>
+        <p class="sub" data-i18n="seatSub">Swipe the map to look around, then tap a seat for each guest.</p>
+        <div class="banner" id="sMsg" role="alert"></div>
+        <div class="seg" id="seg"></div>
+        <div class="legend">
+          <span><i></i><span data-i18n="lgFree">Available</span></span>
+          <span><i class="t"></i><span data-i18n="lgTaken">Taken</span></span>
+          <span><i class="s"></i><span data-i18n="lgYours">Your seat</span></span>
+        </div>
+        <div class="map glass"><div class="pan" id="pan"><div class="hall" id="hall"></div></div></div>
+        <p class="pickline" id="pickline"></p>
+        <button class="btn gold" id="seatOk" type="button" disabled><span data-i18n="seatConfirm">Confirm seats &amp; get tickets</span></button>
+        <button class="btn soft" id="seatFree" type="button"><span data-i18n="seatFree">Free seating (no booking)</span></button>
+        <p class="seatnote" data-i18n="freeNote">Free seating: no assigned seat, sit anywhere available on the night.</p>
+      </div>
+
+      <!-- VIEW 3: tickets -->
+      <div id="tickets" hidden>
+        <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
+        <div class="done-h"><h3 id="doneTitle"></h3><p id="doneText"></p></div>
+        <div class="car" id="car"></div>
+        <div class="dots" id="dots"></div>
+        <p class="swipe" id="swipe" hidden data-i18n="swipe">Swipe to see the next ticket · tap a ticket to enlarge</p>
+        <p class="reg-note" id="regNote" data-i18n="regNote">Please save your ticket and show it at the registration table.</p>
+        <button class="btn gold" id="saveCur" type="button" disabled style="margin-top:12px">💾 <span data-i18n="saveTicket">Save ticket</span></button>
+        <div class="caltitle">📅 <span data-i18n="calTitle">Save the date to your calendar</span></div>
+        <div class="calrow">
+          <a class="btn soft" id="calApple" href="event.ics" download="Year-End-Dinner-Movie-Night.ics">📱 <span data-i18n="calApple">iPhone</span></a>
+          <a class="btn soft" id="calGoogle" href="#" target="_blank" rel="noopener">🤖 <span><span data-i18n="calAnd">Android</span><small style="display:block;font-weight:600;font-size:11px;letter-spacing:.02em;text-transform:none" data-i18n="calGoogle2">Google Calendar</small></span></a>
+        </div>
+      </div>
+    </div>
+
+    <!-- CANCEL / AMEND -->
+    <details class="manage glass" id="manage">
+      <summary>
+        <span class="st"><b data-i18n="mTitle">Cancel or amend booking</b><small data-i18n="mSub">Already registered? Enter your phone number to change a name, change a seat, download your ticket or cancel.</small></span>
+        <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M4 7l6 6 6-6"/></svg>
+      </summary>
+      <div class="m-body">
+        <div class="banner" id="mMsg" role="status"></div>
+        <div class="field">
+          <label class="l" for="mPhone" data-i18n="mPhoneL">Phone number used when registering</label>
+          <div class="pform">
+            <input class="inp" id="mPhone" type="tel" inputmode="tel" autocomplete="off" maxlength="20" placeholder="081188007686">
+            <button class="btn gold" id="mFind" type="button"><span data-i18n="mFind">Find</span></button>
+          </div>
+        </div>
+        <div class="fb" id="mFallback" hidden>
+          <p class="hint" data-i18n="mFallbackHint">Number not found 3 times. You can now search by company / customer name.</p>
+          <div class="field" style="margin-bottom:0">
+            <label class="l" for="mSearch" data-i18n="mCompany">Company / customer name</label>
+            <div class="cb">
+              <input class="inp" id="mSearch" type="text" role="combobox" aria-expanded="false" aria-controls="mResults" aria-autocomplete="list" autocomplete="off" spellcheck="false" maxlength="120" data-i18n-ph="mSearchPh" placeholder="Type at least 3 letters, e.g. jay…">
+              <ul class="cb-list" id="mResults" role="listbox" hidden></ul>
+            </div>
+          </div>
+        </div>
+        <div id="mList" aria-live="polite" style="margin-top:14px"></div>
+      </div>
+    </details>
+  </section>
+</main>
+
+<div class="closing glass">
+  <span data-i18n="closing1">Let's enjoy a great dinner, an epic movie, and a fun evening together!</span><br>
+  <span data-i18n="closing2">See you there!</span> 🦸‍♂️🦸‍♀️
+</div>
+
+<footer>
+  <div class="inq"><span data-i18n="inq">For inquiry please contact</span> <b>Errica Ariane</b><br>
+    WhatsApp <a href="https://wa.me/628129213691" target="_blank" rel="noopener">+62 812-9213-691</a></div>
+  <div class="brand"><b>CIMB Niaga</b> · Treasury &amp; Financial Institutions</div>
+</footer>
+
+<div class="lb" id="lb" hidden role="dialog" aria-modal="true">
+  <div class="lb-in">
+    <p class="lbnote" id="lbNote" hidden></p>
+    <img id="lbImg" alt="Ticket">
+    <div class="lb-act">
+      <button class="btn gold" id="lbSave" type="button">💾 <span data-i18n="saveTicket">Save ticket</span></button>
+      <button class="btn soft" id="lbClose" type="button"><span data-i18n="close">Close</span></button>
+    </div>
+  </div>
+</div>
+
+<noscript><p style="padding:16px;text-align:center;color:#fff">Please enable JavaScript to submit your RSVP.</p></noscript>
+<script>
+/* =====================  EDIT HERE  ===================== */
+const CONFIG = {
+  SUPABASE_URL: "https://YOUR-PROJECT-REF.supabase.co",   // Supabase > Project Settings > API > Project URL
+  SUPABASE_KEY: "YOUR-ANON-OR-PUBLISHABLE-KEY",           // anon (public) key atau sb_publishable_... JANGAN service_role
+  MIN_CHARS: 3,                                           // minimal huruf sebelum saran perusahaan muncul
+  STUDIO: "4",                                            // nomor studio di tiket (Cinema 4)
+  CGV_LOGO: "assets/cgv-logo.png",                        // opsional: kalau file ini ada, logo muncul di tiket portrait
+  KV: { en: "assets/kv-en.jpg", id: "assets/kv-id.jpg" },
+  WHATSAPP: "https://wa.me/628129213691",
+  EVENT: {
+    title: "Year End Dinner & Movie Night - CIMB Niaga Treasury & FI",
+    start: "20261217T103000Z",   // 17 Dec 2026 17:30 WIB (UTC+7) = Registration
+    end:   "20261217T153000Z",   // 17 Dec 2026 22:30 WIB (perkiraan selesai)
+    location: "CGV Pacific Place, 6th Floor, Pacific Place Mall, Jl. Jend. Sudirman Kav. 52-53, SCBD, Jakarta",
+    description: "Treasury CIMB Niaga Movie Night - Customer Gathering.\n\n17.30 WIB - Registration\n18.00 WIB - Dinner\n19.30 WIB - Movie Time: Avengers: Doomsday\n\n1 invitation for 2 persons."
+  }
+};
+/* Layout Cinema 4 (samakan dengan SQL assign_seats): A=1-14, B-H & J=3-15, K=3-15 tanpa 9. Tidak ada baris I. */
+const ROWS_TOP_DOWN = "KJHGFEDCBA".split("");   // K paling dekat layar (atas), A paling belakang
+const MAXCOL = 15;
+function seatValid(r, n){
+  if (r === "A") return n >= 1 && n <= 14;
+  if (r === "K") return n >= 3 && n <= 15 && n !== 9;
+  return n >= 3 && n <= 15;
+}
+/* ====================================================== */
+
+const I18N = {
+  en: {
+    sub:"Please confirm your attendance by providing the names of the guest",
+    indiv:"Individual client", indivHint:"No company name needed, 1 guest only.", indivLabel:"Individual client",
+    company:"Company name", phCompany:"e.g. adi…",
+    companyHint:"Not listed? Type “Other”, then enter your company name.",
+    otherOpt:"Other (my company is not listed)", company2:"Your company name", phManual:"Type your full company name",
+    guest1:"Guest 1", guest2:"Guest 2", required:"(required)", optional:"(optional)", phName:"Full name",
+    errCompanyShort:"Please type at least 3 letters of your company name.",
+    errPick:"Please pick your company from the list, or type “Other” and enter your company name.",
+    errG1:"Please enter the guest name.",
+    submit:"Confirm attendance", sending:"Sending…",
+    privacy:"Your details are used only for this event's arrangements.",
+    seatTitle:"Choose your seats", seatSub:"Swipe the map to look around, then tap a seat for each guest.",
+    lgFree:"Available", lgTaken:"Taken", lgYours:"Your seat", guestWord:"Guest",
+    seatConfirm:"Confirm seats & get tickets", seatFree:"Free seating (no booking)", seatSaving:"Saving…",
+    freeNote:"Free seating: no assigned seat, sit anywhere available on the night.",
+    pickNone:"Tap a seat on the map, or choose free seating.", pickOf:"Seats", freeSeat:"Free seating",
+    errTaken:"Sorry, that seat was just taken by someone else. Please choose another one.",
+    doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.",
+    updated:"Your registration has been updated.",
+    saveTicket:"Save ticket", close:"Close", swipe:"Swipe to see the next ticket · tap a ticket to enlarge",
+    tkLoading:"Preparing ticket…", tkError:"Couldn't create the ticket image.",
+    calTitle:"Save the date to your calendar", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
+    mSearchPh:"Type at least 3 letters, e.g. jay…", mDownload:"Download ticket", mUpdated:"Updated! Please save your new ticket.", mTypeMore:"Type at least 3 letters.", mNoRes:"No registration found.", kCompany:"Company", kIndividual:"Individual",
+    mTitle:"Cancel or amend booking", mSub:"Already registered? Enter your phone number to change a name, change a seat, download your ticket or cancel.",
+    mCompany:"Company / customer name",
+    mNone:"No active registration found.", mAmend:"Change name", mSeatBtn:"Change seat", mCancel:"Cancel booking",
+    mSave:"Save", mBack:"Back", mYes:"Yes, cancel", mKeep:"Keep", mAll:"Cancel both guests",
+    mConfirmCancel:"Cancel this guest's booking? Their seat will be released.", mConfirmAll:"Cancel the booking for all guests listed?",
+    mNewName:"New full name", mAmended:"Name updated.", mCancelled:"Booking cancelled.", mSeatDone:"Seat updated.", mRegistered:"Registered",
+    mPrivacy:"Names are partially hidden for privacy.", loading:"Loading…", seatWord:"Seat",
+    errQuota:"This company already has the maximum of 2 guests registered. To change names or cancel, use the section below.",
+    errDup:"That name is already registered under this company.",
+    errInvalid:"Please check the names entered.",
+    errNotListed:"Please contact Errica Ariane on WhatsApp.",
+    errNet:"Sorry, that didn't go through. Please check your connection and try again.",
+    errCfg:"Setup needed: please set SUPABASE_URL and SUPABASE_KEY in index.html.",
+    closing1:"Let's enjoy a great dinner, an epic movie, and a fun evening together!", closing2:"See you there!",
+    inq:"For inquiry please contact"
+  },
+  id: {
+    sub:"Mohon konfirmasi kehadiran dengan menginformasikan nama tamu yang akan hadir",
+    indiv:"Nasabah individu", indivHint:"Tidak perlu nama perusahaan, cukup 1 tamu.", indivLabel:"Nasabah individu",
+    company:"Nama perusahaan", phCompany:"mis. adi…",
+    companyHint:"Tidak ada di daftar? Ketik “Other”, lalu isi nama perusahaan Anda.",
+    otherOpt:"Other (perusahaan saya tidak ada di daftar)", company2:"Nama perusahaan Anda", phManual:"Ketik nama lengkap perusahaan",
+    guest1:"Tamu 1", guest2:"Tamu 2", required:"(wajib)", optional:"(opsional)", phName:"Nama lengkap",
+    errCompanyShort:"Mohon ketik minimal 3 huruf nama perusahaan Anda.",
+    errPick:"Mohon pilih perusahaan dari daftar, atau ketik “Other” lalu isi nama perusahaan Anda.",
+    errG1:"Mohon isi nama tamu.",
+    submit:"Konfirmasi hadir", sending:"Mengirim…",
+    privacy:"Data Anda hanya digunakan untuk keperluan acara ini.",
+    seatTitle:"Pilih kursi Anda", seatSub:"Geser peta untuk melihat seluruh kursi, lalu ketuk kursi untuk setiap tamu.",
+    lgFree:"Tersedia", lgTaken:"Terisi", lgYours:"Kursi Anda", guestWord:"Tamu",
+    seatConfirm:"Konfirmasi kursi & ambil tiket", seatFree:"Free seating (tanpa booking kursi)", seatSaving:"Menyimpan…",
+    freeNote:"Free seating: tidak ada kursi khusus, duduk di kursi mana saja yang tersedia.",
+    pickNone:"Ketuk kursi pada peta, atau pilih free seating.", pickOf:"Kursi", freeSeat:"Free seating",
+    errTaken:"Maaf, kursi itu baru saja diambil orang lain. Silakan pilih kursi lain.",
+    doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.",
+    updated:"Data pendaftaran Anda sudah diperbarui.",
+    saveTicket:"Simpan tiket", close:"Tutup", swipe:"Geser untuk tiket berikutnya · ketuk tiket untuk memperbesar",
+    tkLoading:"Menyiapkan tiket…", tkError:"Gagal membuat gambar tiket.",
+    calTitle:"Simpan ke kalender Anda", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
+    mSearchPh:"Ketik minimal 3 huruf, mis. jay…", mDownload:"Unduh tiket", mUpdated:"Berhasil diubah! Mohon simpan tiket baru Anda.", mTypeMore:"Ketik minimal 3 huruf.", mNoRes:"Tidak ada pendaftaran ditemukan.", kCompany:"Perusahaan", kIndividual:"Individu",
+    mTitle:"Batal atau ubah booking", mSub:"Sudah mendaftar? Masukkan nomor HP Anda untuk ganti nama, ganti kursi, unduh tiket atau batal.",
+    mCompany:"Perusahaan / nama nasabah",
+    mNone:"Tidak ada pendaftaran aktif.", mAmend:"Ganti nama", mSeatBtn:"Ganti kursi", mCancel:"Batalkan booking",
+    mSave:"Simpan", mBack:"Kembali", mYes:"Ya, batalkan", mKeep:"Tidak", mAll:"Batalkan kedua tamu",
+    mConfirmCancel:"Batalkan booking tamu ini? Kursinya akan dilepas.", mConfirmAll:"Batalkan booking semua tamu yang tampil?",
+    mNewName:"Nama lengkap baru", mAmended:"Nama berhasil diganti.", mCancelled:"Booking dibatalkan.", mSeatDone:"Kursi berhasil diganti.", mRegistered:"Terdaftar",
+    mPrivacy:"Nama disamarkan sebagian demi privasi.", loading:"Memuat…", seatWord:"Kursi",
+    errQuota:"Perusahaan ini sudah memiliki 2 tamu terdaftar (maksimal). Untuk ganti nama atau batal, gunakan bagian di bawah.",
+    errDup:"Nama tersebut sudah terdaftar di perusahaan ini.",
+    errInvalid:"Mohon periksa kembali nama yang diisi.",
+    errNotListed:"Mohon hubungi Errica Ariane via WhatsApp.",
+    errNet:"Maaf, belum berhasil. Periksa koneksi internet Anda lalu coba lagi.",
+    errCfg:"Perlu setup: isi SUPABASE_URL dan SUPABASE_KEY di index.html.",
+    closing1:"Mari nikmati makan malam yang istimewa, film yang epik, dan malam yang menyenangkan bersama!", closing2:"Sampai jumpa!",
+    inq:"Untuk informasi lebih lanjut, hubungi"
+  }
+};
+
+const $ = (s) => document.querySelector(s);
+const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
+const state = { lang:"en", view:"form", reg:null };
+const M = { sel:null, guests:null, results:[], seq:0, timer:null, mode:"phone", phone:"" };
+function normPhone(v){ let d = String(v || "").replace(/\D/g, ""); if (d.startsWith("62")) d = "0" + d.slice(2); else if (d.startsWith("8")) d = "0" + d; return d; }
+function t(k){ return (I18N[state.lang] && I18N[state.lang][k]) || I18N.en[k] || k; }
+
+function applyLang(){
+  document.documentElement.lang = state.lang;
+  document.querySelectorAll("[data-i18n]").forEach(e => { e.textContent = t(e.dataset.i18n); });
+  document.querySelectorAll("[data-i18n-ph]").forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
+  $("#kv").src = CONFIG.KV[state.lang] || CONFIG.KV.en;
+  if (M.guests) renderGuests();
+  if (state.view === "seats") { renderSeg(); renderPick(); }
+  if (state.view === "tickets") renderTickets();
+  const s = $("#submit"); if (!s.disabled) s.firstElementChild.textContent = t("submit");
+}
+function setLang(l){ state.lang = l; try { localStorage.setItem("rsvp_lang", l); } catch(e){} applyLang(); }
+function googleUrl(){
+  const e = CONFIG.EVENT;
+  const p = new URLSearchParams({ action:"TEMPLATE", text:e.title, dates:e.start + "/" + e.end, details:e.description, location:e.location, ctz:"Asia/Jakarta" });
+  return "https://calendar.google.com/calendar/render?" + p.toString();
+}
+
+/* ---------- Supabase RPC ---------- */
+async function rpc(name, body){
+  if (/YOUR-PROJECT|YOUR-ANON/.test(CONFIG.SUPABASE_URL + CONFIG.SUPABASE_KEY)) { const e = new Error("cfg"); e.code = "cfg"; throw e; }
+  const base = CONFIG.SUPABASE_URL.replace(/\/+$/, "");
+  const headers = { "Content-Type":"application/json", "apikey":CONFIG.SUPABASE_KEY };
+  if (!CONFIG.SUPABASE_KEY.startsWith("sb_")) headers["Authorization"] = "Bearer " + CONFIG.SUPABASE_KEY;
+  const ctl = new AbortController(); const timer = setTimeout(() => ctl.abort(), 20000);
+  try {
+    const res = await fetch(base + "/rest/v1/rpc/" + name, { method:"POST", headers, body:JSON.stringify(body || {}), signal:ctl.signal });
+    if (!res.ok) {
+      let code = ""; try { code = (await res.json()).message || ""; } catch(e){}
+      console.error("RPC failed", name, res.status, code);
+      const err = new Error(code || ("http " + res.status)); err.code = code; throw err;
+    }
+    return await res.json();
+  } finally { clearTimeout(timer); }
+}
+function errMsg(e){
+  const c = (e && e.code) || "";
+  if (c === "cfg") return t("errCfg");
+  if (c === "quota_exceeded") return t("errQuota");
+  if (c === "duplicate_name") return t("errDup");
+  if (c === "company_not_listed") return t("errNotListed");
+  if (c === "seat_taken") return t("errTaken");
+  if (c === "invalid_phone") return t("errPhone");
+  if (c.indexOf("invalid") === 0) return t("errInvalid");
+  return t("errNet");
+}
+function setBanner(sel, msg, ok){ const b = $(sel); b.textContent = msg || ""; b.classList.toggle("show", !!msg); b.classList.toggle("ok", !!ok); }
+function setErr(sel, key){ const f = $(sel); f.classList.toggle("bad", !!key); const e = f.querySelector(".err"); if (e) e.textContent = key ? t(key) : ""; }
+function showView(v, scroll){
+  state.view = v;
+  $("#form").hidden = v !== "form"; $("#seatView").hidden = v !== "seats"; $("#tickets").hidden = v !== "tickets";
+  if (scroll !== false) $("#card").scrollIntoView({ behavior:"smooth", block:"start" });
+}
+
+/* ---------- company autocomplete (+ "Other" = isi manual) ---------- */
+const CB = { matches:[], active:-1, picked:"", other:false, restricted:false, timer:null, seq:0 };
+function hideList(){ $("#cbList").hidden = true; $("#company").setAttribute("aria-expanded", "false"); CB.active = -1; }
+function setOk(kind){ const o = $("#cbOk"); o.hidden = !kind; o.textContent = kind === "other" ? "✎" : "✓"; o.classList.toggle("pen", kind === "other"); }
+function pickCompany(name){ CB.picked = name; CB.other = false; $("#company").value = name; setOk("pick"); showManual(false); hideList(); setErr("#f-company", ""); }
+function showManual(on){ $("#f-company2").hidden = !on || $("#indiv").checked; if (!on) { $("#company2").value = ""; setErr("#f-company2", ""); } }
+function pickOther(){ CB.picked = ""; CB.other = true; $("#company").value = "Other"; setOk("other"); showManual(true); hideList(); setErr("#f-company", ""); $("#company2").focus(); }
+function resetCompany(){ CB.picked = ""; CB.other = false; CB.matches = []; setOk(null); showManual(false); hideList(); }
+function renderList(q){
+  const ul = $("#cbList"); ul.textContent = "";
+  if (!CB.restricted) { hideList(); return; }
+  CB.matches.forEach((m, i) => {
+    const li = el("li"); li.setAttribute("role", "option"); li.dataset.i = i;
+    const idx = m.toLowerCase().indexOf(q.toLowerCase());
+    if (idx >= 0) li.append(document.createTextNode(m.slice(0, idx)), el("mark", "", m.slice(idx, idx + q.length)), document.createTextNode(m.slice(idx + q.length)));
+    else li.textContent = m;
+    li.addEventListener("pointerdown", (ev) => { ev.preventDefault(); pickCompany(m); });
+    ul.appendChild(li);
+  });
+  const o = el("li", "other", "✎ " + t("otherOpt")); o.setAttribute("role", "option"); o.dataset.other = "1";
+  o.addEventListener("pointerdown", (ev) => { ev.preventDefault(); pickOther(); });
+  ul.appendChild(o);
+  ul.hidden = false; $("#company").setAttribute("aria-expanded", "true"); CB.active = -1;
+}
+async function searchCompanies(q){
+  const my = ++CB.seq;
+  try {
+    const r = await rpc("search_event_companies", { p_q: q });
+    if (my !== CB.seq) return null;
+    CB.matches = r.matches || []; CB.restricted = !!r.restricted; renderList(q); return r;
+  } catch(e){ hideList(); return null; }
+}
+$("#company").addEventListener("input", () => {
+  setErr("#f-company", "");
+  const raw = $("#company").value;
+  if (CB.other) { CB.other = false; showManual(false); }
+  CB.picked = ""; setOk(null);
+  const q = raw.trim().replace(/\s+/g, " ");
+  clearTimeout(CB.timer);
+  if (q.length < CONFIG.MIN_CHARS) { hideList(); return; }
+  CB.timer = setTimeout(() => searchCompanies(q), 170);
+});
+$("#company").addEventListener("keydown", (ev) => {
+  const ul = $("#cbList"); if (ul.hidden) return;
+  const items = [...ul.querySelectorAll("li[role=option]")]; if (!items.length) return;
+  if (ev.key === "ArrowDown" || ev.key === "ArrowUp") {
+    ev.preventDefault(); CB.active = (CB.active + (ev.key === "ArrowDown" ? 1 : -1) + items.length) % items.length;
+    items.forEach((li, i) => li.setAttribute("aria-selected", String(i === CB.active)));
+  } else if (ev.key === "Enter" && CB.active >= 0) { ev.preventDefault(); const li = items[CB.active]; if (li.dataset.other) pickOther(); else pickCompany(CB.matches[+li.dataset.i]); }
+  else if (ev.key === "Escape") hideList();
+});
+$("#company").addEventListener("blur", () => setTimeout(hideList, 150));
+$("#company").addEventListener("focus", () => { const q = $("#company").value.trim(); if (!CB.picked && !CB.other && CB.restricted && q.length >= CONFIG.MIN_CHARS) renderList(q); });
+$("#indiv").addEventListener("change", () => {
+  const on = $("#indiv").checked; $("#f-company").hidden = on; $("#f-company2").hidden = on || !CB.other; $("#f-g2").hidden = on; if (on) { $("#g2").value = ""; setErr("#f-company", ""); }
+  $(".pair").style.gridTemplateColumns = on ? "1fr" : "";
+});
+
+/* ---------- RSVP submit ---------- */
+$("#form").addEventListener("submit", async (ev) => {
+  ev.preventDefault(); setBanner("#banner", "");
+  const indiv = $("#indiv").checked;
+  let company = indiv ? "" : (CB.other ? $("#company2").value : $("#company").value).trim().replace(/\s+/g, " ");
+  if (!indiv && !CB.other && CB.restricted && company.toLowerCase() === "other") { pickOther(); return; }
+  const g1 = $("#g1").value.trim(), g2 = indiv ? "" : $("#g2").value.trim();
+  const phone = normPhone($("#phone").value), pd = phone;
+  setErr("#f-g1", g1 ? "" : "errG1");
+  setErr("#f-phone", /^0\d{8,13}$/.test(phone) ? "" : "errPhone");
+  const cf = CB.other ? "#f-company2" : "#f-company";
+  setErr(cf, !indiv && company.length < CONFIG.MIN_CHARS ? "errCompanyShort" : "");
+  if (!indiv && company.length < CONFIG.MIN_CHARS) { (CB.other ? $("#company2") : $("#company")).focus(); return; }
+  if (!g1) { $("#g1").focus(); return; }
+  if ($("#f-phone").classList.contains("bad")) { $("#phone").focus(); return; }
+  if ($("#website").value) return;   // honeypot
+  const btn = $("#submit");
+  btn.disabled = true; btn.classList.add("busy"); btn.firstElementChild.textContent = t("sending");
+  try {
+    if (!indiv && !CB.other && CB.picked !== company) {
+      const r = await rpc("search_event_companies", { p_q: company });
+      if (r.restricted) {
+        const hit = (r.matches || []).find(m => m.toLowerCase() === company.toLowerCase());
+        if (!hit) { CB.matches = r.matches || []; CB.restricted = true; setErr("#f-company", "errPick"); renderList(company); return; }
+        company = hit; pickCompany(hit);
+      }
+    }
+    const out = await rpc("submit_rsvp", { p_company: indiv ? null : company, p_name1: g1, p_name2: g2 || null, p_lang: state.lang, p_phone: phone });
+    state.reg = { updated: !!out.updated, guests: (out.guests || []).map(g => ({ id:g.id, name:g.name, seat:g.seat || null, company: out.company || null })) };
+    saveMine();
+    openSeats(state.reg.guests, "reg");
+  } catch (e) {
+    setBanner("#banner", errMsg(e));
+  } finally {
+    btn.disabled = false; btn.classList.remove("busy"); btn.firstElementChild.textContent = t("submit");
+  }
+});
+function saveMine(){
+  try {
+    const prev = JSON.parse(localStorage.getItem("rsvp_mine") || "[]");
+    localStorage.setItem("rsvp_mine", JSON.stringify(Array.from(new Set(prev.concat(state.reg.guests.map(g => g.id)))).slice(-8)));
+  } catch(e){}
+}
+async function loadMine(){
+  let ids = []; try { ids = JSON.parse(localStorage.getItem("rsvp_mine") || "[]"); } catch(e){}
+  if (!ids.length) { state.reg = null; return false; }
+  try {
+    const rows = await rpc("get_my_guests", { p_ids: ids });
+    if (!rows.length) { try { localStorage.removeItem("rsvp_mine"); } catch(e){} state.reg = null; return false; }
+    state.reg = { updated:false, guests: rows.map(r => ({ id:r.id, name:r.name, seat:r.seat || null, company:r.company || null })) };
+    return true;
+  } catch(e){ return false; }
+}
+
+/* ---------- seat picker (layout Cinema 4) ---------- */
+const S = { taken:new Set(), pick:[], active:0, btn:{}, built:false, guests:[], mode:"reg" };
+function buildSeatMap(){
+  const hall = $("#hall"); hall.textContent = ""; S.btn = {};
+  hall.appendChild(el("div", "screen")); hall.appendChild(el("div", "screen-l", "SCREEN"));
+  ROWS_TOP_DOWN.forEach(r => {
+    const row = el("div", "sr"); row.appendChild(el("span", "rl", r));
+    for (let n = MAXCOL; n >= 1; n--) {
+      if (!seatValid(r, n)) { row.appendChild(el("span", "sp")); continue; }
+      const label = r + n;
+      const b = el("button", "seat", String(n)); b.type = "button"; b.setAttribute("aria-label", "Seat " + label); b.dataset.seat = label;
+      b.addEventListener("click", () => onSeat(label));
+      S.btn[label] = b; row.appendChild(b);
+    }
+    row.appendChild(el("span", "rl", r)); hall.appendChild(row);
+  });
+  S.built = true;
+}
+function paintSeats(){
+  Object.keys(S.btn).forEach(label => {
+    const b = S.btn[label]; const gi = S.pick.indexOf(label);
+    b.className = "seat" + (gi >= 0 ? " g" + (gi % 4) : S.taken.has(label) ? " taken" : "");
+    b.disabled = S.taken.has(label) && gi < 0;
+  });
+}
+function renderSeg(){
+  const seg = $("#seg"); seg.textContent = "";
+  S.guests.forEach((g, i) => {
+    const b = el("button", i === S.active ? "on" : ""); b.type = "button"; b.dataset.g = i % 4;
+    b.append(el("b", "", t("guestWord") + " " + (i + 1)), el("span", "", g.name), el("em", S.pick[i] ? "has" : "", S.pick[i] || t("freeSeat")));
+    b.addEventListener("click", () => { S.active = i; renderSeg(); });
+    seg.appendChild(b);
+  });
+}
+function renderPick(){
+  $("#seatOk").disabled = !S.pick.some(Boolean); $("#seatFree").disabled = S.pick.some(Boolean);
+  const line = $("#pickline"); line.textContent = "";
+  if (!S.pick.some(Boolean)) { line.textContent = t("pickNone"); return; }
+  line.append(document.createTextNode(t("pickOf") + ": "));
+  S.guests.forEach((g, i) => { if (i) line.append(document.createTextNode(" · ")); line.appendChild(el("b", "", S.pick[i] || t("freeSeat"))); });
+}
+function onSeat(label){
+  if (S.taken.has(label) && S.pick.indexOf(label) < 0) return;
+  const i = S.pick.indexOf(label);
+  if (i === S.active) S.pick[i] = null;
+  else { if (i >= 0) S.pick[i] = null; S.pick[S.active] = label; const next = S.pick.findIndex(x => !x); if (next >= 0) S.active = next; }
+  renderSeg(); renderPick(); paintSeats();
+}
+async function loadTaken(){
+  try {
+    const list = await rpc("list_taken_seats", {});
+    const own = new Set(S.guests.map(g => g.seat).filter(Boolean));
+    S.taken = new Set(list.filter(s => !own.has(s)));
+    S.pick = S.pick.map(p => (p && S.taken.has(p)) ? null : p);
+  } catch(e){ setBanner("#sMsg", errMsg(e)); }
+  renderSeg(); renderPick(); paintSeats();
+}
+function openSeats(guests, mode){
+  if (!S.built) buildSeatMap();
+  S.guests = guests; S.mode = mode || "reg"; S.prev = state.view === "seats" ? (S.prev || "form") : state.view;
+  S.pick = guests.map(g => g.seat || null);
+  S.active = Math.max(0, S.pick.findIndex(x => !x));
+  setBanner("#sMsg", ""); renderSeg(); renderPick(); paintSeats(); showView("seats");
+  requestAnimationFrame(() => { const p = $("#pan"); p.scrollLeft = Math.max(0, (p.scrollWidth - p.clientWidth) / 2); });
+  loadTaken();
+}
+async function saveSeats(free){
+  const ok = $("#seatOk"), fr = $("#seatFree"); ok.disabled = fr.disabled = true; setBanner("#sMsg", "");
+  const picks = free ? S.guests.map(() => null) : S.pick;
+  try {
+    await rpc("assign_seats", { p_items: S.guests.map((g, i) => ({ id:g.id, seat:picks[i] })) });
+    S.guests.forEach((g, i) => { g.seat = picks[i]; });
+    if (S.mode === "manage") {
+      showView(S.prev || "form", false); $("#manage").open = true; $("#manage").scrollIntoView({ behavior:"smooth", block:"start" });
+      await afterChange(S.guests[0].id, "mSeatDone");
+    } else { renderTickets(); showView("tickets"); }
+  } catch (e) {
+    setBanner("#sMsg", errMsg(e)); if (e.code === "seat_taken") loadTaken();
+  } finally { renderPick(); }
+}
+$("#seatOk").addEventListener("click", () => saveSeats(false));
+$("#seatFree").addEventListener("click", () => saveSeats(true));
+(function panDrag(){
+  const p = $("#pan"); let down = false, sx = 0, sl = 0, moved = false;
+  p.addEventListener("pointerdown", (e) => { if (e.pointerType !== "mouse") return; down = true; moved = false; sx = e.clientX; sl = p.scrollLeft; });
+  window.addEventListener("pointermove", (e) => { if (!down) return; const dx = e.clientX - sx; if (Math.abs(dx) > 4) { moved = true; p.classList.add("drag"); } p.scrollLeft = sl - dx; });
+  window.addEventListener("pointerup", () => { down = false; p.classList.remove("drag"); });
+  p.addEventListener("click", (e) => { if (moved) { e.stopPropagation(); e.preventDefault(); moved = false; } }, true);
+})();
+
+/* ---------- tickets: landscape thumbnail (16:9) + portrait (saved image) ---------- */
+const imgCache = {};
+function loadImg(src){
+  if (!imgCache[src]) imgCache[src] = new Promise((res, rej) => { const i = new Image(); i.onload = () => res(i); i.onerror = () => { delete imgCache[src]; rej(new Error("img " + src)); }; i.src = src; });
+  return imgCache[src];
+}
+function rrPath(x, X, Y, W, H, R){ x.beginPath(); x.moveTo(X + R, Y); x.arcTo(X + W, Y, X + W, Y + H, R); x.arcTo(X + W, Y + H, X, Y + H, R); x.arcTo(X, Y + H, X, Y, R); x.arcTo(X, Y, X + W, Y, R); x.closePath(); }
+function wrapText(x, text, maxW, maxLines){
+  const words = String(text).split(/\s+/); const lines = []; let cur = "";
+  words.forEach(w => { const test = cur ? cur + " " + w : w; if (x.measureText(test).width <= maxW || !cur) cur = test; else { lines.push(cur); cur = w; } });
+  if (cur) lines.push(cur);
+  if (lines.length > maxLines) { const keep = lines.slice(0, maxLines); let last = keep[maxLines - 1]; while (x.measureText(last + "…").width > maxW && last.length) last = last.slice(0, -1); keep[maxLines - 1] = last + "…"; return keep; }
+  return lines;
+}
+function spaced(x, text, X, Y, sp){ let cx = X; [...text].forEach(c => { x.fillText(c, cx, Y); cx += x.measureText(c).width + sp; }); }
+function fitText(x, text, weight, size, maxW, F){ let s = size; x.font = weight + " " + s + "px " + F; while (x.measureText(text).width > maxW && s > 14) { s -= 1; x.font = weight + " " + s + "px " + F; } return s; }
+const VENUE = "CGV Pacific Place Mall";
+const FONT = 'Montserrat, "Helvetica Neue", Arial, sans-serif';
+async function ticketAssets(){
+  const tmo = (p) => Promise.race([p, new Promise(r => setTimeout(r, 1800))]);
+  const [hero, logo, cgv] = await Promise.all([loadImg(CONFIG.KV.en), loadImg("assets/logo-white.png"), loadImg(CONFIG.CGV_LOGO).catch(() => null)]);
+  try { await tmo(Promise.all([document.fonts.load("800 40px Montserrat"), document.fonts.load("600 20px Montserrat")])); } catch(e){}
+  return { hero, logo, cgv };
+}
+function heroCrop(x, hero, dx, dy, dw, dh, r){   // right part of the KV (screen + popcorn), cover-fit
+  const sx = hero.width * .47, sy = hero.height * (r.top || 0), sw = hero.width - sx, sh = hero.height * (r.h || 1);
+  const sc = Math.max(dw / sw, dh / sh), w = sw * sc, h = sh * sc;
+  x.save(); x.beginPath(); x.rect(dx, dy, dw, dh); x.clip();
+  x.drawImage(hero, sx, sy, sw, sh, dx + (dw - w) / 2, dy + (dh - h) * (r.anchor == null ? .5 : r.anchor), w, h); x.restore();
+}
+function seatText(g){ return g.seat || "FREE SEATING"; }
+function toBlob(c){ return new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/png")); }
+
+async function drawLandscape(g, A){
+  const W = 1280, H = 720, SC = 1.5, c = document.createElement("canvas"); c.width = W * SC; c.height = H * SC;
+  const x = c.getContext("2d"); x.scale(SC, SC);
+  x.fillStyle = "#04170f"; x.fillRect(0, 0, W, H);
+  x.save(); rrPath(x, 0, 0, W, H, 30); x.clip();
+  let bg = x.createLinearGradient(0, 0, 0, H); bg.addColorStop(0, "#0d5535"); bg.addColorStop(1, "#05200f"); x.fillStyle = bg; x.fillRect(0, 0, W, H);
+  heroCrop(x, A.hero, 600, 0, 680, 720, { top:.02, h:.96 });
+  let fade = x.createLinearGradient(560, 0, 800, 0); fade.addColorStop(0, "#08331f"); fade.addColorStop(1, "rgba(8,51,31,0)"); x.fillStyle = fade; x.fillRect(560, 0, 240, H);
+  let left = x.createLinearGradient(0, 0, 0, H); left.addColorStop(0, "#0b4a2e"); left.addColorStop(1, "#052415"); x.fillStyle = left; x.fillRect(0, 0, 580, H);
+  x.fillStyle = fade; x.fillRect(560, 0, 240, H);
+  const LX = 56, MW = 480; x.textAlign = "left";
+  const lh = 42; x.drawImage(A.logo, LX, 44, lh * A.logo.width / A.logo.height, lh);
+  x.fillStyle = "#fff"; fitText(x, "AVENGERS: DOOMSDAY", "800", 50, MW, FONT); x.fillText("AVENGERS: DOOMSDAY", LX, 160);
+  const gl = x.createLinearGradient(LX, 0, LX + MW, 0); gl.addColorStop(0, "#ffd25e"); gl.addColorStop(1, "rgba(255,210,94,0)"); x.fillStyle = gl; x.fillRect(LX, 184, MW, 3);
+  x.fillStyle = "rgba(235,245,238,.9)"; x.font = "600 22px " + FONT; x.fillText("📍 " + VENUE, LX, 222);
+  x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 16px " + FONT; spaced(x, "GUEST", LX, 272, 3.5);
+  const nm = g.name.toUpperCase(); x.fillStyle = "#fff"; let ns = fitText(x, nm, "800", 48, MW, FONT), y = 322;
+  if (x.measureText(nm).width > MW) { x.font = "800 38px " + FONT; wrapText(x, nm, MW, 2).forEach(l => { x.fillText(l, LX, y); y += 44; }); } else { x.fillText(nm, LX, y); y += 46; }
+  y += 6; x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 16px " + FONT; spaced(x, "COMPANY", LX, y, 3.5); y += 40;
+  x.fillStyle = "#ffd25e"; x.font = "700 31px " + FONT; wrapText(x, g.company || t("indivLabel"), MW, 2).forEach(l => { x.fillText(l, LX, y); y += 38; });
+  const cols = [LX, LX + 280], r1 = 530, r2 = 624;
+  [["DATE", "Thu, 17 Dec 2026", 0, r1], ["TIME", "19.30 WIB", 1, r1], ["STUDIO", String(CONFIG.STUDIO), 0, r2]].forEach(p => {
+    x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 16px " + FONT; spaced(x, p[0], cols[p[2]], p[3], 3.5);
+    x.fillStyle = "#fff"; x.font = "800 " + (p[0] === "DATE" ? 28 : 32) + "px " + FONT; x.fillText(p[1], cols[p[2]], p[3] + 40);
+  });
+  x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 16px " + FONT; spaced(x, "SEAT", cols[1], r2, 3.5);
+  const sg = x.createLinearGradient(0, r2 + 4, 0, r2 + 76); sg.addColorStop(0, "#fff3c4"); sg.addColorStop(1, "#f0a81c"); x.fillStyle = sg;
+  if (g.seat) { x.font = "800 72px " + FONT; x.fillText(g.seat, cols[1], r2 + 74); } else { x.font = "800 28px " + FONT; x.fillText(t("freeSeat").toUpperCase(), cols[1], r2 + 42); }
+  x.restore();
+  x.save(); rrPath(x, 1, 1, W - 2, H - 2, 30); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 2; x.stroke(); x.restore();
+  return toBlob(c);
+}
+async function drawPortrait(g, A){
+  const W = 600, H = 920, SC = 2, c = document.createElement("canvas"); c.width = W * SC; c.height = H * SC;
+  const x = c.getContext("2d"); x.scale(SC, SC);
+  x.fillStyle = "#031009"; x.fillRect(0, 0, W, H);
+  const X0 = 24, Y0 = 24, TW = 552, TH = 872;
+  x.save(); rrPath(x, X0, Y0, TW, TH, 34); x.clip();
+  let bg = x.createLinearGradient(0, Y0, 0, Y0 + TH); bg.addColorStop(0, "#0e5a37"); bg.addColorStop(.4, "#08301f"); bg.addColorStop(1, "#04170f"); x.fillStyle = bg; x.fillRect(X0, Y0, TW, TH);
+  const HH = 350; heroCrop(x, A.hero, X0, Y0, TW, HH, { top:.02, h:.9, anchor:.15 });
+  let fade = x.createLinearGradient(0, Y0 + HH - 100, 0, Y0 + HH); fade.addColorStop(0, "rgba(8,48,31,0)"); fade.addColorStop(1, "#08301f"); x.fillStyle = fade; x.fillRect(X0, Y0 + HH - 100, TW, 100);
+  let top = x.createLinearGradient(0, Y0, 0, Y0 + 90); top.addColorStop(0, "rgba(0,0,0,.65)"); top.addColorStop(1, "rgba(0,0,0,0)"); x.fillStyle = top; x.fillRect(X0, Y0, TW, 90);
+  const lh = 30; x.drawImage(A.logo, X0 + 28, Y0 + 24, lh * A.logo.width / A.logo.height, lh);
+  if (A.cgv) { const ch = 32, cw = ch * A.cgv.width / A.cgv.height; x.drawImage(A.cgv, X0 + TW - 28 - cw, Y0 + 22, cw, ch); }
+  x.textAlign = "left"; const LX = X0 + 28, MW = TW - 56;
+  x.fillStyle = "#fff"; fitText(x, "AVENGERS: DOOMSDAY", "800", 38, MW, FONT); x.fillText("AVENGERS: DOOMSDAY", LX, Y0 + HH + 22);
+  const gl = x.createLinearGradient(LX, 0, LX + MW, 0); gl.addColorStop(0, "#ffd25e"); gl.addColorStop(1, "rgba(255,210,94,0)"); x.fillStyle = gl; x.fillRect(LX, Y0 + HH + 40, MW, 3);
+  x.fillStyle = "rgba(235,245,238,.9)"; x.font = "600 16px " + FONT; x.fillText("📍 " + VENUE, LX, Y0 + HH + 68);
+  let y = Y0 + HH + 106;
+  x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, "GUEST", LX, y, 3); y += 38;
+  x.fillStyle = "#fff"; x.font = "800 36px " + FONT; wrapText(x, g.name.toUpperCase(), MW, 2).forEach(l => { x.fillText(l, LX, y); y += 42; });
+  y += 6; x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, "COMPANY", LX, y, 3); y += 34;
+  x.fillStyle = "#ffd25e"; x.font = "700 26px " + FONT; wrapText(x, g.company || t("indivLabel"), MW, 2).forEach(l => { x.fillText(l, LX, y); y += 33; });
+  const dy = Math.max(y + 20, 666);
+  const cols = [LX, LX + 222, LX + 388];
+  [["DATE", "Thu, 17 Dec 2026"], ["TIME", "19.30 WIB"], ["STUDIO", String(CONFIG.STUDIO)]].forEach((p, i) => {
+    x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT; spaced(x, p[0], cols[i], dy, 3);
+    x.fillStyle = "#fff"; x.font = "800 " + (i === 0 ? 21 : 24) + "px " + FONT; x.fillText(p[1], cols[i], dy + 34);
+  });
+  x.textAlign = "center"; x.fillStyle = "rgba(235,245,238,.75)"; x.font = "700 12px " + FONT;
+  const sy = dy + 92; spaced(x, "SEAT", W / 2 - 24, sy, 4);
+  const sg = x.createLinearGradient(0, sy + 4, 0, sy + 100); sg.addColorStop(0, "#fff3c4"); sg.addColorStop(1, "#f0a81c"); x.fillStyle = sg;
+  if (g.seat) { x.font = "800 104px " + FONT; x.fillText(g.seat, W / 2, sy + 100); } else { x.font = "800 36px " + FONT; x.fillText(t("freeSeat").toUpperCase(), W / 2, sy + 62); }
+  x.restore();
+  x.save(); rrPath(x, X0, Y0, TW, TH, 34); x.strokeStyle = "rgba(255,255,255,.35)"; x.lineWidth = 2; x.stroke(); x.restore();
+  return toBlob(c);
+}
+const TK = {};
+function tkKey(g){ return [g.id, g.name, g.company, g.seat, CONFIG.STUDIO, state.lang].join("|"); }
+function tkGet(g){
+  const k = tkKey(g);
+  if (!TK[k]) TK[k] = ticketAssets().then(async A => {
+    const land = await drawLandscape(g, A), port = await drawPortrait(g, A);
+    return { land, port, landUrl: URL.createObjectURL(land), portUrl: URL.createObjectURL(port) };
+  }).catch(e => { delete TK[k]; throw e; });
+  return TK[k];
+}
+async function saveTicket(g){
+  let rec; try { rec = await tkGet(g); } catch(e){ return; }
+  const fname = "Ticket-" + g.name.replace(/[^\w]+/g, "-").replace(/^-|-$/g, "") + "-" + (g.seat || "FreeSeating") + ".png";
+  const file = new File([rec.port], fname, { type:"image/png" });
+  if (navigator.canShare && navigator.canShare({ files:[file] })) {
+    try { await navigator.share({ files:[file], title:"Movie Night Ticket" }); return; } catch(e){ if (e && e.name === "AbortError") return; }
+  }
+  const a = document.createElement("a"); a.href = rec.portUrl; a.download = fname; document.body.appendChild(a); a.click(); a.remove();
+}
+let curTicket = 0;
+function renderTickets(){
+  const gs = state.reg.guests;
+  $("#doneTitle").textContent = t("doneTitle");
+  $("#doneText").textContent = t("doneText") + (state.reg.updated ? " " + t("updated") : "");
+  const car = $("#car"), dots = $("#dots"); car.textContent = ""; dots.textContent = ""; $("#saveCur").disabled = true; curTicket = 0;
+  gs.forEach((g, i) => {
+    const slide = el("div", "slide"); const th = el("button", "thumb"); th.type = "button"; th.setAttribute("aria-label", "Ticket – " + g.name);
+    const ph = el("div", "ph", t("tkLoading")); th.appendChild(ph); slide.appendChild(th); car.appendChild(slide); dots.appendChild(el("i", i === 0 ? "on" : ""));
+    tkGet(g).then(rec => {
+      const im = new Image(); im.alt = "Ticket – " + g.name; im.src = rec.landUrl; ph.replaceWith(im);
+      th.addEventListener("click", () => openLb(g, rec, null));
+      if (i === curTicket) $("#saveCur").disabled = false;
+    }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
+  });
+  dots.style.visibility = gs.length > 1 ? "visible" : "hidden"; $("#swipe").hidden = false;
+  car.scrollLeft = 0;
+}
+$("#car").addEventListener("scroll", () => {
+  const car = $("#car"); const i = Math.round(car.scrollLeft / Math.max(1, car.clientWidth));
+  if (i !== curTicket) { curTicket = i; [...$("#dots").children].forEach((d, k) => d.classList.toggle("on", k === i)); }
+}, { passive:true });
+$("#saveCur").addEventListener("click", () => { const g = state.reg && state.reg.guests[curTicket]; if (g) saveTicket(g); });
+let lbG = null;
+function openLb(g, rec, note){ lbG = g; $("#lbNote").hidden = !note; $("#lbNote").textContent = note || ""; $("#lbImg").src = rec.portUrl; $("#lb").hidden = false; document.body.style.overflow = "hidden"; }
+function closeLb(){ $("#lb").hidden = true; document.body.style.overflow = ""; lbG = null; }
+$("#lbClose").addEventListener("click", closeLb);
+$("#lb").addEventListener("click", (e) => { if (e.target.id === "lb" || e.target.classList.contains("lb-in")) closeLb(); });
+$("#lbSave").addEventListener("click", () => { if (lbG) saveTicket(lbG); });
+document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#lb").hidden) closeLb(); });
+
+/* ---------- logo = kembali ke halaman awal ---------- */
+$("#home").addEventListener("click", (e) => {
+  e.preventDefault(); closeLb();
+  ["#g1", "#g2", "#company", "#company2", "#phone"].forEach(s => { $(s).value = ""; });
+  $("#indiv").checked = false; $("#indiv").dispatchEvent(new Event("change"));
+  resetCompany(); setErr("#f-company", ""); setErr("#f-g1", ""); setErr("#f-phone", ""); setBanner("#banner", ""); setBanner("#mMsg", "");
+  state.reg = null; $("#manage").open = false; $("#mSearch").value = ""; $("#mPhone").value = ""; M.sel = null; M.guests = null; $("#mList").textContent = "";
+  showView("form", false); window.scrollTo({ top:0, behavior:"smooth" });
+});
+
+/* ---------- Cancel / amend / change seat / download ---------- */
+const SVG = {
+  pen:'<svg viewBox="0 0 24 24"><path d="M4 20h4L19 9a2.8 2.8 0 0 0-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></svg>',
+  seat:'<svg viewBox="0 0 24 24"><path d="M6 11V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v5"/><path d="M4 11a2 2 0 0 1 4 0v3h8v-3a2 2 0 0 1 4 0v6H4z"/><path d="M7 17v3M17 17v3"/></svg>',
+  trash:'<svg viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/></svg>',
+  dl:'<svg viewBox="0 0 24 24"><path d="M12 4v11M7 11l5 5 5-5M5 20h14"/></svg>'
+};
+function mHide(){ $("#mResults").hidden = true; $("#mSearch").setAttribute("aria-expanded", "false"); }
+function mRender(q){
+  const ul = $("#mResults"); ul.textContent = "";
+  if (!M.results.length) { const li = el("li", "none", t("mNoRes")); ul.appendChild(li); }
+  M.results.forEach((r, i) => {
+    const li = el("li"); li.setAttribute("role", "option");
+    li.appendChild(el("span", "k", r.kind === "company" ? "🏢" : "👤"));
+    const idx = r.label.toLowerCase().indexOf(q.toLowerCase());
+    if (idx >= 0) li.append(document.createTextNode(r.label.slice(0, idx)), el("mark", "", r.label.slice(idx, idx + q.length)), document.createTextNode(r.label.slice(idx + q.length)));
+    else li.appendChild(document.createTextNode(r.label));
+    li.appendChild(el("small", "", r.kind === "company" ? t("kCompany") : t("kIndividual")));
+    li.addEventListener("pointerdown", (ev) => { ev.preventDefault(); mPick(r); });
+    ul.appendChild(li);
+  });
+  ul.hidden = false; $("#mSearch").setAttribute("aria-expanded", "true");
+}
+async function mPick(r){ M.mode = "search"; M.sel = r; $("#mSearch").value = r.label; mHide(); setBanner("#mMsg", ""); await loadGuests(); }
+$("#mSearch").addEventListener("input", () => {
+  const q = $("#mSearch").value.trim().replace(/\s+/g, " "); M.sel = null; if (M.mode === "search") { M.guests = null; $("#mList").textContent = ""; }
+  clearTimeout(M.timer);
+  if (q.length < CONFIG.MIN_CHARS) { mHide(); return; }
+  M.timer = setTimeout(async () => {
+    const my = ++M.seq;
+    try { const r = await rpc("search_registered", { p_q: q }); if (my !== M.seq) return; M.results = r || []; mRender(q); }
+    catch (e) { mHide(); setBanner("#mMsg", errMsg(e)); }
+  }, 170);
+});
+$("#mSearch").addEventListener("blur", () => setTimeout(mHide, 150));
+const FAILKEY = "rsvp_pf";
+function getFails(){ try { return +localStorage.getItem(FAILKEY) || 0; } catch(e){ return 0; } }
+function setFails(n){ try { localStorage.setItem(FAILKEY, String(n)); } catch(e){} }
+function showFallback(){ $("#mFallback").hidden = getFails() < 3; }
+async function loadGuests(){
+  M.guests = null; $("#mList").textContent = "";
+  $("#mList").appendChild(el("p", "note", t("loading")));
+  try {
+    if (M.mode === "phone") M.guests = await rpc("find_by_phone", { p_phone: M.phone });
+    else if (M.sel) {
+      const rows = M.sel.kind === "company" ? await rpc("list_rsvp_guests", { p_company: M.sel.label }) : await rpc("get_individual_guest", { p_id: M.sel.id });
+      M.guests = rows.map(g => Object.assign({ company: M.sel.kind === "company" ? M.sel.label : null }, g));
+    } else { $("#mList").textContent = ""; return; }
+    renderGuests();
+  } catch (e) { $("#mList").textContent = ""; setBanner("#mMsg", errMsg(e)); }
+}
+const refresh = loadGuests;
+async function findPhone(){
+  setBanner("#mMsg", ""); const p = normPhone($("#mPhone").value);
+  if (!/^0\d{8,13}$/.test(p)) { setBanner("#mMsg", t("mPhoneBad")); return; }
+  const btn = $("#mFind"); btn.disabled = true;
+  try {
+    const rows = await rpc("find_by_phone", { p_phone: p });
+    if (!rows.length) {
+      const n = getFails() + 1; setFails(n); M.guests = null; $("#mList").textContent = ""; showFallback();
+      setBanner("#mMsg", t("mNotFoundN") + (n < 3 ? " (" + n + "/3)" : ""));
+    } else { setFails(0); showFallback(); M.mode = "phone"; M.phone = p; M.sel = null; M.guests = rows; renderGuests(); }
+  } catch (e) { setBanner("#mMsg", errMsg(e)); } finally { btn.disabled = false; }
+}
+$("#mFind").addEventListener("click", findPhone);
+$("#mPhone").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); findPhone(); } });
+function ticketFor(g){ return { id:g.id, name:g.name, seat:g.seat || null, company: g.company || null }; }
+function renderGuests(){
+  const box = $("#mList"); box.textContent = "";
+  if (!M.guests) return;
+  if (!M.guests.length) { box.appendChild(el("p", "note", t("mNone"))); return; }
+  M.guests.forEach(g => box.appendChild(guestRow(g)));
+  if (M.guests.length > 1) {
+    const all = el("button", "alllink", t("mAll")); all.type = "button";
+    all.addEventListener("click", () => {
+      const q = el("p", "gq", t("mConfirmAll")); const a = el("div", "gact");
+      const yes = el("button", "sbtn danger", t("mYes")); yes.type = "button"; const no = el("button", "sbtn", t("mKeep")); no.type = "button";
+      a.append(yes, no); no.addEventListener("click", renderGuests);
+      yes.addEventListener("click", () => doAction([yes, no], async () => { for (const g of M.guests.slice()) await rpc("cancel_rsvp_guest", { p_id:g.id }); }, "mCancelled"));
+      all.replaceWith(q, a);
+    });
+    box.appendChild(all);
+  }
+}
+async function syncMine(){
+  let had = false; try { had = !!localStorage.getItem("rsvp_mine"); } catch(e){}
+  if (!had) return;
+  const has = await loadMine();
+  if (state.view === "tickets") { if (has) renderTickets(); else showView("form", false); }
+}
+async function afterChange(id, okKey){
+  await refresh(); await syncMine(); setBanner("#mMsg", t(okKey), true);
+  if (id) {
+    const g = (M.guests || []).find(x => x.id === id);
+    if (g) { const tk = ticketFor(g); try { openLb(tk, await tkGet(tk), t("mUpdated")); } catch(e){ console.error(e); } }
+  }
+}
+async function doAction(btns, fn, okKey, id){
+  btns.forEach(b => b.disabled = true); setBanner("#mMsg", "");
+  try { await fn(); await afterChange(id, okKey); }
+  catch (e) { btns.forEach(b => b.disabled = false); setBanner("#mMsg", errMsg(e)); }
+}
+function icoBtn(svg, label, cls){ const b = el("button", "ib" + (cls ? " " + cls : "")); b.type = "button"; b.title = label; b.setAttribute("aria-label", label); b.innerHTML = svg; return b; }
+function guestRow(g){
+  const isCo = !!g.company;
+  const row = el("div", "mrow"); const line = el("div", "mline");
+  const who = el("div", "who"); who.appendChild(el("b", "", g.name));
+  who.appendChild(el("small", "", (g.company ? g.company + " · " : "") + (g.seat ? t("seatWord") + " " + g.seat : t("freeSeat"))));
+  const ico = el("div", "ico");
+  const bA = isCo ? icoBtn(SVG.pen, t("mAmend")) : null, bS = isCo ? icoBtn(SVG.seat, t("mSeatBtn")) : null;
+  const bT = icoBtn(SVG.dl, t("mDownload")), bD = icoBtn(SVG.trash, t("mCancel"), "del");
+  [bA, bS, bT, bD].forEach(b => b && ico.appendChild(b)); line.append(who, ico); row.appendChild(line);
+  let extra = null; const clear = () => { if (extra) { extra.remove(); extra = null; } };
+  bT.addEventListener("click", async () => { const tk = ticketFor(g); try { openLb(tk, await tkGet(tk), null); } catch(e){ setBanner("#mMsg", t("tkError")); } });
+  if (bS) bS.addEventListener("click", () => openSeats([{ id:g.id, name:g.name, seat:g.seat || null }], "manage"));
+  if (bA) bA.addEventListener("click", () => {
+    clear(); extra = el("div");
+    const inp = el("input", "inp"); inp.type = "text"; inp.maxLength = 120; inp.placeholder = t("mNewName"); inp.autocomplete = "off"; inp.value = g.name;
+    const a = el("div", "gact"); const save = el("button", "sbtn gold", t("mSave")); save.type = "button"; const bk = el("button", "sbtn", t("mBack")); bk.type = "button";
+    a.append(save, bk); extra.append(inp, a); row.appendChild(extra); inp.focus(); inp.select();
+    bk.addEventListener("click", clear);
+    save.addEventListener("click", () => { const v = inp.value.trim(); if (v.length < 2) { inp.focus(); return; } doAction([save, bk], () => rpc("amend_rsvp_guest", { p_id:g.id, p_new_name:v }), "mAmended", g.id); });
+  });
+  bD.addEventListener("click", () => {
+    clear(); extra = el("div"); extra.appendChild(el("p", "gq", t("mConfirmCancel")));
+    const a = el("div", "gact"); const yes = el("button", "sbtn danger", t("mYes")); yes.type = "button"; const keep = el("button", "sbtn", t("mKeep")); keep.type = "button";
+    a.append(yes, keep); extra.appendChild(a); row.appendChild(extra);
+    keep.addEventListener("click", clear);
+    yes.addEventListener("click", () => doAction([yes, keep], () => rpc("cancel_rsvp_guest", { p_id:g.id }), "mCancelled"));
+  });
+  return row;
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+(async function init(){
+  let l = null; try { l = localStorage.getItem("rsvp_lang"); } catch(e){}
+  if (!l) l = (navigator.language || "en").toLowerCase().startsWith("id") ? "id" : "en";
+  state.lang = I18N[l] ? l : "en";
+  $("#calGoogle").href = googleUrl();
+  applyLang(); showFallback();
+  if (await loadMine()) { renderTickets(); showView("tickets", false); }
+})();
+</script>
+</body>
+</html>
