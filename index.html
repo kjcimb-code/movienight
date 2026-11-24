@@ -1215,7 +1215,8 @@ phoneGuard("#phone"); phoneGuard("#mPhone");
 $("#langBtn").addEventListener("click", () => setLang(state.lang === "en" ? "id" : "en"));
 
 /* ---------- background music: on by default, starts at 1:30, loops back to 0:00 ---------- */
-const BGM = { a: null, on: true, seeded: false, start: 90 };   // seeded = reached the 1:30 start point once
+const BGM = { a: null, on: true, intro: "assets/theme-start.mp3", full: "assets/theme-loop.mp3" };
+/* Plays theme-start.mp3 (1:35-2:55 then 0:00-2:55), then switches to theme-loop.mp3 (0:00-2:55) and loops that forever. No seeking, so Safari cannot ignore it. */
 (function(){
   try { if (sessionStorage.getItem("bgm_off") === "1") BGM.on = false; } catch(e){}
   const btn = $("#bgm");
@@ -1224,20 +1225,14 @@ const BGM = { a: null, on: true, seeded: false, start: 90 };   // seeded = reach
   function paint(){ btn.innerHTML = BGM.on ? ON : OFF; btn.setAttribute("aria-pressed", String(BGM.on)); btn.classList.toggle("off", !BGM.on); }
   function audio(){
     if (BGM.a) return BGM.a;
-    const a = new Audio("assets/theme.mp3"); a.loop = true; a.preload = "auto"; a.volume = 0.6; BGM.a = a;
-    ["loadedmetadata", "canplay", "playing", "timeupdate"].forEach(n => a.addEventListener(n, seek));   // iOS ignores early seeks, so keep trying until it sticks
+    const a = new Audio(BGM.intro); a.loop = false; a.preload = "auto"; a.volume = 0.6; BGM.a = a;
+    a.addEventListener("ended", () => {            // intro finished -> full song from 0:00, looping forever
+      if (a.loop) return;
+      a.loop = true; a.src = BGM.full; a.load(); if (BGM.on) { const p = a.play(); if (p && p.catch) p.catch(() => {}); }
+    });
     return a;
   }
-  function seek(){
-    const a = BGM.a; if (!a || BGM.seeded) return;
-    if (a.currentTime >= BGM.start - 2) { BGM.seeded = true; return; }
-    if (a.readyState < 1 || !(a.duration > BGM.start)) return;
-    try { a.currentTime = BGM.start; } catch(e){}
-  }
-  function play(){
-    const a = audio(); seek();
-    const p = a.play(); if (p && p.catch) p.catch(() => { armGesture(); });   // blocked by the browser until the first tap
-  }
+  function play(){ const a = audio(); const p = a.play(); if (p && p.catch) p.catch(() => { armGesture(); }); }   // blocked by the browser until the first tap
   function stop(){ if (BGM.a) BGM.a.pause(); }
   let armed = false;
   function armGesture(){
@@ -1253,9 +1248,9 @@ const BGM = { a: null, on: true, seeded: false, start: 90 };   // seeded = reach
     BGM.on = !BGM.on; try { sessionStorage.setItem("bgm_off", BGM.on ? "0" : "1"); } catch(e){}
     paint(); if (BGM.on) play(); else stop();
   });
-  document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else if (BGM.on && BGM.a && BGM.seeded) play(); });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else if (BGM.on && BGM.a && !BGM.a.ended) play(); });
   paint();
-  /* wait until the page itself has finished loading, so the 3 MB song never competes with the poster/ticket images */
+  /* wait until the page itself has finished loading, so the song never competes with the poster/ticket images */
   const kick = () => { if (BGM.on) setTimeout(play, 300); };
   if (document.readyState === "complete") kick(); else window.addEventListener("load", kick, { once: true });
 })();
