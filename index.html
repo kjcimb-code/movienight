@@ -1215,7 +1215,7 @@ phoneGuard("#phone"); phoneGuard("#mPhone");
 $("#langBtn").addEventListener("click", () => setLang(state.lang === "en" ? "id" : "en"));
 
 /* ---------- background music: on by default, starts at 1:30, loops back to 0:00 ---------- */
-const BGM = { a: null, on: true, seeded: false, start: 90 };
+const BGM = { a: null, on: true, seeded: false, start: 90 };   // seeded = reached the 1:30 start point once
 (function(){
   try { if (sessionStorage.getItem("bgm_off") === "1") BGM.on = false; } catch(e){}
   const btn = $("#bgm");
@@ -1225,10 +1225,15 @@ const BGM = { a: null, on: true, seeded: false, start: 90 };
   function audio(){
     if (BGM.a) return BGM.a;
     const a = new Audio("assets/theme.mp3"); a.loop = true; a.preload = "auto"; a.volume = 0.6; BGM.a = a;
-    a.addEventListener("loadedmetadata", () => seek());
+    ["loadedmetadata", "canplay", "playing", "timeupdate"].forEach(n => a.addEventListener(n, seek));   // iOS ignores early seeks, so keep trying until it sticks
     return a;
   }
-  function seek(){ const a = BGM.a; if (!BGM.seeded && a && a.readyState >= 1 && a.duration > BGM.start) { try { a.currentTime = BGM.start; BGM.seeded = true; } catch(e){} } }
+  function seek(){
+    const a = BGM.a; if (!a || BGM.seeded) return;
+    if (a.currentTime >= BGM.start - 2) { BGM.seeded = true; return; }
+    if (a.readyState < 1 || !(a.duration > BGM.start)) return;
+    try { a.currentTime = BGM.start; } catch(e){}
+  }
   function play(){
     const a = audio(); seek();
     const p = a.play(); if (p && p.catch) p.catch(() => { armGesture(); });   // blocked by the browser until the first tap
