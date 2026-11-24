@@ -80,9 +80,11 @@ body{
 @media(min-width:900px){ .page{grid-template-columns:1.1fr .9fr; gap:24px; align-items:start; padding:22px 12px 8px} }
 .hero{padding:6px; margin:0}
 .hero img{display:block; width:100%; height:auto; border-radius:22px}
-.lang{position:absolute; top:16px; right:16px; z-index:3; display:inline-flex; padding:3px; border-radius:999px}
-.lang button{font:inherit; font-size:12px; font-weight:700; letter-spacing:.06em; color:#fff; background:transparent; border:0; padding:7px 13px; border-radius:999px; cursor:pointer; -webkit-appearance:none}
-.lang button[aria-pressed="true"]{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00; box-shadow:0 2px 10px rgba(240,168,28,.5), inset 0 1px 0 rgba(255,255,255,.7)}
+.lang{position:absolute; top:14px; right:14px; z-index:3; display:flex; gap:8px; align-items:center}
+.rb{width:40px; height:40px; border-radius:50%; display:grid; place-items:center; padding:0; color:#fff; cursor:pointer; -webkit-appearance:none; font:inherit; font-size:12px; font-weight:800; letter-spacing:.05em; border:1px solid rgba(255,255,255,.35); -webkit-tap-highlight-color:transparent}
+.rb svg{width:20px; height:20px; display:block}
+#bgm.off{opacity:.75}
+#langBtn{background:linear-gradient(180deg,#ffe58f,var(--gold2)); color:#2a1d00; box-shadow:0 2px 10px rgba(240,168,28,.5), inset 0 1px 0 rgba(255,255,255,.7)}
 
 .invite{padding:20px 18px; margin-top:16px}
 .inv-title{margin:0 0 10px; font-size:clamp(15px,4.4vw,19px); font-weight:800; letter-spacing:.03em; line-height:1.3;
@@ -337,7 +339,7 @@ footer .brand b{color:#fff}
 .ib[disabled]{opacity:.5}
 .mrow .inp{height:46px; margin-top:10px}
 .mrow .gact{margin-top:8px}
-.alllink{display:block; margin:6px auto 0; background:none; border:0; color:#ffb3b9; font:inherit; font-size:13px; text-decoration:underline; cursor:pointer; padding:8px}
+.alllink{display:block; width:100%; margin:10px 0 0; background:rgba(255,90,100,.14); border:1px solid rgba(255,120,130,.55); color:#ffc4c8; font:inherit; font-size:14px; font-weight:700; border-radius:14px; cursor:pointer; padding:12px}
 </style>
 </head>
 <body>
@@ -356,9 +358,9 @@ footer .brand b{color:#fff}
 <main class="page">
   <h1 class="sr-only">Year End Dinner &amp; Movie Night – Avengers: Doomsday</h1>
   <figure class="hero glass" style="margin:0">
-    <div class="lang glass" role="group" aria-label="Language">
-      <button type="button" data-lang="en" aria-pressed="true">EN</button>
-      <button type="button" data-lang="id" aria-pressed="false">ID</button>
+    <div class="lang">
+      <button type="button" id="bgm" class="rb glass" aria-label="Music on/off" aria-pressed="true" title="Music"></button>
+      <button type="button" id="langBtn" class="rb" aria-label="Language EN / ID" title="EN / ID">EN</button>
     </div>
     <img id="kv" src="assets/kv-en.jpg" width="1672" height="941" alt="Year End Dinner &amp; Movie Night – Avengers: Doomsday">
   </figure>
@@ -561,7 +563,7 @@ const I18N = {
     freeNote:"Free seating: no assigned seat, sit anywhere available on the night.",
     pickNone:"Tap a seat on the map, or choose free seating.", pickOf:"Seats", freeSeat:"Free seating",
     errTaken:"Sorry, that seat was just taken by someone else. Please choose another one.",
-    doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.",
+    doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.", errPhone0:"Phone number must start with 0 (not +62 or 62).",
     updated:"Your registration has been updated.",
     saveTicket:"Save ticket", close:"Close", swipe:"Swipe to see the next ticket · tap a ticket to enlarge",
     tkLoading:"Preparing ticket…", tkError:"Couldn't create the ticket image.",
@@ -601,7 +603,7 @@ const I18N = {
     freeNote:"Free seating: tidak ada kursi khusus, duduk di kursi mana saja yang tersedia.",
     pickNone:"Ketuk kursi pada peta, atau pilih free seating.", pickOf:"Kursi", freeSeat:"Free seating",
     errTaken:"Maaf, kursi itu baru saja diambil orang lain. Silakan pilih kursi lain.",
-    doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.",
+    doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.", errPhone0:"Nomor HP harus diawali 0 (bukan +62 atau 62).",
     updated:"Data pendaftaran Anda sudah diperbarui.",
     saveTicket:"Simpan tiket", close:"Tutup", swipe:"Geser untuk tiket berikutnya · ketuk tiket untuk memperbesar",
     tkLoading:"Menyiapkan tiket…", tkError:"Gagal membuat gambar tiket.",
@@ -629,14 +631,28 @@ const $ = (s) => document.querySelector(s);
 const el = (tag, cls, text) => { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; };
 const state = { lang:"en", view:"form", reg:null };
 const M = { sel:null, guests:null, results:[], seq:0, timer:null, mode:"phone", phone:"" };
-function normPhone(v){ let d = String(v || "").replace(/\D/g, ""); if (d.startsWith("62")) d = "0" + d.slice(2); else if (d.startsWith("8")) d = "0" + d; return d; }
+function normPhone(v){ return String(v || "").replace(/\D/g, ""); }   // digits only; must start with 0 (no +62 / 62)
+const CAPRE = /(^|[\s\-'’.\/(])(\p{L})/gu;
+function tcName(v){ return String(v || "").replace(/\s+/g, " ").trimStart().toLowerCase().replace(CAPRE, (m, a, b) => a + b.toUpperCase()); }   // people: Adi Santoso
+function tcCo(v){ return String(v || "").replace(/\s+/g, " ").trimStart().replace(CAPRE, (m, a, b) => a + b.toUpperCase()); }                       // companies: keep PT / CV / Tbk as typed
+function phoneGuard(sel){
+  const i = $(sel);
+  i.addEventListener("input", () => {
+    let d = i.value.replace(/\D/g, "");
+    const bad = d.length > 0 && d[0] !== "0";
+    if (bad) d = "";
+    if (i.value !== d) i.value = d;
+    if (sel === "#phone") setErr("#f-phone", bad ? "errPhone0" : "");
+    else setBanner("#mMsg", bad ? t("errPhone0") : "");
+  });
+}
 function t(k){ return (I18N[state.lang] && I18N[state.lang][k]) || I18N.en[k] || k; }
 
 function applyLang(){
   document.documentElement.lang = state.lang;
   document.querySelectorAll("[data-i18n]").forEach(e => { e.textContent = t(e.dataset.i18n); });
   document.querySelectorAll("[data-i18n-ph]").forEach(e => { e.placeholder = t(e.dataset.i18nPh); });
-  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === state.lang)));
+  $("#langBtn").textContent = state.lang.toUpperCase();
   $("#kv").src = CONFIG.KV[state.lang] || CONFIG.KV.en;
   if (M.guests) renderGuests();
   if (state.view === "seats") { renderSeg(); renderPick(); }
@@ -692,7 +708,13 @@ function hideList(){ $("#cbList").hidden = true; $("#company").setAttribute("ari
 function setOk(kind){ const o = $("#cbOk"); o.hidden = !kind; o.textContent = kind === "other" ? "✎" : "✓"; o.classList.toggle("pen", kind === "other"); }
 function pickCompany(name){ CB.picked = name; CB.other = false; $("#company").value = name; setOk("pick"); showManual(false); hideList(); setErr("#f-company", ""); }
 function showManual(on){ $("#f-company2").hidden = !on || $("#indiv").checked; if (!on) { $("#company2").value = ""; setErr("#f-company2", ""); } }
-function pickOther(){ CB.picked = ""; CB.other = true; $("#company").value = "Other"; setOk("other"); showManual(true); hideList(); setErr("#f-company", ""); $("#company2").focus(); }
+function pickOther(){
+  const typed = $("#company").value.trim().replace(/\s+/g, " ");
+  CB.picked = ""; CB.other = true; $("#company").value = "Other"; setOk("other"); showManual(true); hideList(); setErr("#f-company", "");
+  const c2 = $("#company2");
+  if (!c2.value.trim() && typed && typed.toLowerCase() !== "other") c2.value = tcCo(typed);   // prefill with what they typed, still editable
+  c2.focus(); try { c2.setSelectionRange(c2.value.length, c2.value.length); } catch(e){}
+}
 function resetCompany(){ CB.picked = ""; CB.other = false; CB.matches = []; setOk(null); showManual(false); hideList(); }
 function renderList(q){
   const ul = $("#cbList"); ul.textContent = "";
@@ -748,9 +770,11 @@ $("#indiv").addEventListener("change", () => {
 $("#form").addEventListener("submit", async (ev) => {
   ev.preventDefault(); setBanner("#banner", "");
   const indiv = $("#indiv").checked;
-  let company = indiv ? "" : (CB.other ? $("#company2").value : $("#company").value).trim().replace(/\s+/g, " ");
+  let company = indiv ? "" : (CB.other ? tcCo($("#company2").value) : $("#company").value).trim().replace(/\s+/g, " ");
+  if (CB.other) $("#company2").value = company;
   if (!indiv && !CB.other && CB.restricted && company.toLowerCase() === "other") { pickOther(); return; }
-  const g1 = $("#g1").value.trim(), g2 = indiv ? "" : $("#g2").value.trim();
+  const g1 = tcName($("#g1").value).trim(), g2 = indiv ? "" : tcName($("#g2").value).trim();
+  $("#g1").value = g1; if (!indiv) $("#g2").value = g2;
   const phone = normPhone($("#phone").value), pd = phone;
   setErr("#f-g1", g1 ? "" : "errG1");
   setErr("#f-phone", /^0\d{8,13}$/.test(phone) ? "" : "errPhone");
@@ -846,15 +870,20 @@ function onSeat(label){
   else { if (i >= 0) S.pick[i] = null; S.pick[S.active] = label; const next = S.pick.findIndex(x => !x); if (next >= 0) S.active = next; }
   renderSeg(); renderPick(); paintSeats();
 }
-async function loadTaken(){
+async function loadTaken(auto){
+  let lost = false;
   try {
     const list = await rpc("list_taken_seats", {});
     const own = new Set(S.guests.map(g => g.seat).filter(Boolean));
     S.taken = new Set(list.filter(s => !own.has(s)));
-    S.pick = S.pick.map(p => (p && S.taken.has(p)) ? null : p);
-  } catch(e){ setBanner("#sMsg", errMsg(e)); }
+    S.pick = S.pick.map(p => { if (p && S.taken.has(p)) { lost = true; return null; } return p; });
+    if (auto && lost) setBanner("#sMsg", t("errTaken"));
+  } catch(e){ if (!auto) setBanner("#sMsg", errMsg(e)); return; }
   renderSeg(); renderPick(); paintSeats();
 }
+/* refresh the seat map every 60 s while the seat screen is open */
+setInterval(() => { if (state.view === "seats" && !document.hidden && S.guests) loadTaken(true); }, 60000);
+document.addEventListener("visibilitychange", () => { if (!document.hidden && state.view === "seats" && S.guests) loadTaken(true); });
 function openSeats(guests, mode){
   if (!S.built) buildSeatMap();
   S.guests = guests; S.mode = mode || "reg"; S.prev = state.view === "seats" ? (S.prev || "form") : state.view;
@@ -1169,7 +1198,7 @@ function guestRow(g){
     const a = el("div", "gact"); const save = el("button", "sbtn gold", t("mSave")); save.type = "button"; const bk = el("button", "sbtn", t("mBack")); bk.type = "button";
     a.append(save, bk); extra.append(inp, a); row.appendChild(extra); inp.focus(); inp.select();
     bk.addEventListener("click", clear);
-    save.addEventListener("click", () => { const v = inp.value.trim(); if (v.length < 2) { inp.focus(); return; } doAction([save, bk], () => rpc("amend_rsvp_guest", { p_id:g.id, p_new_name:v }), "mAmended", g.id); });
+    save.addEventListener("click", () => { const v = tcName(inp.value).trim(); if (v.length < 2) { inp.focus(); return; } doAction([save, bk], () => rpc("amend_rsvp_guest", { p_id:g.id, p_new_name:v }), "mAmended", g.id); });
   });
   bD.addEventListener("click", () => {
     clear(); extra = el("div"); extra.appendChild(el("p", "gq", t("mConfirmCancel")));
@@ -1180,7 +1209,51 @@ function guestRow(g){
   });
   return row;
 }
-document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+["#g1", "#g2"].forEach(s => { $(s).setAttribute("autocapitalize", "words"); $(s).addEventListener("blur", () => { $(s).value = tcName($(s).value).trim(); }); });
+$("#company2").addEventListener("blur", () => { $("#company2").value = tcCo($("#company2").value).trim(); });
+phoneGuard("#phone"); phoneGuard("#mPhone");
+$("#langBtn").addEventListener("click", () => setLang(state.lang === "en" ? "id" : "en"));
+
+/* ---------- background music: on by default, starts at 1:30, loops back to 0:00 ---------- */
+const BGM = { a: null, on: true, seeded: false, start: 90 };
+(function(){
+  try { if (sessionStorage.getItem("bgm_off") === "1") BGM.on = false; } catch(e){}
+  const btn = $("#bgm");
+  const ON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+  const OFF = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6 9H3v6h3l5 4V5z" fill="currentColor"/><path d="m16 9 6 6M22 9l-6 6"/></svg>';
+  function paint(){ btn.innerHTML = BGM.on ? ON : OFF; btn.setAttribute("aria-pressed", String(BGM.on)); btn.classList.toggle("off", !BGM.on); }
+  function audio(){
+    if (BGM.a) return BGM.a;
+    const a = new Audio("assets/theme.mp3"); a.loop = true; a.preload = "auto"; a.volume = 0.6; BGM.a = a;
+    a.addEventListener("loadedmetadata", () => seek());
+    return a;
+  }
+  function seek(){ const a = BGM.a; if (!BGM.seeded && a && a.readyState >= 1 && a.duration > BGM.start) { try { a.currentTime = BGM.start; BGM.seeded = true; } catch(e){} } }
+  function play(){
+    const a = audio(); seek();
+    const p = a.play(); if (p && p.catch) p.catch(() => { armGesture(); });   // blocked by the browser until the first tap
+  }
+  function stop(){ if (BGM.a) BGM.a.pause(); }
+  let armed = false;
+  function armGesture(){
+    if (armed) return; armed = true;
+    const go = (e) => {
+      if (e.target && e.target.closest && e.target.closest("#bgm")) return;
+      armed = false; ["pointerdown", "touchend", "keydown"].forEach(n => document.removeEventListener(n, go, true));
+      if (BGM.on) play();
+    };
+    ["pointerdown", "touchend", "keydown"].forEach(n => document.addEventListener(n, go, true));
+  }
+  btn.addEventListener("click", () => {
+    BGM.on = !BGM.on; try { sessionStorage.setItem("bgm_off", BGM.on ? "0" : "1"); } catch(e){}
+    paint(); if (BGM.on) play(); else stop();
+  });
+  document.addEventListener("visibilitychange", () => { if (document.hidden) stop(); else if (BGM.on && BGM.a && BGM.seeded) play(); });
+  paint();
+  /* wait until the page itself has finished loading, so the 3 MB song never competes with the poster/ticket images */
+  const kick = () => { if (BGM.on) setTimeout(play, 300); };
+  if (document.readyState === "complete") kick(); else window.addEventListener("load", kick, { once: true });
+})();
 
 (async function init(){
   let l = null; try { l = localStorage.getItem("rsvp_lang"); } catch(e){}
