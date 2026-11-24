@@ -541,7 +541,7 @@ const ROWS_TOP_DOWN = "KJHGFEDCBA".split("");   // K paling dekat layar (atas), 
 const MAXCOL = 15;
 function seatValid(r, n){
   if (r === "A") return n >= 1 && n <= 14;
-  if (r === "K") return n >= 3 && n <= 15 && n !== 9;
+  if (r === "K") return n >= 3 && n <= 15 && n !== 9 && n !== 8 && n !== 10;   // K8 & K10 = kursi khusus CGV (tidak dijual); K9 tidak ada
   return n >= 3 && n <= 15;
 }
 /* ====================================================== */
