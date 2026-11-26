@@ -417,11 +417,6 @@ footer .brand b{color:#fff}
             <input class="inp" id="g1" type="text" autocomplete="name" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
             <div class="err"></div>
           </div>
-          <label class="switch" for="add2" id="f-add2" hidden>
-            <span class="sw-text"><b data-i18n="add2">Add another guest?</b><small data-i18n="add2Hint">Name only. The same phone number is used.</small></span>
-            <input id="add2" type="checkbox" role="switch">
-            <span class="track" aria-hidden="true"><span class="knob"></span></span>
-          </label>
           <div class="field" id="f-g2">
             <label class="l" for="g2"><span data-i18n="guest2">Guest 2</span> <span class="opt" data-i18n="optional">(optional)</span></label>
             <input class="inp" id="g2" type="text" autocomplete="off" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
@@ -434,6 +429,14 @@ footer .brand b{color:#fff}
           <input class="inp" id="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" placeholder="081188007686">
           <div class="hint" data-i18n="phoneHint">Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.</div>
           <div class="err"></div>
+        </div>
+
+        <div id="indivExtra">
+          <label class="switch" for="add2" id="f-add2" hidden>
+            <span class="sw-text"><b data-i18n="add2">Add another guest?</b></span>
+            <input id="add2" type="checkbox" role="switch">
+            <span class="track" aria-hidden="true"><span class="knob"></span></span>
+          </label>
         </div>
 
         <div class="hp" aria-hidden="true"><label>Website <input type="text" id="website" tabindex="-1" autocomplete="off"></label></div>
@@ -563,7 +566,7 @@ function seatValid(r, n){
 const I18N = {
   en: {
     sub:"Please confirm your attendance by providing the names of the guest",
-    indiv:"Individual client", indivHint:"No company name needed. You can add 1 more guest.", add2:"Add another guest?", add2Hint:"Name only. The same phone number is used.", errG2:"Please enter the second guest's name.", indivLabel:"Individual client",
+    indiv:"Individual client", indivHint:"No company name needed. You can add 1 more guest.", add2:"Add another guest?", errG2:"Please enter the second guest's name.", indivLabel:"Individual client",
     company:"Company name", phCompany:"e.g. adi…",
     companyHint:"Not listed? Type “Other”, then enter your company name.",
     otherOpt:"Other (my company is not listed)", company2:"Your company name", phManual:"Type your full company name",
@@ -588,7 +591,7 @@ const I18N = {
     mTitle:"🎫 Download your ticket or amend/cancel booking", mSub:"Already registered? Enter your phone number to find your booking.",
     mCompany:"Company / customer name",
     mNone:"No active registration found.", mAmend:"Change name", mSeatBtn:"Change seat", mCancel:"Cancel booking",
-    mSave:"Save", mBack:"Back", mYes:"Yes, cancel", mKeep:"Keep", mAll:"Cancel both guests",
+    mSave:"Save", mBack:"Back", mYes:"Yes, cancel", mKeep:"Keep", mAll:"🗑 Cancel both guests",
     mConfirmCancel:"Cancel this guest's booking? Their seat will be released.", mConfirmAll:"Cancel the booking for all guests listed?",
     mNewName:"New full name", mAmended:"Name updated.", mCancelled:"Booking cancelled.", mSeatDone:"Seat updated.", mRegistered:"Registered",
     mPrivacy:"Names are partially hidden for privacy.", loading:"Loading…", seatWord:"Seat",
@@ -603,7 +606,7 @@ const I18N = {
   },
   id: {
     sub:"Mohon konfirmasi kehadiran dengan menginformasikan nama tamu yang akan hadir",
-    indiv:"Nasabah individu", indivHint:"Tidak perlu nama perusahaan. Bisa tambah 1 tamu lagi.", add2:"Tambah tamu lagi?", add2Hint:"Cukup nama. Nomor HP yang sama dipakai.", errG2:"Mohon isi nama tamu kedua.", indivLabel:"Nasabah individu",
+    indiv:"Nasabah individu", indivHint:"Tidak perlu nama perusahaan. Bisa tambah 1 tamu lagi.", add2:"Tambah tamu lagi?", errG2:"Mohon isi nama tamu kedua.", indivLabel:"Nasabah individu",
     company:"Nama perusahaan", phCompany:"mis. adi…",
     companyHint:"Tidak ada di daftar? Ketik “Other”, lalu isi nama perusahaan Anda.",
     otherOpt:"Other (perusahaan saya tidak ada di daftar)", company2:"Nama perusahaan Anda", phManual:"Ketik nama lengkap perusahaan",
@@ -628,7 +631,7 @@ const I18N = {
     mTitle:"🎫 Unduh tiket Anda atau ubah/batalkan booking", mSub:"Sudah mendaftar? Masukkan nomor HP Anda untuk menemukan booking Anda.",
     mCompany:"Perusahaan / nama nasabah",
     mNone:"Tidak ada pendaftaran aktif.", mAmend:"Ganti nama", mSeatBtn:"Ganti kursi", mCancel:"Batalkan booking",
-    mSave:"Simpan", mBack:"Kembali", mYes:"Ya, batalkan", mKeep:"Tidak", mAll:"Batalkan kedua tamu",
+    mSave:"Simpan", mBack:"Kembali", mYes:"Ya, batalkan", mKeep:"Tidak", mAll:"🗑 Batalkan kedua tamu",
     mConfirmCancel:"Batalkan booking tamu ini? Kursinya akan dilepas.", mConfirmAll:"Batalkan booking semua tamu yang tampil?",
     mNewName:"Nama lengkap baru", mAmended:"Nama berhasil diganti.", mCancelled:"Booking dibatalkan.", mSeatDone:"Kursi berhasil diganti.", mRegistered:"Terdaftar",
     mPrivacy:"Nama disamarkan sebagian demi privasi.", loading:"Memuat…", seatWord:"Kursi",
@@ -779,6 +782,7 @@ $("#company").addEventListener("blur", () => setTimeout(hideList, 150));
 $("#company").addEventListener("focus", () => { const q = $("#company").value.trim(); if (!CB.picked && !CB.other && CB.restricted && q.length >= CONFIG.MIN_CHARS) renderList(q); });
 $("#indiv").addEventListener("change", () => {
   const on = $("#indiv").checked; $("#f-company").hidden = on; $("#f-company2").hidden = on || !CB.other; $("#f-add2").hidden = !on; $("#add2").checked = false; $("#f-g2").hidden = on;
+  if (on) $("#f-add2").after($("#f-g2")); else $(".pair").appendChild($("#f-g2"));
   if (on) { $("#g2").value = ""; setErr("#f-company", ""); } setErr("#f-g2", ""); g2Label();
   $(".pair").style.gridTemplateColumns = on ? "1fr" : "";
 });
@@ -1125,8 +1129,6 @@ function renderTickets(){
     }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
   });
   $("#swipe").hidden = false;
-  const old = $("#saveAllT"); if (old) old.remove();
-  if (gs.length > 1) { const b = el("button", "btn soft tkall", "💾 " + (gs.length === 2 ? t("saveBoth") : t("saveAll"))); b.type = "button"; b.id = "saveAllT"; b.addEventListener("click", () => saveAllTickets(gs, b)); car.after(b); }
 }
 let lbG = null;
 let lbList = [], lbIdx = 0;
@@ -1275,12 +1277,11 @@ function guestRow(g){
   who.appendChild(el("small", "", (g.company ? g.company + " · " : "") + (g.seat ? t("seatWord") + " " + g.seat : t("freeSeat"))));
   const ico = el("div", "ico");
   const bA = isCo ? icoBtn(SVG.pen, t("mAmend")) : null, bS = isCo ? icoBtn(SVG.seat, t("mSeatBtn")) : null;
-  const bT = icoBtn(SVG.dl, t("mDownload")), bD = icoBtn(SVG.trash, t("mCancel"), "del");
-  [bA, bS, bT, bD].forEach(b => b && ico.appendChild(b)); line.append(who, ico); row.appendChild(line);
+  const bD = icoBtn(SVG.trash, t("mCancel"), "del");
+  [bA, bS, bD].forEach(b => b && ico.appendChild(b)); line.append(who, ico); row.appendChild(line);
   const sv = el("button", "sbtn gold msave", "💾 " + t("saveTicket")); sv.type = "button"; row.appendChild(sv);
   sv.addEventListener("click", async () => { const tk = ticketFor(g); sv.disabled = true; try { await saveTicket(tk); } catch(e){ setBanner("#mMsg", t("tkError")); } finally { sv.disabled = false; } });
   let extra = null; const clear = () => { if (extra) { extra.remove(); extra = null; } };
-  bT.addEventListener("click", async () => { const list = (M.guests || [g]).map(ticketFor), i = Math.max(0, (M.guests || [g]).indexOf(g)); try { openLb(list[i], await tkGet(list[i]), null, list); } catch(e){ setBanner("#mMsg", t("tkError")); } });
   if (bS) bS.addEventListener("click", () => openSeats([{ id:g.id, name:g.name, seat:g.seat || null }], "manage"));
   if (bA) bA.addEventListener("click", () => {
     clear(); extra = el("div");
