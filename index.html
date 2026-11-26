@@ -567,7 +567,7 @@ const I18N = {
     errTaken:"Sorry, that seat was just taken by someone else. Please choose another one.",
     doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.", errPhone0:"Phone number must start with 0 (not +62 or 62).",
     updated:"Your registration has been updated.",
-    saveTicket:"Save ticket", close:"Close", swipe:"Tap a ticket to enlarge it", guestN:"Guest",
+    saveTicket:"Save ticket", saveAll:"Save all tickets (PDF)", close:"Close", swipe:"Tap a ticket to enlarge it", guestN:"Guest",
     tkLoading:"Preparing ticket…", tkError:"Couldn't create the ticket image.",
     calTitle:"Save the date to your calendar", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Type at least 3 letters, e.g. jay…", mDownload:"Download ticket", mUpdated:"Updated! Please save your new ticket.", mTypeMore:"Type at least 3 letters.", mNoRes:"No registration found.", kCompany:"Company", kIndividual:"Individual",
@@ -607,7 +607,7 @@ const I18N = {
     errTaken:"Maaf, kursi itu baru saja diambil orang lain. Silakan pilih kursi lain.",
     doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.", errPhone0:"Nomor HP harus diawali 0 (bukan +62 atau 62).",
     updated:"Data pendaftaran Anda sudah diperbarui.",
-    saveTicket:"Simpan tiket", close:"Tutup", swipe:"Ketuk tiket untuk memperbesar", guestN:"Tamu",
+    saveTicket:"Simpan tiket", saveAll:"Simpan semua tiket (PDF)", close:"Tutup", swipe:"Ketuk tiket untuk memperbesar", guestN:"Tamu",
     tkLoading:"Menyiapkan tiket…", tkError:"Gagal membuat gambar tiket.",
     calTitle:"Simpan ke kalender Anda", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Ketik minimal 3 huruf, mis. jay…", mDownload:"Unduh tiket", mUpdated:"Berhasil diubah! Mohon simpan tiket baru Anda.", mTypeMore:"Ketik minimal 3 huruf.", mNoRes:"Tidak ada pendaftaran ditemukan.", kCompany:"Perusahaan", kIndividual:"Individu",
@@ -1038,6 +1038,55 @@ async function saveTicket(g){
   }
   const a = document.createElement("a"); a.href = rec.portUrl; a.download = fname; document.body.appendChild(a); a.click(); a.remove();
 }
+/* ---------- semua tiket -> 1 file PDF (1 halaman per tiket), tanpa library ---------- */
+function jpegOf(blob){
+  return new Promise((res, rej) => {
+    const u = URL.createObjectURL(blob), im = new Image();
+    im.onload = () => {
+      const c = document.createElement("canvas"); c.width = im.naturalWidth; c.height = im.naturalHeight;
+      const x = c.getContext("2d"); x.fillStyle = "#04170f"; x.fillRect(0, 0, c.width, c.height); x.drawImage(im, 0, 0);
+      c.toBlob(async (b) => { URL.revokeObjectURL(u); if (!b) return rej(new Error("jpeg")); res({ w:c.width, h:c.height, bytes:new Uint8Array(await b.arrayBuffer()) }); }, "image/jpeg", 0.93);
+    };
+    im.onerror = () => { URL.revokeObjectURL(u); rej(new Error("img")); };
+    im.src = u;
+  });
+}
+function buildPdf(pages){
+  const enc = new TextEncoder(), parts = [], off = []; let len = 0;
+  const put = (x) => { const u = typeof x === "string" ? enc.encode(x) : x; parts.push(u); len += u.length; };
+  const obj = (n, body) => { off[n] = len; put(n + " 0 obj\n"); put(body); put("\nendobj\n"); };
+  put("%PDF-1.4\n");
+  obj(1, "<< /Type /Catalog /Pages 2 0 R >>");
+  obj(2, "<< /Type /Pages /Count " + pages.length + " /Kids [" + pages.map((_, i) => (3 + 3 * i) + " 0 R").join(" ") + "] >>");
+  const PW = 420;
+  pages.forEach((p, i) => {
+    const pg = 3 + 3 * i, ct = pg + 1, im = pg + 2, PH = +(PW * p.h / p.w).toFixed(2);
+    obj(pg, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PW + " " + PH + "] /Resources << /XObject << /Im0 " + im + " 0 R >> >> /Contents " + ct + " 0 R >>");
+    const cs = "q " + PW + " 0 0 " + PH + " 0 0 cm /Im0 Do Q";
+    obj(ct, "<< /Length " + cs.length + " >>\nstream\n" + cs + "\nendstream");
+    off[im] = len; put(im + " 0 obj\n<< /Type /XObject /Subtype /Image /Width " + p.w + " /Height " + p.h + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + p.bytes.length + " >>\nstream\n");
+    put(p.bytes); put("\nendstream\nendobj\n");
+  });
+  const n = 3 + 3 * pages.length, xr = len;
+  put("xref\n0 " + n + "\n0000000000 65535 f \n");
+  for (let i = 1; i < n; i++) put(String(off[i]).padStart(10, "0") + " 00000 n \n");
+  put("trailer\n<< /Size " + n + " /Root 1 0 R >>\nstartxref\n" + xr + "\n%%EOF");
+  return new Blob(parts, { type:"application/pdf" });
+}
+async function saveAllTickets(gs, btn){
+  const old = btn.textContent; btn.disabled = true; btn.textContent = "…";
+  try {
+    const recs = await Promise.all(gs.map(g => tkGet(g)));
+    const pages = []; for (const r of recs) pages.push(await jpegOf(r.port));
+    const pdf = buildPdf(pages), base = (gs[0].company || gs[0].name || "Guest").replace(/[^\w]+/g, "-").replace(/^-|-$/g, "");
+    const fname = "Tickets-" + base + "-" + gs.length + "pax.pdf", file = new File([pdf], fname, { type:"application/pdf" });
+    if (navigator.canShare && navigator.canShare({ files:[file] })) {
+      try { await navigator.share({ files:[file], title:"Movie Night Tickets" }); return; } catch(e){ if (e && e.name === "AbortError") return; }
+    }
+    const u = URL.createObjectURL(pdf), a = document.createElement("a"); a.href = u; a.download = fname; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 60000);
+  } catch(e){ console.error(e); alert(t("tkError")); }
+  finally { btn.disabled = false; btn.textContent = old; }
+}
 function renderTickets(){
   const gs = state.reg.guests;
   $("#doneTitle").textContent = t("doneTitle");
@@ -1054,6 +1103,8 @@ function renderTickets(){
     }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
   });
   $("#swipe").hidden = false;
+  const old = $("#saveAllT"); if (old) old.remove();
+  if (gs.length > 1) { const b = el("button", "btn gold", "💾 " + t("saveAll") + " (" + gs.length + ")"); b.type = "button"; b.id = "saveAllT"; b.style.marginTop = "12px"; b.addEventListener("click", () => saveAllTickets(gs, b)); car.after(b); }
 }
 let lbG = null;
 function openLb(g, rec, note){ lbG = g; $("#lbNote").hidden = !note; $("#lbNote").textContent = note || ""; $("#lbImg").src = rec.portUrl; $("#lb").hidden = false; document.body.style.overflow = "hidden"; }
@@ -1144,6 +1195,7 @@ function renderGuests(){
   const box = $("#mList"); box.textContent = "";
   if (!M.guests) return;
   if (!M.guests.length) { box.appendChild(el("p", "note", t("mNone"))); return; }
+  if (M.guests.length > 1) { const sa = el("button", "btn gold", "💾 " + t("saveAll") + " (" + M.guests.length + ")"); sa.type = "button"; sa.style.marginBottom = "10px"; sa.addEventListener("click", () => saveAllTickets(M.guests.map(ticketFor), sa)); box.appendChild(sa); }
   M.guests.forEach(g => box.appendChild(guestRow(g)));
   if (M.guests.length > 1) {
     const all = el("button", "alllink", t("mAll")); all.type = "button";
