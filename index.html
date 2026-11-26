@@ -291,7 +291,7 @@ footer .brand b{color:#fff}
 .car{display:flex; flex-direction:column; gap:16px; margin:0 0 6px}
 .tkh{margin:0 0 8px 4px; font-size:14px; font-weight:700; letter-spacing:.01em}
 .tkh small{display:block; font-size:11px; font-weight:600; color:var(--muted); letter-spacing:.06em; text-transform:uppercase; margin-bottom:2px}
-.tksave{margin-top:8px; min-height:42px; font-size:13px}
+.tkall{display:flex; width:auto; min-height:38px; margin:14px auto 0; padding:0 18px; font-size:12.5px}
 .car::-webkit-scrollbar{display:none}
 .slide{min-width:0}
 .thumb{display:block; width:100%; padding:6px; border-radius:22px; border:1px solid var(--rim); background:var(--glass); cursor:zoom-in; -webkit-appearance:none; box-shadow:0 8px 20px rgba(0,0,0,.4), inset 1px 1px 2px rgba(255,255,255,.45)}
@@ -301,10 +301,12 @@ footer .brand b{color:#fff}
 .dots{display:flex; justify-content:center; gap:7px; margin:12px 0 4px; min-height:8px}
 .dots i{width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.3); transition:.2s}
 .dots i.on{background:var(--gold); width:22px; border-radius:99px}
-.swipe{text-align:center; font-size:11.5px; color:var(--muted); margin:0 0 10px}
+.swipe{text-align:center; font-size:13px; font-weight:700; line-height:1.4; color:var(--gold); margin:0 0 12px}
 .lb{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:16px; background:rgba(2,10,6,.78); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
 .lb-in{width:min(420px,100%); max-height:100%; display:flex; flex-direction:column; gap:10px; align-items:center}
 .lb img{display:block; max-width:100%; max-height:calc(100vh - 150px); max-height:calc(100dvh - 150px); width:auto; height:auto; border-radius:20px; box-shadow:0 8px 24px rgba(0,0,0,.5); -webkit-touch-callout:default}
+.lbnav{display:flex; align-items:center; justify-content:center; gap:16px; color:#fff; font-weight:700; font-size:13px}
+.lbnav button{width:44px; height:44px; border-radius:50%; border:1px solid rgba(255,255,255,.45); background:rgba(255,255,255,.16); color:#fff; font-size:26px; line-height:1; cursor:pointer; -webkit-appearance:none; padding:0 0 3px}
 .lb-act{display:flex; gap:10px; width:100%}
 .lb-act .btn{margin:0; min-height:48px; font-size:14px}
 /* v5 */
@@ -343,6 +345,9 @@ footer .brand b{color:#fff}
 .mrow .inp{height:46px; margin-top:10px}
 .mrow .gact{margin-top:8px}
 .mrow .msave{width:100%; margin-top:10px}
+.mfoot{display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px}
+.mfoot .alllink{margin:0; font-size:12.5px; padding:10px 8px; line-height:1.25}
+.alllink.pdf{background:rgba(255,255,255,.12); border-color:rgba(255,255,255,.4); color:#fff}
 .alllink{display:block; width:100%; margin:10px 0 0; background:rgba(255,90,100,.14); border:1px solid rgba(255,120,130,.55); color:#ffc4c8; font:inherit; font-size:14px; font-weight:700; border-radius:14px; cursor:pointer; padding:12px}
 </style>
 </head>
@@ -453,8 +458,8 @@ footer .brand b{color:#fff}
       <div id="tickets" hidden>
         <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
         <div class="done-h"><h3 id="doneTitle"></h3><p id="doneText"></p></div>
+        <p class="swipe" id="swipe" hidden data-i18n="swipe">👆 Tap your ticket to enlarge it, then tap Save ticket.</p>
         <div class="car" id="car"></div>
-        <p class="swipe" id="swipe" hidden data-i18n="swipe">Tap a ticket to enlarge it</p>
         <p class="reg-note" id="regNote" data-i18n="regNote">Please save your ticket and show it at the registration table.</p>
         <div class="caltitle">📅 <span data-i18n="calTitle">Save the date to your calendar</span></div>
         <div class="calrow">
@@ -510,6 +515,7 @@ footer .brand b{color:#fff}
   <div class="lb-in">
     <p class="lbnote" id="lbNote" hidden></p>
     <img id="lbImg" alt="Ticket">
+    <div class="lbnav" id="lbNav" hidden><button type="button" id="lbPrev" aria-label="Previous ticket">‹</button><span id="lbCnt"></span><button type="button" id="lbNext" aria-label="Next ticket">›</button></div>
     <div class="lb-act">
       <button class="btn gold" id="lbSave" type="button">💾 <span data-i18n="saveTicket">Save ticket</span></button>
       <button class="btn soft" id="lbClose" type="button"><span data-i18n="close">Close</span></button>
@@ -567,7 +573,7 @@ const I18N = {
     errTaken:"Sorry, that seat was just taken by someone else. Please choose another one.",
     doneTitle:"You're confirmed! 🎉", doneText:"See you on 17 December 2026!", regNote:"Please save your ticket and show it at the registration table.", phone:"Phone / WhatsApp number", phoneHint:"Phone number for registration (any guest). Use 0, e.g. 081188007686, do not use +62.", trailer:"Watch Avengers: Doomsday trailer here", mPhoneL:"Phone number used when registering", mFind:"Find", mFallbackHint:"Number not found 3 times. You can now search by company / customer name.", mPhoneBad:"Please enter your phone number, e.g. 081188007686.", mNotFoundN:"No booking found with that number",  errPhone:"Please enter a valid phone number.", errPhone0:"Phone number must start with 0 (not +62 or 62).",
     updated:"Your registration has been updated.",
-    saveTicket:"Save ticket", saveAll:"Save all tickets (PDF)", close:"Close", swipe:"Tap a ticket to enlarge it", guestN:"Guest",
+    saveTicket:"Save ticket", saveAll:"Save all tickets to PDF", saveBoth:"Save both tickets to PDF", close:"Close", swipe:"👆 Tap your ticket to enlarge it, then tap Save ticket.", guestN:"Guest",
     tkLoading:"Preparing ticket…", tkError:"Couldn't create the ticket image.",
     calTitle:"Save the date to your calendar", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Type at least 3 letters, e.g. jay…", mDownload:"Download ticket", mUpdated:"Updated! Please save your new ticket.", mTypeMore:"Type at least 3 letters.", mNoRes:"No registration found.", kCompany:"Company", kIndividual:"Individual",
@@ -607,7 +613,7 @@ const I18N = {
     errTaken:"Maaf, kursi itu baru saja diambil orang lain. Silakan pilih kursi lain.",
     doneTitle:"Kehadiran Anda terkonfirmasi! 🎉", doneText:"Sampai jumpa pada 17 Desember 2026!", regNote:"Mohon simpan tiket Anda dan tunjukkan di meja registrasi.", phone:"Nomor HP / WhatsApp", phoneHint:"Nomor HP untuk registrasi (salah satu tamu). Pakai 0, mis. 081188007686, jangan pakai +62.", trailer:"Tonton trailer Avengers: Doomsday di sini", mPhoneL:"Nomor HP yang dipakai saat mendaftar", mFind:"Cari", mFallbackHint:"Nomor tidak ditemukan 3 kali. Sekarang Anda bisa mencari lewat nama perusahaan / nasabah.", mPhoneBad:"Mohon isi nomor HP Anda, mis. 081188007686.", mNotFoundN:"Booking dengan nomor tersebut tidak ditemukan",  errPhone:"Mohon isi nomor telepon yang valid.", errPhone0:"Nomor HP harus diawali 0 (bukan +62 atau 62).",
     updated:"Data pendaftaran Anda sudah diperbarui.",
-    saveTicket:"Simpan tiket", saveAll:"Simpan semua tiket (PDF)", close:"Tutup", swipe:"Ketuk tiket untuk memperbesar", guestN:"Tamu",
+    saveTicket:"Simpan tiket", saveAll:"Simpan semua tiket ke PDF", saveBoth:"Simpan kedua tiket ke PDF", close:"Tutup", swipe:"👆 Ketuk tiket Anda untuk memperbesar, lalu ketuk Simpan tiket.", guestN:"Tamu",
     tkLoading:"Menyiapkan tiket…", tkError:"Gagal membuat gambar tiket.",
     calTitle:"Simpan ke kalender Anda", calApple:"iPhone", calAnd:"Android", calGoogle2:"Google Calendar",
     mSearchPh:"Ketik minimal 3 huruf, mis. jay…", mDownload:"Unduh tiket", mUpdated:"Berhasil diubah! Mohon simpan tiket baru Anda.", mTypeMore:"Ketik minimal 3 huruf.", mNoRes:"Tidak ada pendaftaran ditemukan.", kCompany:"Perusahaan", kIndividual:"Individu",
@@ -1096,23 +1102,38 @@ function renderTickets(){
     const slide = el("div", "slide"); const h = el("div", "tkh"); h.appendChild(el("small", "", t("guestN") + " " + (i + 1))); h.appendChild(document.createTextNode(g.name)); slide.appendChild(h);
     const th = el("button", "thumb"); th.type = "button"; th.setAttribute("aria-label", "Ticket – " + g.name);
     const ph = el("div", "ph", t("tkLoading")); th.appendChild(ph); slide.appendChild(th);
-    const sv = el("button", "btn soft tksave"); sv.type = "button"; sv.disabled = true; sv.textContent = "💾 " + t("saveTicket"); slide.appendChild(sv); car.appendChild(slide);
+    car.appendChild(slide);
     tkGet(g).then(rec => {
       const im = new Image(); im.alt = "Ticket – " + g.name; im.src = rec.landUrl; ph.replaceWith(im);
-      th.addEventListener("click", () => openLb(g, rec, null)); sv.disabled = false; sv.addEventListener("click", () => saveTicket(g));
+      th.addEventListener("click", () => openLb(g, rec, null, gs));
     }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
   });
   $("#swipe").hidden = false;
   const old = $("#saveAllT"); if (old) old.remove();
-  if (gs.length > 1) { const b = el("button", "btn gold", "💾 " + t("saveAll") + " (" + gs.length + ")"); b.type = "button"; b.id = "saveAllT"; b.style.marginTop = "12px"; b.addEventListener("click", () => saveAllTickets(gs, b)); car.after(b); }
+  if (gs.length > 1) { const b = el("button", "btn soft tkall", "💾 " + (gs.length === 2 ? t("saveBoth") : t("saveAll"))); b.type = "button"; b.id = "saveAllT"; b.addEventListener("click", () => saveAllTickets(gs, b)); car.after(b); }
 }
 let lbG = null;
-function openLb(g, rec, note){ lbG = g; $("#lbNote").hidden = !note; $("#lbNote").textContent = note || ""; $("#lbImg").src = rec.portUrl; $("#lb").hidden = false; document.body.style.overflow = "hidden"; }
-function closeLb(){ $("#lb").hidden = true; document.body.style.overflow = ""; lbG = null; }
+let lbList = [], lbIdx = 0;
+async function lbShow(i){
+  lbIdx = (i + lbList.length) % lbList.length; lbG = lbList[lbIdx];
+  try { const rec = await tkGet(lbG); $("#lbImg").src = rec.portUrl; } catch(e){ console.error(e); }
+  $("#lbNav").hidden = lbList.length < 2; $("#lbCnt").textContent = (lbIdx + 1) + " / " + lbList.length + " · " + (lbG.name || "");
+}
+function openLb(g, rec, note, list){
+  lbList = list && list.length ? list : [g]; lbIdx = Math.max(0, lbList.indexOf(g)); lbG = lbList[lbIdx];
+  $("#lbNote").hidden = !note; $("#lbNote").textContent = note || ""; $("#lbImg").src = rec.portUrl;
+  $("#lbNav").hidden = lbList.length < 2; $("#lbCnt").textContent = (lbIdx + 1) + " / " + lbList.length + " · " + (lbG.name || "");
+  $("#lb").hidden = false; document.body.style.overflow = "hidden";
+}
+$("#lbPrev").addEventListener("click", () => lbShow(lbIdx - 1)); $("#lbNext").addEventListener("click", () => lbShow(lbIdx + 1));
+{ let sx = 0, sy = 0; const im = $("#lbImg");
+  im.addEventListener("touchstart", (e) => { sx = e.touches[0].clientX; sy = e.touches[0].clientY; }, { passive:true });
+  im.addEventListener("touchend", (e) => { if (lbList.length < 2) return; const t0 = e.changedTouches[0], dx = t0.clientX - sx, dy = t0.clientY - sy; if (Math.abs(dx) > 50 && Math.abs(dx) > Math.abs(dy) * 1.3) lbShow(lbIdx + (dx < 0 ? 1 : -1)); }, { passive:true }); }
+function closeLb(){ $("#lb").hidden = true; document.body.style.overflow = ""; lbG = null; lbList = []; }
 $("#lbClose").addEventListener("click", closeLb);
 $("#lb").addEventListener("click", (e) => { if (e.target.id === "lb" || e.target.classList.contains("lb-in")) closeLb(); });
 $("#lbSave").addEventListener("click", () => { if (lbG) saveTicket(lbG); });
-document.addEventListener("keydown", (e) => { if (e.key === "Escape" && !$("#lb").hidden) closeLb(); });
+document.addEventListener("keydown", (e) => { if ($("#lb").hidden) return; if (e.key === "Escape") closeLb(); else if (e.key === "ArrowRight") lbShow(lbIdx + 1); else if (e.key === "ArrowLeft") lbShow(lbIdx - 1); });
 
 /* ---------- logo = kembali ke halaman awal ---------- */
 $("#home").addEventListener("click", (e) => {
@@ -1195,18 +1216,20 @@ function renderGuests(){
   const box = $("#mList"); box.textContent = "";
   if (!M.guests) return;
   if (!M.guests.length) { box.appendChild(el("p", "note", t("mNone"))); return; }
-  if (M.guests.length > 1) { const sa = el("button", "btn gold", "💾 " + t("saveAll") + " (" + M.guests.length + ")"); sa.type = "button"; sa.style.marginBottom = "10px"; sa.addEventListener("click", () => saveAllTickets(M.guests.map(ticketFor), sa)); box.appendChild(sa); }
   M.guests.forEach(g => box.appendChild(guestRow(g)));
   if (M.guests.length > 1) {
+    const foot = el("div", "mfoot");
+    const pdf = el("button", "alllink pdf", "💾 " + (M.guests.length === 2 ? t("saveBoth") : t("saveAll"))); pdf.type = "button";
+    pdf.addEventListener("click", () => saveAllTickets(M.guests.map(ticketFor), pdf));
     const all = el("button", "alllink", t("mAll")); all.type = "button";
     all.addEventListener("click", () => {
       const q = el("p", "gq", t("mConfirmAll")); const a = el("div", "gact");
       const yes = el("button", "sbtn danger", t("mYes")); yes.type = "button"; const no = el("button", "sbtn", t("mKeep")); no.type = "button";
       a.append(yes, no); no.addEventListener("click", renderGuests);
       yes.addEventListener("click", () => doAction([yes, no], async () => { for (const g of M.guests.slice()) await rpc("cancel_rsvp_guest", { p_id:g.id }); }, "mCancelled"));
-      all.replaceWith(q, a);
+      foot.replaceWith(q, a);
     });
-    box.appendChild(all);
+    foot.append(pdf, all); box.appendChild(foot);
   }
 }
 async function syncMine(){
@@ -1240,7 +1263,7 @@ function guestRow(g){
   const sv = el("button", "sbtn gold msave", "💾 " + t("saveTicket")); sv.type = "button"; row.appendChild(sv);
   sv.addEventListener("click", async () => { const tk = ticketFor(g); sv.disabled = true; try { await saveTicket(tk); } catch(e){ setBanner("#mMsg", t("tkError")); } finally { sv.disabled = false; } });
   let extra = null; const clear = () => { if (extra) { extra.remove(); extra = null; } };
-  bT.addEventListener("click", async () => { const tk = ticketFor(g); try { openLb(tk, await tkGet(tk), null); } catch(e){ setBanner("#mMsg", t("tkError")); } });
+  bT.addEventListener("click", async () => { const list = (M.guests || [g]).map(ticketFor), i = Math.max(0, (M.guests || [g]).indexOf(g)); try { openLb(list[i], await tkGet(list[i]), null, list); } catch(e){ setBanner("#mMsg", t("tkError")); } });
   if (bS) bS.addEventListener("click", () => openSeats([{ id:g.id, name:g.name, seat:g.seat || null }], "manage"));
   if (bA) bA.addEventListener("click", () => {
     clear(); extra = el("div");

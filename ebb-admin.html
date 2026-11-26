@@ -191,6 +191,7 @@ details summary{cursor:pointer; font-weight:800; font-size:15px; display:flex; a
         <span class="ctl">
           <input class="srch" id="coQ" type="search" placeholder="Search companies…" aria-label="Search companies">
           <select class="sel" id="coSort" aria-label="Sort companies"></select>
+          <button class="btn sm" id="coPdf" type="button" title="All guests of all companies shown below, 1 PDF (1 page per ticket)">⬇ Tickets PDF</button>
           <button class="btn pri sm xlsbtn" id="coXls" type="button">⬇ Excel</button>
         </span>
       </h3>
@@ -202,6 +203,7 @@ details summary{cursor:pointer; font-weight:800; font-size:15px; display:flex; a
         <span class="ctl">
           <input class="srch" id="inQ" type="search" placeholder="Search clients…" aria-label="Search individual clients">
           <select class="sel" id="inSort" aria-label="Sort individual clients"></select>
+          <button class="btn sm" id="inPdf" type="button" title="All individual clients shown below, 1 PDF (1 page per ticket)">⬇ Tickets PDF</button>
           <button class="btn pri sm xlsbtn" id="inXls" type="button">⬇ Excel</button>
         </span>
       </h3>
@@ -549,7 +551,9 @@ function renderCo(){
     tr.appendChild(el("td", "", c.g1)); tr.appendChild(seatCell(c.s1));
     tr.appendChild(el("td", "", c.g2 || "–")); tr.appendChild(c.g[1] ? seatCell(c.s2) : el("td", "free", "–"));
     tr.appendChild(el("td", "", c.phone)); tr.appendChild(el("td", "", fmtWib(c.at)));
-    tr.appendChild(tkBtns([c.g[0], c.g[1]])); tr.appendChild(delBtns([c.g[0], c.g[1]])); tb.appendChild(tr);
+    const tkc = tkBtns([c.g[0], c.g[1]]);
+    if (c.g.length > 1) { const pb = el("button", "tk", "📄 Both PDF"); pb.type = "button"; pb.title = "Both tickets of " + c.company + " in 1 PDF (2 pages)"; pb.addEventListener("click", () => ticketsPdf(c.g, c.company)); tkc.appendChild(pb); }
+    tr.appendChild(tkc); tr.appendChild(delBtns([c.g[0], c.g[1]])); tb.appendChild(tr);
   });
   t.appendChild(tb); $("#coCnt").textContent = list.length + (list.length !== ST.co.length ? " / " + ST.co.length : "");
   if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.co.length ? "No match." : "No companies yet."); td.colSpan = 11; p.appendChild(td); tb.appendChild(p); }
@@ -584,6 +588,8 @@ function renderCan(){
   });
   t.appendChild(tb); $("#caCnt").textContent = String(list.length);
 }
+$("#coPdf").addEventListener("click", () => ticketsPdf((ST.coView || []).flatMap(c => c.g), "All-companies"));
+$("#inPdf").addEventListener("click", () => ticketsPdf((ST.inView || []).map(c => c.g), "All-individuals"));
 $("#coQ").addEventListener("input", renderCo); $("#inQ").addEventListener("input", renderInd);
 
 /* ---------- Excel (SheetJS, self-hosted) ---------- */
