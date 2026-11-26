@@ -541,7 +541,7 @@ function renderCo(){
   list.sort((a, b) => (rank(a) - rank(b)) || S.d * cmp(keyOf[S.k](a), keyOf[S.k](b)) || cmp(a.company.toLowerCase(), b.company.toLowerCase()));
   ST.coView = list; syncSort("co");
   const t = $("#coTbl"); t.textContent = "";
-  t.appendChild(head(t, "co", [["#"], ["Company", "company"], ["Source", "source"], ["Guest 1", "g1"], ["Seat 1", "seat"], ["Guest 2", "g2"], ["Seat 2"], ["Phone"], ["Registered (WIB)", "time"], ["Tickets"], ["Delete"]]));
+  t.appendChild(head(t, "co", [["#"], ["Company", "company"], ["Source", "source"], ["Guest 1", "g1"], ["Seat 1", "seat"], ["Guest 2", "g2"], ["Seat 2"], ["Phone"], ["Registered (WIB)", "time"], ["Tickets"], ["Delete"], ["PDF"]]));
   { const th = [...t.querySelectorAll("th")].find(h => h.textContent === "Tickets"); if (th) secret(th, () => ticketsPdf(list.flatMap(c => c.g), "All-companies")); }
   const tb = el("tbody");
   list.forEach((c, i) => {
@@ -552,11 +552,12 @@ function renderCo(){
     tr.appendChild(el("td", "", c.g2 || "–")); tr.appendChild(c.g[1] ? seatCell(c.s2) : el("td", "free", "–"));
     tr.appendChild(el("td", "", c.phone)); tr.appendChild(el("td", "", fmtWib(c.at)));
     const tkc = tkBtns([c.g[0], c.g[1]]);
-    if (c.g.length > 1) { const pb = el("button", "tk", "📄 Both PDF"); pb.type = "button"; pb.title = "Both tickets of " + c.company + " in 1 PDF (2 pages)"; pb.addEventListener("click", () => ticketsPdf(c.g, c.company)); tkc.appendChild(pb); }
-    tr.appendChild(tkc); tr.appendChild(delBtns([c.g[0], c.g[1]])); tb.appendChild(tr);
+    tr.appendChild(tkc); tr.appendChild(delBtns([c.g[0], c.g[1]]));
+    const pdc = el("td"); if (c.g.length > 1) { const pb = el("button", "tk", "📄 PDF"); pb.type = "button"; pb.title = "Both tickets of " + c.company + " in 1 PDF (2 pages)"; pb.addEventListener("click", () => ticketsPdf(c.g, c.company)); pdc.appendChild(pb); }
+    tr.appendChild(pdc); tb.appendChild(tr);
   });
   t.appendChild(tb); $("#coCnt").textContent = list.length + (list.length !== ST.co.length ? " / " + ST.co.length : "");
-  if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.co.length ? "No match." : "No companies yet."); td.colSpan = 11; p.appendChild(td); tb.appendChild(p); }
+  if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.co.length ? "No match." : "No companies yet."); td.colSpan = 12; p.appendChild(td); tb.appendChild(p); }
 }
 
 function renderInd(){
