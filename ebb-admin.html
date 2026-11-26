@@ -87,6 +87,11 @@ button{font:inherit; cursor:pointer}
 .srch::placeholder{color:rgba(255,255,255,.5)} .srch:focus{border-color:var(--gold); box-shadow:inset 0 2px 6px rgba(0,0,0,.28), 0 0 0 3px rgba(255,210,94,.28)}
 .tk.del{color:#ffc4c8; border-color:rgba(255,130,140,.7); background:linear-gradient(135deg,rgba(255,77,94,.4),rgba(150,15,30,.25))}
 .tk.del.armed{color:#fff; background:linear-gradient(180deg,#ff6b78,#d62b3f); border-color:#ffb3b9}
+.tws{overflow-x:auto; overflow-y:hidden; height:16px; margin:0 0 6px; -webkit-overflow-scrolling:touch}
+.tws>div{height:1px}
+.tws::-webkit-scrollbar,.tw::-webkit-scrollbar{height:10px}
+.tws::-webkit-scrollbar-track,.tw::-webkit-scrollbar-track{background:rgba(255,255,255,.12); border-radius:99px}
+.tws::-webkit-scrollbar-thumb,.tw::-webkit-scrollbar-thumb{background:rgba(255,255,255,.5); border-radius:99px}
 .sel option{color:#10281c; background:#fff}
 .sel:focus{border-color:var(--gold)}
 .btn.sm{min-height:38px; padding:0 14px; font-size:12.5px}
@@ -213,7 +218,8 @@ details summary{cursor:pointer; font-weight:800; font-size:15px; display:flex; a
     <div class="card glass">
       <details>
         <summary>Cancelled registrations <span class="cnt" id="caCnt"></span></summary>
-        <div class="tw" style="margin-top:14px"><table id="caTbl" style="min-width:780px"></table></div>
+        <div class="ctl" id="caBar" style="margin:14px 0 0; justify-content:flex-end"></div>
+        <div class="tw" style="margin-top:10px"><table id="caTbl" style="min-width:780px"></table></div>
       </details>
     </div>
   </main>
@@ -311,7 +317,7 @@ const qv = (id) => $(id).value.trim().toLowerCase();
 function match(q, ...vals){ return !q || vals.some(v => String(v || "").toLowerCase().includes(q)); }
 function cmp(a, b){ return a < b ? -1 : a > b ? 1 : 0; }
 
-function renderAll(){ renderStats(); renderMap(); renderCo(); renderInd(); renderCan(); $("#upd").textContent = "Updated " + ST.updated.toLocaleTimeString("en-GB"); }
+function renderAll(){ renderStats(); renderMap(); renderCo(); renderInd(); renderCan(); syncBars(); $("#upd").textContent = "Updated " + ST.updated.toLocaleTimeString("en-GB"); }
 
 function renderStats(){
   const booked = Object.keys(ST.seatMap).length, free = ST.confirmed.filter(r => !r.seat).length;
@@ -501,9 +507,12 @@ function delBtn(label, title, action){
   });
   return b;
 }
-async function adminDelete(id, hard){
-  const out = await rpc("admin_delete", { p_pin:ST.pass, p_id:id, p_hard:!!hard });
-  if (!out || !out.ok) throw new Error(out && out.error === "bad_login" ? "wrong PIN" : "not allowed");
+async function adminDelete(id, hard){ await adminDeleteMany([id], hard); }
+async function adminDeleteMany(ids, hard){
+  for (const id of ids) {
+    const out = await rpc("admin_delete", { p_pin:ST.pass, p_id:id, p_hard:!!hard });
+    if (!out || !out.ok) throw new Error(out && out.error === "bad_login" ? "wrong PIN" : "not allowed");
+  }
   await load();
 }
 function delBtns(gs){
@@ -541,7 +550,7 @@ function renderCo(){
   list.sort((a, b) => (rank(a) - rank(b)) || S.d * cmp(keyOf[S.k](a), keyOf[S.k](b)) || cmp(a.company.toLowerCase(), b.company.toLowerCase()));
   ST.coView = list; syncSort("co");
   const t = $("#coTbl"); t.textContent = "";
-  t.appendChild(head(t, "co", [["#"], ["Company", "company"], ["Source", "source"], ["Guest 1", "g1"], ["Seat 1", "seat"], ["Guest 2", "g2"], ["Seat 2"], ["Phone"], ["Registered (WIB)", "time"], ["Tickets"], ["Delete"], ["PDF"]]));
+  t.appendChild(head(t, "co", [["#"], ["Company", "company"], ["Source", "source"], ["Guest 1", "g1"], ["Seat 1", "seat"], ["Guest 2", "g2"], ["Seat 2"], ["Phone"], ["Registered (WIB)", "time"], ["Tickets"], ["Delete"], ["PDF / Cancel"]]));
   { const th = [...t.querySelectorAll("th")].find(h => h.textContent === "Tickets"); if (th) secret(th, () => ticketsPdf(list.flatMap(c => c.g), "All-companies")); }
   const tb = el("tbody");
   list.forEach((c, i) => {
@@ -553,11 +562,13 @@ function renderCo(){
     tr.appendChild(el("td", "", c.phone)); tr.appendChild(el("td", "", fmtWib(c.at)));
     const tkc = tkBtns([c.g[0], c.g[1]]);
     tr.appendChild(tkc); tr.appendChild(delBtns([c.g[0], c.g[1]]));
-    const pdc = el("td"); if (c.g.length > 1) { const pb = el("button", "tk", "📄 PDF"); pb.type = "button"; pb.title = "Both tickets of " + c.company + " in 1 PDF (2 pages)"; pb.addEventListener("click", () => ticketsPdf(c.g, c.company)); pdc.appendChild(pb); }
+    const pdc = el("td"); if (c.g.length > 1) { const pb = el("button", "tk", "📄 PDF"); pb.type = "button"; pb.title = "Both tickets of " + c.company + " in 1 PDF (2 pages)"; pb.addEventListener("click", () => ticketsPdf(c.g, c.company)); pdc.appendChild(pb);
+      pdc.appendChild(delBtn("🗑 Both", "Cancel both guests of " + c.company + " (seats are released)", () => adminDeleteMany(c.g.map(x => x.id), false))); }
     tr.appendChild(pdc); tb.appendChild(tr);
   });
   t.appendChild(tb); $("#coCnt").textContent = list.length + (list.length !== ST.co.length ? " / " + ST.co.length : "");
   if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.co.length ? "No match." : "No companies yet."); td.colSpan = 12; p.appendChild(td); tb.appendChild(p); }
+  syncBars();
 }
 
 function renderInd(){
@@ -576,6 +587,7 @@ function renderInd(){
   });
   t.appendChild(tb); $("#inCnt").textContent = list.length + (list.length !== ST.ind.length ? " / " + ST.ind.length : "");
   if (!list.length) { const p = el("tr"); const td = el("td", "empty", ST.ind.length ? "No match." : "No individual clients yet."); td.colSpan = 7; p.appendChild(td); tb.appendChild(p); }
+  syncBars();
 }
 
 function renderCan(){
@@ -588,9 +600,22 @@ function renderCan(){
     const td = el("td"); td.appendChild(delBtn("🗑 Remove permanently", "Delete this record from the database for good", () => adminDelete(c.id, true))); r.appendChild(td); tb.appendChild(r);
   });
   t.appendChild(tb); $("#caCnt").textContent = String(list.length);
+  const bar = $("#caBar"); bar.textContent = "";
+  if (list.length) bar.appendChild(delBtn("🗑 Delete all (" + list.length + ")", "Remove ALL cancelled registrations from the database for good", () => adminDeleteMany(list.map(c => c.id), true)));
 }
 $("#coPdf").addEventListener("click", () => ticketsPdf((ST.coView || []).flatMap(c => c.g), "All-companies"));
 $("#inPdf").addEventListener("click", () => ticketsPdf((ST.inView || []).map(c => c.g), "All-individuals"));
+function topScroll(tableId){
+  const tw = $("#" + tableId).parentElement; let bar = tw.previousElementSibling;
+  if (!bar || !bar.classList.contains("tws")) {
+    bar = el("div", "tws"); bar.appendChild(el("div")); tw.before(bar);
+    bar.addEventListener("scroll", () => { if (tw.scrollLeft !== bar.scrollLeft) tw.scrollLeft = bar.scrollLeft; }, { passive:true });
+    tw.addEventListener("scroll", () => { if (bar.scrollLeft !== tw.scrollLeft) bar.scrollLeft = tw.scrollLeft; }, { passive:true });
+  }
+  bar.firstChild.style.width = tw.scrollWidth + "px"; bar.hidden = tw.scrollWidth <= tw.clientWidth + 1;
+}
+function syncBars(){ requestAnimationFrame(() => { topScroll("coTbl"); topScroll("inTbl"); }); }
+window.addEventListener("resize", syncBars);
 $("#coQ").addEventListener("input", renderCo); $("#inQ").addEventListener("input", renderInd);
 
 /* ---------- Excel (SheetJS, self-hosted) ---------- */

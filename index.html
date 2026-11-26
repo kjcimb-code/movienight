@@ -301,7 +301,8 @@ footer .brand b{color:#fff}
 .dots{display:flex; justify-content:center; gap:7px; margin:12px 0 4px; min-height:8px}
 .dots i{width:8px; height:8px; border-radius:50%; background:rgba(255,255,255,.3); transition:.2s}
 .dots i.on{background:var(--gold); width:22px; border-radius:99px}
-.swipe{text-align:center; font-size:13px; font-weight:700; line-height:1.4; color:var(--gold); margin:14px 0 0}
+.swipe{text-align:center; font-size:13px; font-weight:700; line-height:1.4; color:var(--gold); margin:0 0 12px}
+.tksave{margin-top:8px; min-height:42px; font-size:13px}
 .lb{position:fixed; inset:0; z-index:100; display:grid; place-items:center; padding:16px; background:rgba(2,10,6,.78); -webkit-backdrop-filter:blur(10px); backdrop-filter:blur(10px)}
 .lb-in{width:min(420px,100%); max-height:100%; display:flex; flex-direction:column; gap:10px; align-items:center}
 .lb img{display:block; max-width:100%; max-height:calc(100vh - 150px); max-height:calc(100dvh - 150px); width:auto; height:auto; border-radius:20px; box-shadow:0 8px 24px rgba(0,0,0,.5); -webkit-touch-callout:default}
@@ -416,9 +417,15 @@ footer .brand b{color:#fff}
             <input class="inp" id="g1" type="text" autocomplete="name" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
             <div class="err"></div>
           </div>
+          <label class="switch" for="add2" id="f-add2" hidden>
+            <span class="sw-text"><b data-i18n="add2">Add another guest?</b><small data-i18n="add2Hint">Name only. The same phone number is used.</small></span>
+            <input id="add2" type="checkbox" role="switch">
+            <span class="track" aria-hidden="true"><span class="knob"></span></span>
+          </label>
           <div class="field" id="f-g2">
             <label class="l" for="g2"><span data-i18n="guest2">Guest 2</span> <span class="opt" data-i18n="optional">(optional)</span></label>
             <input class="inp" id="g2" type="text" autocomplete="off" maxlength="120" data-i18n-ph="phName" placeholder="Full name">
+            <div class="err"></div>
           </div>
         </div>
 
@@ -458,8 +465,8 @@ footer .brand b{color:#fff}
       <div id="tickets" hidden>
         <div class="steps" aria-hidden="true"><i class="on"></i><i class="on"></i><i class="on"></i></div>
         <div class="done-h"><h3 id="doneTitle"></h3><p id="doneText"></p></div>
-        <div class="car" id="car"></div>
         <p class="swipe" id="swipe" hidden data-i18n="swipe">👆 Tap your ticket to enlarge it, then tap Save ticket.</p>
+        <div class="car" id="car"></div>
         <p class="reg-note" id="regNote" data-i18n="regNote">Please save your ticket and show it at the registration table.</p>
         <div class="caltitle">📅 <span data-i18n="calTitle">Save the date to your calendar</span></div>
         <div class="calrow">
@@ -556,7 +563,7 @@ function seatValid(r, n){
 const I18N = {
   en: {
     sub:"Please confirm your attendance by providing the names of the guest",
-    indiv:"Individual client", indivHint:"No company name needed, 1 guest only.", indivLabel:"Individual client",
+    indiv:"Individual client", indivHint:"No company name needed. You can add 1 more guest.", add2:"Add another guest?", add2Hint:"Name only. The same phone number is used.", errG2:"Please enter the second guest's name.", indivLabel:"Individual client",
     company:"Company name", phCompany:"e.g. adi…",
     companyHint:"Not listed? Type “Other”, then enter your company name.",
     otherOpt:"Other (my company is not listed)", company2:"Your company name", phManual:"Type your full company name",
@@ -596,7 +603,7 @@ const I18N = {
   },
   id: {
     sub:"Mohon konfirmasi kehadiran dengan menginformasikan nama tamu yang akan hadir",
-    indiv:"Nasabah individu", indivHint:"Tidak perlu nama perusahaan, cukup 1 tamu.", indivLabel:"Nasabah individu",
+    indiv:"Nasabah individu", indivHint:"Tidak perlu nama perusahaan. Bisa tambah 1 tamu lagi.", add2:"Tambah tamu lagi?", add2Hint:"Cukup nama. Nomor HP yang sama dipakai.", errG2:"Mohon isi nama tamu kedua.", indivLabel:"Nasabah individu",
     company:"Nama perusahaan", phCompany:"mis. adi…",
     companyHint:"Tidak ada di daftar? Ketik “Other”, lalu isi nama perusahaan Anda.",
     otherOpt:"Other (perusahaan saya tidak ada di daftar)", company2:"Nama perusahaan Anda", phManual:"Ketik nama lengkap perusahaan",
@@ -771,8 +778,14 @@ $("#company").addEventListener("keydown", (ev) => {
 $("#company").addEventListener("blur", () => setTimeout(hideList, 150));
 $("#company").addEventListener("focus", () => { const q = $("#company").value.trim(); if (!CB.picked && !CB.other && CB.restricted && q.length >= CONFIG.MIN_CHARS) renderList(q); });
 $("#indiv").addEventListener("change", () => {
-  const on = $("#indiv").checked; $("#f-company").hidden = on; $("#f-company2").hidden = on || !CB.other; $("#f-g2").hidden = on; if (on) { $("#g2").value = ""; setErr("#f-company", ""); }
+  const on = $("#indiv").checked; $("#f-company").hidden = on; $("#f-company2").hidden = on || !CB.other; $("#f-add2").hidden = !on; $("#add2").checked = false; $("#f-g2").hidden = on;
+  if (on) { $("#g2").value = ""; setErr("#f-company", ""); } setErr("#f-g2", ""); g2Label();
   $(".pair").style.gridTemplateColumns = on ? "1fr" : "";
+});
+function g2Label(){ const req = $("#indiv").checked && $("#add2").checked, o = $("#f-g2 .opt"); o.dataset.i18n = req ? "required" : "optional"; o.textContent = t(req ? "required" : "optional"); }
+$("#g2").addEventListener("input", () => { if ($("#g2").value.trim()) setErr("#f-g2", ""); });
+$("#add2").addEventListener("change", () => {
+  const on = $("#add2").checked; $("#f-g2").hidden = !on; if (!on) { $("#g2").value = ""; setErr("#f-g2", ""); } g2Label(); if (on) $("#g2").focus();
 });
 
 /* ---------- RSVP submit ---------- */
@@ -782,8 +795,9 @@ $("#form").addEventListener("submit", async (ev) => {
   let company = indiv ? "" : (CB.other ? tcCo($("#company2").value) : $("#company").value).trim().replace(/\s+/g, " ");
   if (CB.other) $("#company2").value = company;
   if (!indiv && !CB.other && CB.restricted && company.toLowerCase() === "other") { pickOther(); return; }
-  const g1 = tcName($("#g1").value).trim(), g2 = indiv ? "" : tcName($("#g2").value).trim();
-  $("#g1").value = g1; if (!indiv) $("#g2").value = g2;
+  const add2 = indiv && $("#add2").checked, g1 = tcName($("#g1").value).trim(), g2 = (indiv && !add2) ? "" : tcName($("#g2").value).trim();
+  $("#g1").value = g1; if (!indiv || add2) $("#g2").value = g2;
+  setErr("#f-g2", add2 && !g2 ? "errG2" : "");
   const phone = normPhone($("#phone").value), pd = phone;
   setErr("#f-g1", g1 ? "" : "errG1");
   setErr("#f-phone", /^0\d{8,13}$/.test(phone) ? "" : "errPhone");
@@ -791,6 +805,7 @@ $("#form").addEventListener("submit", async (ev) => {
   setErr(cf, !indiv && company.length < CONFIG.MIN_CHARS ? "errCompanyShort" : "");
   if (!indiv && company.length < CONFIG.MIN_CHARS) { (CB.other ? $("#company2") : $("#company")).focus(); return; }
   if (!g1) { $("#g1").focus(); return; }
+  if (add2 && !g2) { $("#g2").focus(); return; }
   if ($("#f-phone").classList.contains("bad")) { $("#phone").focus(); return; }
   if ($("#website").value) return;   // honeypot
   const btn = $("#submit");
@@ -1103,15 +1118,15 @@ function renderTickets(){
     const slide = el("div", "slide"); const h = el("div", "tkh"); h.appendChild(el("small", "", t("guestN") + " " + (i + 1))); h.appendChild(document.createTextNode(g.name)); slide.appendChild(h);
     const th = el("button", "thumb"); th.type = "button"; th.setAttribute("aria-label", "Ticket – " + g.name);
     const ph = el("div", "ph", t("tkLoading")); th.appendChild(ph); slide.appendChild(th);
-    car.appendChild(slide);
+    const sv = el("button", "btn soft tksave"); sv.type = "button"; sv.disabled = true; sv.textContent = "💾 " + t("saveTicket"); slide.appendChild(sv); car.appendChild(slide);
     tkGet(g).then(rec => {
       const im = new Image(); im.alt = "Ticket – " + g.name; im.src = rec.landUrl; ph.replaceWith(im);
-      th.addEventListener("click", () => openLb(g, rec, null, gs));
+      th.addEventListener("click", () => openLb(g, rec, null, gs)); sv.disabled = false; sv.addEventListener("click", () => saveTicket(g));
     }).catch(e => { console.error(e); ph.textContent = t("tkError") + " (" + (e && e.message || e) + ")"; });
   });
   $("#swipe").hidden = false;
   const old = $("#saveAllT"); if (old) old.remove();
-  if (gs.length > 1) { const b = el("button", "btn soft tkall", "💾 " + (gs.length === 2 ? t("saveBoth") : t("saveAll"))); b.type = "button"; b.id = "saveAllT"; b.addEventListener("click", () => saveAllTickets(gs, b)); $("#swipe").after(b); }
+  if (gs.length > 1) { const b = el("button", "btn soft tkall", "💾 " + (gs.length === 2 ? t("saveBoth") : t("saveAll"))); b.type = "button"; b.id = "saveAllT"; b.addEventListener("click", () => saveAllTickets(gs, b)); car.after(b); }
 }
 let lbG = null;
 let lbList = [], lbIdx = 0;
