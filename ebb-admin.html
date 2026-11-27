@@ -82,6 +82,8 @@ button{font:inherit; cursor:pointer}
 .sel{height:38px; padding:0 34px 0 14px; font:inherit; font-size:12.5px; font-weight:700; color:#fff; border-radius:999px; -webkit-appearance:none; appearance:none; cursor:pointer; outline:none;
   background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)) , url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 14px center;
   border:1px solid var(--rim); box-shadow:inset 1px 1px 2px rgba(255,255,255,.4)}
+.bandnote{margin:0; font-size:12px; color:var(--muted); line-height:1.5}
+#bandQty{text-align:center; padding:0 8px}
 .srch{height:38px; width:190px; padding:0 14px; font:inherit; font-size:13px; color:#fff; border-radius:999px; outline:none; -webkit-appearance:none; appearance:none;
   background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.13)); border:1px solid rgba(255,255,255,.30); box-shadow:inset 0 2px 6px rgba(0,0,0,.28)}
 .srch::placeholder{color:rgba(255,255,255,.5)} .srch:focus{border-color:var(--gold); box-shadow:inset 0 2px 6px rgba(0,0,0,.28), 0 0 0 3px rgba(255,210,94,.28)}
@@ -222,6 +224,16 @@ details summary{cursor:pointer; font-weight:800; font-size:15px; display:flex; a
         <div class="tw" style="margin-top:10px"><table id="caTbl" style="min-width:780px"></table></div>
       </details>
     </div>
+    <div class="card glass" id="bandCard">
+      <h3>Wristbands <span class="cnt" id="bandCnt"></span>
+        <span class="ctl">
+          <button class="btn pri sm" id="bandNamed" type="button">🖨 With names</button>
+          <input class="srch" id="bandQty" type="number" min="1" max="1000" value="10" style="width:84px" aria-label="Number of plain wristbands" title="Quantity of plain wristbands">
+          <button class="btn sm" id="bandPlain" type="button">🖨 Plain</button>
+        </span>
+      </h3>
+      <p class="bandnote">Paper wristband 25 × 250 mm with a 28 mm tab for double tape · PDF on A4 landscape, 7 per page · print at 100% (Actual size), then cut along the grey lines.</p>
+    </div>
   </main>
 </section>
 
@@ -317,7 +329,7 @@ const qv = (id) => $(id).value.trim().toLowerCase();
 function match(q, ...vals){ return !q || vals.some(v => String(v || "").toLowerCase().includes(q)); }
 function cmp(a, b){ return a < b ? -1 : a > b ? 1 : 0; }
 
-function renderAll(){ renderStats(); renderMap(); renderCo(); renderInd(); renderCan(); syncBars(); $("#upd").textContent = "Updated " + ST.updated.toLocaleTimeString("en-GB"); }
+function renderAll(){ renderStats(); renderMap(); renderCo(); renderInd(); renderCan(); renderBandCard(); syncBars(); $("#upd").textContent = "Updated " + ST.updated.toLocaleTimeString("en-GB"); }
 
 function renderStats(){
   const booked = Object.keys(ST.seatMap).length, free = ST.confirmed.filter(r => !r.seat).length;
@@ -403,9 +415,9 @@ function buildPdf(pages){
   obj(2, "<< /Type /Pages /Count " + pages.length + " /Kids [" + pages.map((_, i) => (3 + 3 * i) + " 0 R").join(" ") + "] >>");
   const PW = 420;
   pages.forEach((p, i) => {
-    const pg = 3 + 3 * i, ct = pg + 1, im = pg + 2, PH = +(PW * p.h / p.w).toFixed(2);
-    obj(pg, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PW + " " + PH + "] /Resources << /XObject << /Im0 " + im + " 0 R >> >> /Contents " + ct + " 0 R >>");
-    const cs = "q " + PW + " 0 0 " + PH + " 0 0 cm /Im0 Do Q";
+    const pg = 3 + 3 * i, ct = pg + 1, im = pg + 2, PWi = p.pw || PW, PH = p.ph || +(PW * p.h / p.w).toFixed(2);
+    obj(pg, "<< /Type /Page /Parent 2 0 R /MediaBox [0 0 " + PWi + " " + PH + "] /Resources << /XObject << /Im0 " + im + " 0 R >> >> /Contents " + ct + " 0 R >>");
+    const cs = "q " + PWi + " 0 0 " + PH + " 0 0 cm /Im0 Do Q";
     obj(ct, "<< /Length " + cs.length + " >>\nstream\n" + cs + "\nendstream");
     off[im] = len; put(im + " 0 obj\n<< /Type /XObject /Subtype /Image /Width " + p.w + " /Height " + p.h + " /ColorSpace /DeviceRGB /BitsPerComponent 8 /Filter /DCTDecode /Length " + p.bytes.length + " >>\nstream\n");
     put(p.bytes); put("\nendstream\nendobj\n");
@@ -440,6 +452,78 @@ function secret(node, fn){
   ["touchend", "touchmove", "touchcancel"].forEach(ev => node.addEventListener(ev, stop, { passive:true }));
   node.addEventListener("contextmenu", (e) => { if (e.pointerType === "touch") e.preventDefault(); });
 }
+
+/* ---------- paper wristbands: 25 x 250 mm (28 mm tape tab), A4 landscape, 7 per page ---------- */
+const MM = 300 / 25.4, BW = 250, BH = 25, TAB = 28, PER = 7, GAP = 4;
+function bandDraw(x, X, Y, it, A, plain, F){
+  const m = (v) => v * MM, W = m(BW), H = m(BH), TW = m(TAB);
+  x.save(); rrPath(x, X, Y, W, H, m(2)); x.clip();
+  const g = x.createLinearGradient(X, 0, X + W - TW, 0); g.addColorStop(0, "#0d5535"); g.addColorStop(1, "#04170f"); x.fillStyle = g; x.fillRect(X, Y, W, H);
+  x.fillStyle = "#f2f2f2"; x.fillRect(X + W - TW, Y, TW, H);
+  x.restore();
+  x.save(); rrPath(x, X, Y, W, H, m(2)); x.strokeStyle = "#9a9a9a"; x.lineWidth = 2; x.stroke(); x.restore();
+  x.save(); x.setLineDash([m(1.2), m(1)]); x.strokeStyle = "#9a9a9a"; x.lineWidth = 2; x.beginPath(); x.moveTo(X + W - TW, Y); x.lineTo(X + W - TW, Y + H); x.stroke(); x.restore();
+  x.fillStyle = "#8a8a8a"; x.textAlign = "center"; x.textBaseline = "middle"; x.font = "700 " + m(2.3) + "px " + F;
+  x.fillText("STICK", X + W - TW / 2, Y + H / 2 - m(2)); x.fillText("TEMPEL", X + W - TW / 2, Y + H / 2 + m(2));
+  const L = X + m(7), R = X + W - TW - m(4);
+  const lh = m(6), lw = lh * A.logo.width / A.logo.height; x.drawImage(A.logo, L, Y + m(3), lw, lh);
+  x.textAlign = "left"; x.textBaseline = "alphabetic";
+  const tx = L + lw + m(5), part1 = "YEAR END DINNER & MOVIE NIGHT", part2 = plain ? "" : "   ·   AVENGERS: DOOMSDAY";
+  let fs = m(3.8); const meas = (f) => { x.font = "800 " + f + "px " + F; const a = x.measureText(part1).width; return a + (part2 ? x.measureText(part2).width : 0); };
+  while (meas(fs) > R - tx && fs > 14) fs -= 1;
+  x.font = "800 " + fs + "px " + F; x.fillStyle = "#fff"; x.fillText(part1, tx, Y + m(7.4));
+  if (part2) { const w1 = x.measureText(part1).width; x.fillStyle = "#ffd25e"; x.fillText(part2, tx + w1, Y + m(7.4)); }
+  x.fillStyle = "rgba(255,210,94,.55)"; x.fillRect(L, Y + m(11.3), R - L, 2);
+  // badges (right)
+  const bh = m(9.6), by = Y + m(13.2), sw = m(16), bx = R - sw;
+  rrPath(x, bx, by, sw, bh, m(1.6)); x.strokeStyle = "#fff"; x.lineWidth = 3; x.stroke();
+  x.fillStyle = "#fff"; x.textAlign = "center"; x.font = "700 " + m(2) + "px " + F; x.fillText("STUDIO", bx + sw / 2, by + m(3.4));
+  x.font = "800 " + m(5.2) + "px " + F; x.fillText("4", bx + sw / 2, by + m(8.6));
+  let nameR = bx - m(4);
+  if (plain) {
+    x.textAlign = "left"; x.fillStyle = "#ffd25e"; fitText(x, "AVENGERS: DOOMSDAY", "800", m(5.4), nameR - L, F); x.fillText("AVENGERS: DOOMSDAY", L, Y + m(21));
+    return;
+  }
+  const sbw = m(24), sbx = bx - m(3) - sbw, sg = x.createLinearGradient(0, by, 0, by + bh); sg.addColorStop(0, "#ffe58f"); sg.addColorStop(1, "#f0a81c");
+  rrPath(x, sbx, by, sbw, bh, m(1.6)); x.fillStyle = sg; x.fill();
+  x.fillStyle = "#2a1d00"; x.textAlign = "center"; x.font = "700 " + m(2) + "px " + F; x.fillText("SEAT", sbx + sbw / 2, by + m(3.4));
+  const st = it.seat || "FREE"; x.font = "800 " + m(5.2) + "px " + F; if (x.measureText(st).width > sbw - m(3)) fitText(x, st, "800", m(5.2), sbw - m(3), F);
+  x.fillText(st, sbx + sbw / 2, by + m(8.6));
+  nameR = sbx - m(4); x.textAlign = "left";
+  if (it.company) {
+    x.fillStyle = "#ffd25e"; fitText(x, it.company, "700", m(3), nameR - L, F); x.fillText(it.company, L, Y + m(16.6));
+    x.fillStyle = "#fff"; fitText(x, it.name, "800", m(5.4), nameR - L, F); x.fillText(it.name, L, Y + m(22.2));
+  } else { x.fillStyle = "#fff"; fitText(x, it.name, "800", m(5.8), nameR - L, F); x.fillText(it.name, L, Y + m(20.6)); }
+}
+async function bandsPdf(items, plain, tag){
+  if (!items.length || pdfBusy) return; pdfBusy = true;
+  try {
+    const A = await ticketAssets(); try { await Promise.race([Promise.all([document.fonts.load("800 30px Montserrat"), document.fonts.load("700 20px Montserrat")]), new Promise(r => setTimeout(r, 1800))]); } catch(e){}
+    const pages = [], np = Math.ceil(items.length / PER), PWm = 297, PHm = 210, top = (PHm - (PER * BH + (PER - 1) * GAP)) / 2, left = (PWm - BW) / 2;
+    for (let pi = 0; pi < np; pi++) {
+      busy.style.display = "block"; busy.textContent = "Preparing wristbands, page " + (pi + 1) + " / " + np + "…";
+      const c = document.createElement("canvas"); c.width = Math.round(PWm * MM); c.height = Math.round(PHm * MM);
+      const x = c.getContext("2d"); x.fillStyle = "#fff"; x.fillRect(0, 0, c.width, c.height);
+      items.slice(pi * PER, pi * PER + PER).forEach((it, k) => bandDraw(x, left * MM, (top + k * (BH + GAP)) * MM, it, A, plain, FONT));
+      const blob = await new Promise((res, rej) => c.toBlob(b => b ? res(b) : rej(new Error("jpeg")), "image/jpeg", 0.92));
+      pages.push({ w:c.width, h:c.height, pw:841.89, ph:595.28, bytes:new Uint8Array(await blob.arrayBuffer()) });
+      await new Promise(r => setTimeout(r, 0));
+    }
+    const pdf = buildPdf(pages), a = document.createElement("a"); a.href = URL.createObjectURL(pdf);
+    a.download = "Wristbands-" + tag + "-" + items.length + "pcs.pdf"; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+    busy.textContent = "Done: " + items.length + " wristband(s) on " + np + " page(s). Print at 100%."; setTimeout(() => { busy.style.display = "none"; }, 3500);
+  } catch (e) { busy.style.display = "none"; alert("Wristband PDF failed: " + e.message); }
+  finally { pdfBusy = false; }
+}
+function bandList(){
+  const co = ST.confirmed.filter(r => r.company).sort((a, b) => cmp(a.company.toLowerCase(), b.company.toLowerCase()) || cmp(seatKey(a.seat), seatKey(b.seat)) || cmp(a.name.toLowerCase(), b.name.toLowerCase()));
+  const ind = ST.confirmed.filter(r => !r.company).sort((a, b) => cmp(a.name.toLowerCase(), b.name.toLowerCase()));
+  return co.concat(ind).map(r => ({ company:r.company || "", name:r.name, seat:r.seat || null }));
+}
+$("#bandNamed").addEventListener("click", () => bandsPdf(bandList(), false, "WithNames"));
+$("#bandPlain").addEventListener("click", () => { const n = Math.max(1, Math.min(1000, parseInt($("#bandQty").value, 10) || 0)); $("#bandQty").value = n; bandsPdf(Array.from({ length:n }, () => ({})), true, "Plain"); });
+let bandQtyTouched = false; $("#bandQty").addEventListener("input", () => { bandQtyTouched = true; });
+function renderBandCard(){ $("#bandCnt").textContent = String(ST.confirmed.length); if (!bandQtyTouched) $("#bandQty").value = Math.max(1, ST.confirmed.length); }
 
 /* ---------- seat map -> PNG (16:9, white background, large labels) ---------- */
 async function drawMapPng(){
