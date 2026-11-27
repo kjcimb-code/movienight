@@ -118,7 +118,9 @@ button{font:inherit; cursor:pointer}
 .chk{display:inline-flex; align-items:center; gap:8px; height:38px; padding:0 14px; border-radius:999px; font-size:12.5px; font-weight:700; cursor:pointer; user-select:none; border:1px solid var(--rim);
   background:linear-gradient(135deg,rgba(255,255,255,.2),rgba(255,255,255,.07)); box-shadow:inset 1px 1px 2px rgba(255,255,255,.4)}
 .chk input{width:16px; height:16px; accent-color:#ffd25e; margin:0}
-.hall.full .seat{width:40px; font-size:11px; letter-spacing:-.2px}
+.hall.full .seat{width:58px; height:40px; font-size:11px; letter-spacing:-.2px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:3px; overflow:hidden}
+.hall.full .seat .sn{font-size:7.5px; font-weight:700; letter-spacing:0; max-width:56px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; opacity:.95}
+.hall.full .sp{width:58px}
 .seatinfo{margin:0 0 10px; padding:10px 14px; min-height:44px; border-radius:16px; font-weight:700; font-size:13.5px; line-height:1.45; text-align:center; color:var(--gold); display:flex; align-items:center; justify-content:center; gap:10px; flex-wrap:wrap;
   background:rgba(0,0,0,.28); border:1px solid rgba(255,255,255,.2); box-shadow:inset 0 1px 0 rgba(255,255,255,.18)}
 .seatinfo.idle{color:var(--muted); font-weight:600}
@@ -366,6 +368,14 @@ function selectSeat(label){
   if (ST.sel && SB[ST.sel]) SB[ST.sel].classList.add("sel");
   showSeat(ST.sel); $("#tip").hidden = true;
 }
+
+/* short company name for seat labels: first word (PT/CV/UD prefix skipped), ALL CAPS */
+function shortCo(c){
+  if (!c) return "";
+  const t = String(c).replace(/[.,()]/g, " ").trim().split(/\s+/).filter(Boolean);
+  const w = t.find(k => !/^(PT|CV|UD|PD)$/i.test(k)) || t[0] || "";
+  return w.toUpperCase();
+}
 function renderMap(){
   const hall = $("#hall"); hall.textContent = ""; hall.classList.toggle("full", !!ST.full); for (const k in SB) delete SB[k];
   hall.appendChild(el("div", "screen")); hall.appendChild(el("div", "screen-l", "SCREEN"));
@@ -374,7 +384,8 @@ function renderMap(){
     for (let n = MAXCOL; n >= 1; n--) {
       if (!seatValid(r, n)) { row.appendChild(el("span", "sp")); continue; }
       const label = r + n, g = ST.seatMap[label];
-      const b = el("button", "seat" + (g ? " taken" : "") + (ST.sel === label ? " sel" : ""), ST.full ? label : String(n)); b.type = "button"; b.setAttribute("aria-label", g ? label + " – " + g.name + (g.company ? " (" + g.company + ")" : "") : label + " – available");
+      const b = el("button", "seat" + (g ? " taken" : "") + (ST.sel === label ? " sel" : ""), ST.full ? "" : String(n)); b.type = "button";
+      if (ST.full) { b.appendChild(el("span", "sl", label)); if (g) b.appendChild(el("span", "sn", g.company ? shortCo(g.company) : "CONS")); } b.setAttribute("aria-label", g ? label + " – " + g.name + (g.company ? " (" + g.company + ")" : "") : label + " – available");
       const mouse = (e) => e.pointerType === "mouse";
       b.addEventListener("pointerenter", (e) => { if (mouse(e)) tip(e, label, g); });
       b.addEventListener("pointermove", (e) => { if (mouse(e) && !$("#tip").hidden) tip(e); });
@@ -547,7 +558,9 @@ async function drawMapPng(){
       rrPath(x, sx, y, SW, SH, 14);
       x.fillStyle = taken ? "#d62b3f" : "#e6f4ec"; x.fill();
       x.lineWidth = 3; x.strokeStyle = taken ? "#a31a2b" : "#2f9a63"; x.stroke();
-      x.fillStyle = taken ? "#fff" : "#14663f"; x.font = "800 30px " + F; x.fillText(r + n, sx + SW / 2, y + SH / 2 + 2);
+      const gg = ST.seatMap[r + n];
+      x.fillStyle = taken ? "#fff" : "#14663f"; x.font = "800 28px " + F; x.fillText(r + n, sx + SW / 2, y + (taken ? SH / 2 - 8 : SH / 2 + 2));
+      if (taken) { const nm = gg.company ? shortCo(gg.company) : "CONS"; x.font = "700 15px " + F; for (let fs = 15; fs > 9 && x.measureText(nm).width > SW - 8; fs--) x.font = "700 " + fs + "px " + F; x.fillText(nm, sx + SW / 2, y + SH / 2 + 17); }
     }
   });
   x.textBaseline = "alphabetic"; x.textAlign = "left";
